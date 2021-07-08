@@ -3,9 +3,9 @@ import java.util.*;
 public class pattern_4 {
 
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        int n = scn.nextInt();
+        int n = sc.nextInt();
         int space = 0;
         int star = n;
         

@@ -7,7 +7,6 @@ public class Rotate {
         while (n != 0) {
             n = n / 10;
             nod++;
-
         }
         return nod;
     }

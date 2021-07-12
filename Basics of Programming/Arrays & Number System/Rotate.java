@@ -31,6 +31,11 @@ public class Rotate {
     }
 
     public static void rotate2(int [] arr,int k){
+        if(arr.length == 1) return;
+
+        k = k % arr.length;
+        if(k < 0)
+            k += arr.length;
         reverse(arr, 0, arr.length-1);
         reverse(arr, 0, k-1);
         reverse(arr, k, arr.length-1);

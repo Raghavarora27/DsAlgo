@@ -1,7 +1,7 @@
 import java.util.*;
 public class ABTD {
     
-    public static void binarytoDecimal(int n,int b){
+    public static void anyBasetoDecimal(int n,int b){
         int pow = 1;
         int ans = 0;
 
@@ -20,6 +20,6 @@ public class ABTD {
     public static void main(String [] args){
         int n = sc.nextInt();
         int b = sc.nextInt();
-        binarytoDecimal(n,b);
+        anyBasetoDecimal(n,b);
     }
 }

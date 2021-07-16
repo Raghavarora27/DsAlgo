@@ -27,8 +27,8 @@ public class BinaryTree{
         if(root == null)   return;
 
         ans.add(root.data);
-        preorder(root.left.data,ans);
-        preorder(root.right.data,ans);
+        preorder(root.left,ans);
+        preorder(root.right,ans);
     }
 
     // O(n)

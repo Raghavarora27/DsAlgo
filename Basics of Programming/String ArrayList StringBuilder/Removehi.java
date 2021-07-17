@@ -22,7 +22,7 @@ public class Removehi {
         int i = 0;
         while(i < n-1){
           if(str.charAt(i) == 'h' && str.charAt(i+1) == 'i'){
-            if(i+2<n && str.charAt(i+2) == 't'{
+            if(i+2<n && str.charAt(i+2) == 't'){
               i += 3;
             }else{
               count++;

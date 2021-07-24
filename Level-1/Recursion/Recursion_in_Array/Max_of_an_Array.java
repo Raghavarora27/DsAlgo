@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class Max_of_an_Array {
+
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int [] arr = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i] = sc.nextInt();
+        }
+        System.out.println(maxOfArray(arr,0));
+    }
+
+    public static int maxOfArray(int[] arr, int idx){
+        if(idx == arr.length)
+            return -(int)1e9;
+        return Math.max(arr[idx],maxOfArray(arr,idx+1));
+    }
+
+}

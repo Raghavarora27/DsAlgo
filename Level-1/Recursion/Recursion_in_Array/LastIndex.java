@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class FirstIndex {
+public class LastIndex {
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
@@ -10,17 +10,19 @@ public class FirstIndex {
             arr[i] = sc.nextInt();
         }
         int x = sc.nextInt();
-        System.out.println(firstIndex(arr,0,x));
+        System.out.println(Lastindex(arr,0,x));
     }
 
-    public static int firstIndex(int[] arr, int idx, int x){
+    public static int Lastindex(int[] arr, int idx, int x){
         if(idx == arr.length)
             return -1;
         
-        if(arr[idx] == x)
-            return idx;
+        int ans = Lastindex(arr,idx+1,x);
         
-        return firstIndex(arr,idx+1,x);
+        if(ans != -1){
+            return ans;
+        }
+        return arr[idx]==x ? idx : -1;
     }
 
 }

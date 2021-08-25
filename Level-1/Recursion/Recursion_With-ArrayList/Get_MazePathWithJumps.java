@@ -11,7 +11,7 @@ public class Get_MazePathWithJumps {
         System.out.print(ans);
     }
 
-    // sr - source row
+    // sr - source rowpublic class Get_MazePathWithJumps
     // sc - source column
     // dr - destination row
     // dc - destination column

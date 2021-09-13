@@ -1,3 +1,5 @@
+import jdk.internal.logger.SurrogateLogger;
+
 public class LL {
     private class Node {
         int data = 0;
@@ -196,4 +198,34 @@ public class LL {
         return getNodeAt(idx).data;
     }
     // ===================================== //
+
+    // ============ Odd Even LL ============ //
+
+    public void oddEven() {
+        Node Even = new Node(-1); // Dummy Node
+        Node ep = Even;
+
+        Node Odd = new Node(-1); // Dummy Node
+        Node op = Odd;
+
+        Node curr = this.head;
+        while (curr != null) {
+            if (curr.data % 2 == 0) {
+                ep.next = curr;
+                ep = ep.next;
+            } else {
+                op.next = curr;
+                op = op.next;
+            }
+            curr = curr.next;
+        }
+
+        op.next = ep.next;
+        ep.next = null;
+
+        this.head = Odd.next;
+        this.tail = ep;
+    }
+
+    // ======================================= //
 }

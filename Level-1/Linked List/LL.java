@@ -220,11 +220,16 @@ public class LL {
             curr = curr.next;
         }
 
-        op.next = ep.next;
+        op.next = Even.next;
         ep.next = null;
 
         this.head = Odd.next;
-        this.tail = ep;
+        if(Even.next != null){
+            this.tail = ep;
+        }
+        else{
+            this.tail = op;
+        }
     }
 
     // ======================================= //

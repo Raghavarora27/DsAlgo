@@ -197,16 +197,16 @@ public class LL {
     }
     // ===================================== //
 
-    // ============ Odd Even LL ============ //
-
+    // ======================================= //
+    // Questions
     public void oddEven() {
-        if(this.size == 0 || this.size == 1)    return;
+        if (this.size == 0 || this.size == 1)
+            return;
+        Node even = new Node(-1); // Dummy Node
+        Node ep = even;
 
-        Node Even = new Node(-1); // Dummy Node
-        Node ep = Even;
-
-        Node Odd = new Node(-1); // Dummy Node
-        Node op = Odd;
+        Node odd = new Node(-1); // Dummy Node
+        Node op = odd;
 
         Node curr = this.head;
         while (curr != null) {
@@ -217,20 +217,220 @@ public class LL {
                 op.next = curr;
                 op = op.next;
             }
+
             curr = curr.next;
         }
 
-        op.next = Even.next;
+        op.next = even.next;
         ep.next = null;
 
-        this.head = Odd.next;
-        if(Even.next != null){
+        this.head = odd.next;
+        if (even.next != null)
             this.tail = ep;
-        }
-        else{
+        else
             this.tail = op;
-        }
     }
 
-    // ======================================= //
+    public void reversePI() {
+        if (this.head == null || this.head.next == null)
+            return;
+
+        Node prev = null;
+        Node curr = this.head;
+        while (curr != null) {
+            Node forw = curr.next; // backup
+
+            curr.next = prev; // link
+
+            prev = curr; // move
+            curr = forw;
+        }
+
+        this.tail = this.head;
+        this.head = prev;
+    }
+
+    private Node reversePRHelper(Node node) {
+        if (node.next == null)
+            return node;
+
+        Node reverseNode = reversePRHelper(node.next);
+        reverseNode.next = node;
+
+        return node;
+    }
+
+    public void reversePR() {
+
+        Node reverseNode = reversePRHelper(head);
+        reverseNode.next = null;
+        head = tail;
+        tail = reverseNode;
+    }
+
+    private void reversePRHelper(Node node) {
+        if (node.next == null)
+            return;
+
+        reversePRHelper(node.next);
+        Node forw = node.next;
+        forw.next = node;
+    }
+
+    public void reversePR() {
+
+        reversePRHelper(head);
+        head.next = null;
+        Node temp = head;
+        head = tail;
+        tail = temp;
+    }
+
+    private void displayReverseHelper(Node node) {
+        if (node == null)
+            return;
+
+        displayReverseHelper(node.next);
+        System.out.print(node.data + " ");
+    }
+
+    public void displayReverse() {
+        displayReverseHelper(head);
+        System.out.println();
+    }
+
+    public Node midNode(Node node) {
+        if (node == null || node.next == null)
+            return node;
+        Node slow = node, fast = node;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    public Node reverse(Node node) {
+        if (node == null || node.next == null)
+            return node;
+
+        Node curr = node, prev = null;
+        while (curr != null) {
+            Node forw = curr.next;
+
+            curr.next = prev;
+
+            prev = curr;
+            curr = forw;
+        }
+
+        return prev;
+    }
+
+    public void fold() {
+        Node mid = midNode(head);
+        Node nhead = mid.next;
+        mid.next = null;
+
+        nhead = reverse(nhead);
+
+        Node c1 = head, c2 = nhead;
+        while (c2 != null) {
+            Node f1 = c1.next, f2 = c2.next;
+
+            c1.next = c2;
+            c2.next = f1;
+
+            c1 = f1;
+            c2 = f2;
+        }
+
+        if (size() % 2 != 0)
+            tail = mid;
+        else
+            tail = mid.next;
+    }
+
+    private int lengthOfLL(Node node) {
+        if (node == null)
+            return 0;
+
+        Node curr = node;
+        int len = 0;
+        while (curr != null) {
+            curr = curr.next;
+            len++;
+        }
+
+        return len;
+    }
+
+    private int findIntersection(Node one, Node two) {
+        int a = lengthOfLL(one);
+        int b = lengthOfLL(two);
+
+        Node biggerListHead = a > b ? one : two;
+        Node smallerListHead = b < a ? two : one;
+        int diff = Math.abs(a - b);
+
+        while (diff-- > 0)
+            biggerListHead = biggerListHead.next;
+
+        while (biggerListHead != smallerListHead) {
+            biggerListHead = biggerListHead.next;
+            smallerListHead = smallerListHead.next;
+        }
+
+        return smallerListHead != null ? smallerListHead.data : -1;
+    }
+
+    public int findIntersection(linkedlist one, linkedlist two) {
+        return findIntersection(one.head, two.head);
+    }
+
+    public boolean IsPalindrome() {
+        Node mid = midNode(head);
+        Node nHead = mid.next;
+        mid.next = null;
+
+        nHead = reverse(nHead);
+        Node c1 = head, c2 = nHead;
+        boolean isPalindrome = true;
+        while (c2 != null) {
+            if (c1.data != c2.data) {
+                isPalindrome = false;
+                break;
+            }
+            c1 = c1.next;
+            c2 = c2.next;
+        }
+
+        nHead = reverse(nHead);
+        mid.next = nHead;
+
+        return isPalindrome;
+    }
+
+    Node ptr;
+
+    public boolean IsPalindrome(Node node) {
+        if (node == null) {
+            return true;
+        }
+
+        if (!IsPalindrome(node.next))
+            return false;
+        if (node.data != ptr.data)
+            return false;
+
+        ptr = ptr.next;
+        return true;
+    }
+
+    public boolean IsPalindrome2() {
+        ptr = head;
+        return IsPalindrome(head);
+    }
 }

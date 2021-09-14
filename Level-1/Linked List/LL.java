@@ -210,7 +210,7 @@ public class LL {
         Node Odd = new Node(-1); // Dummy Node
         Node op = Odd;
 
-        Node curr = this.head;`
+        Node curr = this.head;
         while (curr != null) {
             if (curr.data % 2 == 0) {
                 ep.next = curr;

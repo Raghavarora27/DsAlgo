@@ -1,5 +1,3 @@
-import jdk.internal.logger.SurrogateLogger;
-
 public class LL {
     private class Node {
         int data = 0;

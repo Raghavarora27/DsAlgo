@@ -202,13 +202,15 @@ public class LL {
     // ============ Odd Even LL ============ //
 
     public void oddEven() {
+        if(this.size == 0 || this.size == 1)    return;
+
         Node Even = new Node(-1); // Dummy Node
         Node ep = Even;
 
         Node Odd = new Node(-1); // Dummy Node
         Node op = Odd;
 
-        Node curr = this.head;
+        Node curr = this.head;`
         while (curr != null) {
             if (curr.data % 2 == 0) {
                 ep.next = curr;

@@ -1,6 +1,6 @@
-package Leetcode;
+package questions;
 
-public class Leetcode_876 {
+public class Leetcode_19 {
     public class ListNode {
         int val;
         ListNode next;
@@ -19,16 +19,26 @@ public class Leetcode_876 {
     }
 
     class Solution {
-        public ListNode middleNode(ListNode head) {
+        public ListNode removeNthFromEnd(ListNode head, int n) {
             if (head == null || head.next == null)
-                return head;
+                return null;
 
             ListNode slow = head, fast = head;
-            while (fast != null && fast.next != null) {
-                slow = slow.next;
-                fast = fast.next.next;
+            while (n-- > 0) {
+                fast = fast.next;
             }
-            return slow;
+
+            if (fast == null)
+                return head.next;
+
+            while (fast.next != null) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+
+            slow.next = slow.next.next;
+
+            return head;
         }
     }
 }

@@ -386,7 +386,7 @@ public class LL {
         return smallerListHead != null ? smallerListHead.data : -1;
     }
 
-    public int findIntersection(linkedlist one, linkedlist two) {
+    public int findIntersection(LL one, LL two) {
         return findIntersection(one.head, two.head);
     }
 
@@ -433,4 +433,54 @@ public class LL {
         ptr = head;
         return IsPalindrome(head);
     }
+
+    // ================================
+    // Add Two Linked List
+    public Node reverseList(Node head) {
+        if (head == null || head.next == null)
+            return head;
+
+            Node prev = null;
+            Node curr = head;
+
+        while (curr != null) {
+            Node forw = curr.next; // backup
+
+            curr.next = prev; // link
+
+            prev = curr; // move
+            curr = forw;
+        }
+        return prev;
+    }
+
+    public Node addTwoNumbers(Node l1, Node l2) {
+        
+        l1 = reverseList(l1);
+        l2 = reverseList(l2);
+        
+        Node dummy = new Node(-1);
+        Node prev = dummy;
+        Node c1 = l1;
+        Node c2 = l2;
+        
+        int carry = 0;
+        
+        while(c1 != null || c2 != null || carry != 0){
+            int sum = carry + (c1 != null ? c1.data: 0) + (c2 != null ? c2.data : 0);
+            
+            carry = sum / 10;
+            sum = sum % 10;
+            
+            prev.next = new Node(sum);
+            prev = prev.next;
+            
+            if(c1 != null)  c1 = c1.next;
+            if(c2 != null)  c2 = c2.next;
+        }
+        Node head = dummy.next;
+        head = reverseList(head);
+        return head;
+    }
+
 }

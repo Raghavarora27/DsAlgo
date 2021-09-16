@@ -1,3 +1,5 @@
+import questions.Leetcode_19.ListNode;
+
 public class LL {
     private class Node {
         int data = 0;
@@ -483,4 +485,46 @@ public class LL {
         return head;
     }
 
+    // Add Two LinkedList without reversing
+    public int addtwo(Node one ,int s1,Node two,int s2,LL ans){
+        if(one == null && two == null) return 0;
+        
+        int carry = 0;
+        if(s1 > s2){
+            carry = addtwo(one.next,s1-1,two,s2,ans);
+            int sum = carry + one.data;
+            
+            carry = sum/10;
+            sum = sum % 10;
+            
+            ans.addFirst(sum);
+        }
+        else{
+            carry = addtwo(one.next,s1-1,two.next,s2-1,ans);
+            int sum = carry + one.data + two.data;
+            carry = sum/10;
+            sum %= 10;
+            
+            ans.addFirst(sum);
+        }
+        return carry;
+    }
+    
+    public LL addTwoLists(LL one, LL two) {
+        int s1 = one.size();
+        int s2 = two.size();
+        
+        if(s1 < s2){
+            LL temp = one;
+            one = two;
+            two = temp;
+        }
+        
+        LL ans = new LL();
+        
+        int carry = addtwo(one.head,one.size(),two.head,two.size(),ans);
+        if(carry == 1)  ans.addFirst(carry);
+        
+        return ans;
+    } 
 }

@@ -37,16 +37,7 @@ public class Leetcode_21 {
                 }
                 prev = prev.next;
             }
-            while (c1 != null) {
-                prev.next = c1;
-                c1 = c1.next;
-                prev = prev.next;
-            }
-            while (c2 != null) {
-                prev.next = c2;
-                c2 = c2.next;
-                prev = prev.next;
-            }
+            prev.next = c1 != null ? c1 : c2;
             return dummy.next;
         }
     }

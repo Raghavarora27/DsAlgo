@@ -415,7 +415,7 @@ public class LL {
         return isPalindrome;
     }
 
-    Node ptr;
+    Node ptr; // static
 
     public boolean IsPalindrome(Node node) {
         if (node == null) {

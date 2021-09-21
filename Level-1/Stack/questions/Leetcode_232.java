@@ -1,5 +1,5 @@
 // Implement Queue using Stack
-
+// Push Efficient
 public class Leetcode_232 {
     class MyQueue {
 

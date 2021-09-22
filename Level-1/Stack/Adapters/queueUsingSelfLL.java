@@ -1,3 +1,5 @@
+package Adapters;
+
 public class queueUsingSelfLL {
 
     public static class queue {

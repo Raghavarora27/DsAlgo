@@ -1,3 +1,4 @@
+package Adapters;
 public class stackUsingSelfLL {
 
     public static class stack {
@@ -58,35 +59,35 @@ public class stackUsingSelfLL {
             return this.size == 0;
         }
 
-        public void add(int data) {
+        public void push(int data) {
             addFirst(data);
         }
 
-        public int peek() {
+        public int top() {
             return this.head.data;
         }
 
-        public int remove() {
+        public int pop() {
             return removeFirst().data;
         }
 
     }
 
     public static void main(String[] args) {
-        stack que = new stack();
+        stack st = new stack();
 
-        que.add(10);
-        que.add(20);
-        que.remove();
-        que.add(30);
-        que.remove();
-        que.add(40);
-        que.add(50);
-        que.add(60);
+        st.push(10);
+        st.push(20);
+        st.pop();
+        st.push(30);
+        st.pop();
+        st.push(40);
+        st.push(50);
+        st.push(60);
 
-        while (que.size() != 0) {
-            System.out.println(que.remove());
+        while(st.size() != 0) {
+            System.out.println(st.pop());
         }
-    }
 
+    }
 }

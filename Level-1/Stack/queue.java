@@ -7,7 +7,7 @@ public class queue {
     private int back;
     private int maxsize;
 
-    private void initialise(int len){
+    protected void initialise(int len){
         this.arr = new int[len];
         this.front = 0;
         this.back = 0;
@@ -59,6 +59,10 @@ public class queue {
     // O(1)
     public boolean isEmpty(){
         return this.size == 0;
+    }
+
+    public int maxSize(){
+        return this.maxsize;
     }
 
     private int peak_(){

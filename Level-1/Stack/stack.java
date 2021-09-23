@@ -4,7 +4,7 @@ public class stack{
     private int tos;
     private int maxsize;
 
-    private void initialise(int len){
+    protected void initialise(int len){
         this.arr = new int[len];
         this.tos = -1;
         this.size = 0;
@@ -39,6 +39,10 @@ public class stack{
     // O(1)
     public boolean isEmpty(){
         return this.size == 0;
+    }
+
+    public int maxSize(){
+        return this.maxsize;
     }
 
     public String toString(){

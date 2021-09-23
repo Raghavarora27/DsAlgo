@@ -16,7 +16,7 @@ public class client {
     }
 
     public static void stacktest() throws Exception {
-        dynamicStack st = new dynamicStack(20);
+        dynamicStack st = new dynamicStack(2);
         for (int i = 1; i <= 10; i++) {
             st.push(i * 10);
         }

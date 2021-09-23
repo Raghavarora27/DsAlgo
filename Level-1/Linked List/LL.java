@@ -270,18 +270,18 @@ public class LL {
         tail = reverseNode;
     }
 
-    private void reversePRHelper(Node node) {
+    private void reversePRHelper1(Node node) {
         if (node.next == null)
             return;
 
-        reversePRHelper(node.next);
+        reversePRHelper1(node.next);
         Node forw = node.next;
         forw.next = node;
     }
 
-    public void reversePR() {
+    public void reversePR1() {
 
-        reversePRHelper(head);
+        reversePRHelper1(head);
         head.next = null;
         Node temp = head;
         head = tail;
@@ -442,8 +442,8 @@ public class LL {
         if (head == null || head.next == null)
             return head;
 
-            Node prev = null;
-            Node curr = head;
+        Node prev = null;
+        Node curr = head;
 
         while (curr != null) {
             Node forw = curr.next; // backup
@@ -457,28 +457,30 @@ public class LL {
     }
 
     public Node addTwoNumbers(Node l1, Node l2) {
-        
+
         l1 = reverseList(l1);
         l2 = reverseList(l2);
-        
+
         Node dummy = new Node(-1);
         Node prev = dummy;
         Node c1 = l1;
         Node c2 = l2;
-        
+
         int carry = 0;
-        
-        while(c1 != null || c2 != null || carry != 0){
-            int sum = carry + (c1 != null ? c1.data: 0) + (c2 != null ? c2.data : 0);
-            
+
+        while (c1 != null || c2 != null || carry != 0) {
+            int sum = carry + (c1 != null ? c1.data : 0) + (c2 != null ? c2.data : 0);
+
             carry = sum / 10;
             sum = sum % 10;
-            
+
             prev.next = new Node(sum);
             prev = prev.next;
-            
-            if(c1 != null)  c1 = c1.next;
-            if(c2 != null)  c2 = c2.next;
+
+            if (c1 != null)
+                c1 = c1.next;
+            if (c2 != null)
+                c2 = c2.next;
         }
         Node head = dummy.next;
         head = reverseList(head);
@@ -486,45 +488,46 @@ public class LL {
     }
 
     // Add Two LinkedList without reversing
-    public int addtwo(Node one ,int s1,Node two,int s2,LL ans){
-        if(one == null && two == null) return 0;
-        
+    public int addtwo(Node one, int s1, Node two, int s2, LL ans) {
+        if (one == null && two == null)
+            return 0;
+
         int carry = 0;
-        if(s1 > s2){
-            carry = addtwo(one.next,s1-1,two,s2,ans);
+        if (s1 > s2) {
+            carry = addtwo(one.next, s1 - 1, two, s2, ans);
             int sum = carry + one.data;
-            
-            carry = sum/10;
+
+            carry = sum / 10;
             sum = sum % 10;
-            
+
             ans.addFirst(sum);
-        }
-        else{
-            carry = addtwo(one.next,s1-1,two.next,s2-1,ans);
+        } else {
+            carry = addtwo(one.next, s1 - 1, two.next, s2 - 1, ans);
             int sum = carry + one.data + two.data;
-            carry = sum/10;
+            carry = sum / 10;
             sum %= 10;
-            
+
             ans.addFirst(sum);
         }
         return carry;
     }
-    
+
     public LL addTwoLists(LL one, LL two) {
         int s1 = one.size();
         int s2 = two.size();
-        
-        if(s1 < s2){
+
+        if (s1 < s2) {
             LL temp = one;
             one = two;
             two = temp;
         }
-        
+
         LL ans = new LL();
-        
-        int carry = addtwo(one.head,one.size(),two.head,two.size(),ans);
-        if(carry == 1)  ans.addFirst(carry);
-        
+
+        int carry = addtwo(one.head, one.size(), two.head, two.size(), ans);
+        if (carry == 1)
+            ans.addFirst(carry);
+
         return ans;
-    } 
+    }
 }

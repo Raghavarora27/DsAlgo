@@ -1,9 +1,12 @@
+package questions;
+import java.util.LinkedList;
+
 public class Leetcode_225 {
     // Push Efficient
     class MyStack {
 
-        LinkedList<Integer> que = new LinkedList();
-        LinkedList<Integer> temp = new LinkedList();
+        LinkedList<Integer> que = new LinkedList<>();
+        LinkedList<Integer> temp = new LinkedList<>();
 
         int TopEle = 0;
 
@@ -38,12 +41,12 @@ public class Leetcode_225 {
     }
 
     // pop Efficient
-    class MyStack {
+    class MyStack1 {
 
-        LinkedList<Integer> que = new LinkedList();
-        LinkedList<Integer> temp = new LinkedList();
+        LinkedList<Integer> que = new LinkedList<>();
+        LinkedList<Integer> temp = new LinkedList<>();
 
-        public MyStack() {
+        public MyStack1() {
 
         }
 

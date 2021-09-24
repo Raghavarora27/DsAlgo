@@ -1,3 +1,6 @@
+package questions;
+import java.util.LinkedList;
+
 // Implement Queue using Stack
 // Push Efficient
 public class Leetcode_232 {
@@ -43,12 +46,12 @@ public class Leetcode_232 {
     }
 
     // Pop Efficient
-    class MyQueue {
+    class MyQueue1 {
 
         LinkedList<Integer> st = new LinkedList<>();
         LinkedList<Integer> temp = new LinkedList<>();
 
-        public MyQueue() {
+        public MyQueue1() {
 
         }
 

@@ -1,5 +1,3 @@
-import jdk.dynalink.DynamicLinkerFactory;
-
 public class client {
 
     public static void queuetest() throws Exception {

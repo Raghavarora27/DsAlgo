@@ -12,7 +12,7 @@ public class Next_greater{
             while(st.size() != 0 && arr[st.getFirst()] < arr[i])
                 ans[st.removeFirst()] = arr[i];
             
-            st.push(i);
+            st.addFirst(i);
         }
 
         for(int ele : ans)

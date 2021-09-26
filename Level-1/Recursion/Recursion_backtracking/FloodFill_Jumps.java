@@ -37,8 +37,8 @@ public class FloodFill_Jumps{
         int [][] dir4 = {{0,1},{0,-1},{-1,0},{1,0}};
         String [] dir4S = {"r","l","t","d"};
         int [][] board = new int[3][3];
-        int [][] dir8 = {{0,1},{0,-1},{-1,0},{1,0},{-1,-1},{1,1},{1,-1},{-1,1}};
-        String [] dir8S = {"r","l","t","d","n","s","w","e"};
+        // int [][] dir8 = {{0,1},{0,-1},{-1,0},{1,0},{-1,-1},{1,1},{1,-1},{-1,1}};
+        // String [] dir8S = {"r","l","t","d","n","s","w","e"};
         System.out.println(floodfill_jumps(0,0,board,"",dir4S,dir4));
     }
 }

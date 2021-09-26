@@ -15,6 +15,7 @@ public class FloodFill {
         int [][] dir = {{-1,0},{0,-1},{1,0},{0,1}};
         String [] dirS = {"t","l","d","r"};
         floodfill(0, 0,arr, "",dir,dirS);
+        scn.close();
     }
     
     public static int floodfill(int sr, int sc,int[][] board, String ans,int [][]dir,String [] dirS) {

@@ -22,7 +22,7 @@ public class Balanced_brackets {
                         return false;
                     else
                         st.removeFirst();
-                }
+                } 
             }
         }
         return st.size() == 0; // more opening brackets

@@ -13,7 +13,7 @@ public class BinaryTree{
         }
 
         Node(int data){
-            this(data,null,null); // Constructor Chinnin -> calling constructor from another constructor 
+            this(data,null,null); // Constructor Chinning -> calling constructor from another constructor 
         }
     }
     
@@ -229,5 +229,5 @@ public class BinaryTree{
             block = list.get(i);
         }
         return ans;
-    } 
+    }
 }

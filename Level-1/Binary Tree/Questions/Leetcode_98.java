@@ -52,8 +52,8 @@ public class Leetcode_98 {
 
         public class isBSTPair {
             boolean isBST = true;
-            long maxEle = -(long) 1e13;
-            long minEle = (long) 1e13;
+            long maxEle = -(long) 1e18;
+            long minEle = (long) 1e18;
         }
 
         public isBSTPair isBST_02(TreeNode node) {

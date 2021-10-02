@@ -45,4 +45,24 @@ public class Leetcode_563 {
             return myAns;
         }
     }
+
+    class Solution2 {
+        public int findTilt(TreeNode root) {
+            return tilt(root)[0];
+        }
+        
+        public int[] tilt(TreeNode root){
+            if(root == null)    return new int[2];
+            
+            int[] left = tilt(root.left);
+            int[] right = tilt(root.right);
+            
+            int[] myAns = new int[2];
+            
+            myAns[0] = left[0] + right[0] + Math.abs(left[1] - right[1]);
+            myAns[1] = left[1] + right[1] + root.val;
+            
+            return myAns;
+        }
+    }
 }

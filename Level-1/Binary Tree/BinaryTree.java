@@ -15,7 +15,7 @@ public class BinaryTree {
         }
 
         Node(int data) {
-            this(data, null, null);
+            this(data, null, null); // Constructor Chinning
         }
     }
 
@@ -571,5 +571,5 @@ public class BinaryTree {
         return ans;
 
     }
-
+    
 }

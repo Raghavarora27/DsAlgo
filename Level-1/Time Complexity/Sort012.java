@@ -2,20 +2,17 @@ import java.util.*;
 
 public class Sort012 {
 
+  // O(N)
   public static void sort012(int[] arr){
     int p1 = -1,p2 = arr.length-1,itr=0;
     while(itr <= p2){
-        if(arr[itr] == 0){
+        if(arr[itr] == 0)
             swap(arr,itr++,++p1);
-        }
-        else if(arr[itr] == 2){
+        else if(arr[itr] == 2)
             swap(arr,itr,p2--);
-        }
-        else{
+        else
             itr++;
-        }
     }
-    
   }
 
   // used for swapping ith and jth elements of array
@@ -40,6 +37,7 @@ public class Sort012 {
     }
     sort012(arr);
     print(arr);
+    scn.close();
   }
 
 }

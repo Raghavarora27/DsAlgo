@@ -1,9 +1,4 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-
-import javax.xml.crypto.Data;
+import java.util.*;
 
 public class BST {
     public static class Node {

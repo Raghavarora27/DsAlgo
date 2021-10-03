@@ -40,4 +40,26 @@ public class Leetcode_543 {
             return Math.max(Math.max(ld, rd), lh + rh + 2);
         }
     }
+
+    // O(N)
+    class Solution2 {
+
+        public int diameterOfBinaryTree(TreeNode root) {
+            return diameterOfBinaryTree_(root)[0];
+        }
+
+        public int[] diameterOfBinaryTree_(TreeNode root) {
+            if (root == null)
+                return new int[] { 0, -1 };
+
+            int[] ld = diameterOfBinaryTree_(root.left);
+            int[] rd = diameterOfBinaryTree_(root.right);
+
+            int[] myAns = new int[2];
+
+            myAns[0] = Math.max(Math.max(ld[0], rd[0]), ld[1] + rd[1] + 2);
+            myAns[1] = Math.max(ld[1], rd[1]) + 1;
+            return myAns;
+        }
+    }
 }

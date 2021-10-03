@@ -21,7 +21,7 @@ public class Leetcode_543 {
     }
 
     // O(N*N)
-    class Solution {
+    class Solution1 {
 
         public int height(TreeNode root) {
             return root == null ? -1 : Math.max(height(root.left), height(root.right)) + 1;

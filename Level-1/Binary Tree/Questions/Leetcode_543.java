@@ -63,4 +63,27 @@ public class Leetcode_543 {
             return myAns;
         }
     }
+
+    // O(N)
+    class Solution3 {
+
+        public int diameterOfBinaryTree(TreeNode root) {
+            diameterOfBinaryTree_(root);
+            return diameter;
+        }
+
+        int diameter = 0;
+
+        public int diameterOfBinaryTree_(TreeNode root) {
+            if (root == null)
+                return -1;
+
+            int ld = diameterOfBinaryTree_(root.left);
+            int rd = diameterOfBinaryTree_(root.right);
+
+            diameter = Math.max(diameter, ld + rd + 2);
+
+            return Math.max(ld, rd) + 1;
+        }
+    }
 }

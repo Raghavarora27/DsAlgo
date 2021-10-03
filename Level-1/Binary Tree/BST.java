@@ -59,7 +59,13 @@ public class BST {
         return false;
     }
 
+    public static int sum(Node node){
+        return node == null ? 0 : sum(node.left) + sum(node.right) + node.data;
+    }
+
     // Do this without recursion 
+    // T : O(logn), S : O(1)
+    // If you know kis side jaana hai then do iterative else recursive 
     public static ArrayList<Node> NodetoRootPath(Node node,int data){
         ArrayList<Node> list = new ArrayList<>();
         boolean flag = false;
@@ -72,7 +78,7 @@ public class BST {
             else
                 node = node.left;
         }
-        
+
         if(!flag)
             list.clear();
         

@@ -48,6 +48,7 @@ public class Leetcode_543 {
             return diameterOfBinaryTree_(root)[0];
         }
 
+        // {diameter, height}
         public int[] diameterOfBinaryTree_(TreeNode root) {
             if (root == null)
                 return new int[] { 0, -1 };

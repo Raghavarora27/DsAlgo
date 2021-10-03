@@ -1,0 +1,43 @@
+package Questions;
+
+public class Leetcode_938 {
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    class Solution {
+        public int rangeSumBST(TreeNode root, int low, int high) {
+            pir(root, low, high);
+            return sum;
+        }
+
+        int sum = 0;
+
+        public void pir(TreeNode root, int low, int high) {
+            if (root == null)
+                return;
+
+            pir(root.left, low, high);
+
+            if (root.val >= low && root.val <= high)
+                sum += root.val;
+
+            pir(root.right, low, high);
+        }
+    }
+}

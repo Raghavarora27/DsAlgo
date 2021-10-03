@@ -83,6 +83,6 @@ public class BST {
             list.clear();
         
         Collections.reverse(list);
-        return list;
+        return list;  
     }
 }

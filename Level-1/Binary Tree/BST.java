@@ -1,3 +1,8 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.xml.crypto.Data;
 
 public class BST {
@@ -52,5 +57,26 @@ public class BST {
                 node = node.left;
         }
         return false;
+    }
+
+    // Do this without recursion 
+    public static ArrayList<Node> NodetoRootPath(Node node,int data){
+        ArrayList<Node> list = new ArrayList<>();
+        boolean flag = false;
+        while(node != null){
+            list.add(node);
+            if(node.data == data)
+                break;
+            else if(node.data < data)
+                node = node.right;
+            else
+                node = node.left;
+        }
+        
+        if(!flag)
+            list.clear();
+        
+        Collections.reverse(list);
+        return list;
     }
 }

@@ -119,4 +119,23 @@ public class BST {
             node.left = addData(node.left, data);
         return node;
     }
+    
+    public static Node removeData(Node node,int data){
+        if(node == null)    return null;
+
+        if(node.data < data)
+            node.right = removeData(node.right, data);
+        else if(node.data > data)
+            node.left = removeData(node.left, data);
+        else{
+            if(node.left == null || node.right == null)
+                return node.left != null ? node.left : node.right;
+            int minEle = minimum(node.right);
+            node.data = minEle;
+
+            node.right = removeData(node.right, minEle);
+        }
+            
+        return node;
+    }
 }

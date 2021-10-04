@@ -173,5 +173,21 @@ public class BST {
         modify_(root,arr);
         return root;
     }
+
+    // Replace with sum of larger 
+    public void replace_(Node root,int [] arr){
+        if(root == null)    return;
+        
+        replace_(root.right,arr);
+        root.data = arr[0];
+        arr[0] += root.data;
+        replace_(root.left,arr);
+    }
+    
+    public Node replace(Node root){
+        int [] arr = new int[1];
+        replace_(root,arr);
+        return root;
+    }
     
 }

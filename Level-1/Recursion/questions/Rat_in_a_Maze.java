@@ -31,7 +31,6 @@ class Solution {
         board[sr][sc] = 1;
         return count;
     }
-}
 
 // If you want only one path // This method will be used in Tree
     public static boolean floodfill_jumps(int sr,int sc,int [][] board,String ans,String [] dirS,int [][] dir){
@@ -58,3 +57,4 @@ class Solution {
         board[sr][sc] = 0;
         return res;
     }
+}

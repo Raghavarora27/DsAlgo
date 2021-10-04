@@ -138,4 +138,40 @@ public class BST {
             
         return node;
     }
+
+    public static int sum(Node node,int data){
+        if(node == null)    return 0;
+
+        int ans = 0;
+        int left = sum(node.left);
+        
+        if(node.data > data){
+            ans = left + node.data;
+        }            
+        
+        int right = sum(node.right);
+        
+        if(node.data > data){
+            ans = right + node.data;
+        }            
+
+        return ans;
+    }
+
+    // Add all greater values to every node in a BST 
+    public void modify_(Node root,int [] arr){
+        if(root == null)    return;
+        
+        modify_(root.right,arr);
+        root.data += arr[0];
+        arr[0] = root.data;
+        modify_(root.left,arr);
+    }
+    
+    public Node modify(Node root){
+        int [] arr = new int[1];
+        modify_(root,arr);
+        return root;
+    }
+    
 }

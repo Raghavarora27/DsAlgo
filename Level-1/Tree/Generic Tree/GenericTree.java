@@ -104,4 +104,24 @@ public class GenericTree {
         nodeToRootPath_(node, data, ans);
         return ans;
     }
+
+    public static ArrayList<Node> nodeToRootPath2(Node node,int data){
+        if(node.data == data){
+            ArrayList<Node> ans = new ArrayList<>();
+            ans.add(node);
+            return ans;
+        }    
+
+        ArrayList<Node> smallAns = new ArrayList<>();
+        for(Node child : node.childs){
+            smallAns = nodeToRootPath(child, data);
+            if(smallAns.size() != 0)
+                break;
+        }
+
+        if(smallAns.size() != 0)
+            smallAns.add(node);
+
+        return smallAns; 
+    }
 }

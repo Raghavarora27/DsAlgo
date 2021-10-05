@@ -20,11 +20,25 @@ public class GenericTree {
         return count + 1;
     }
 
-    public int height(Node root) {
+    public static int height(Node root) {
         int h = 0;
         for (Node child : root.children)
             h = Math.max(height(child) + 1, h);
 
         return h;
+    }
+
+    public static int maximum(Node node){
+        int max = node.data;
+        for(Node child : node.childs)
+            max = Math.max(maximum(child),max);
+        return max;
+    }
+
+    public static int minimum(Node node){
+        int min = node.data;
+        for(Node child : node.childs)
+            min = Math.min(maximum(child),min);
+        return min;
     }
 }

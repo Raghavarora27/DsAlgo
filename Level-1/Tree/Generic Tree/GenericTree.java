@@ -41,4 +41,11 @@ public class GenericTree {
             min = Math.min(maximum(child),min);
         return min;
     }
+
+    public static int sum(Node node){
+        int sum = node.data;
+        for(Node child : node.childs)
+            sum += sum(child);
+        return sum;
+    }
 }

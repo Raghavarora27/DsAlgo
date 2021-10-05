@@ -52,10 +52,10 @@ public class GenericTree {
     public static boolean find(Node node,int data){
         if(node.data == data)
             return true;
-            
+
         boolean res = false;
         for(Node child : node.childs)
-            res = res || find(child);
+            res = res || find(child,data);
         return res;
     }
 }

@@ -183,7 +183,7 @@ public class BST {
         arr[0] += root.data;
         replace_(root.left,arr);
     }
-    
+     
     public Node replace(Node root){
         int [] arr = new int[1];
         replace_(root,arr);

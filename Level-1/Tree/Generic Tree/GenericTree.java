@@ -48,4 +48,14 @@ public class GenericTree {
             sum += sum(child);
         return sum;
     }
+
+    public static boolean find(Node node,int data){
+        if(node.data == data)
+            return true;
+            
+        boolean res = false;
+        for(Node child : node.childs)
+            res = res || find(child);
+        return res;
+    }
 }

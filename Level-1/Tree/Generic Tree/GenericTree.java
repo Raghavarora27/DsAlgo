@@ -58,4 +58,50 @@ public class GenericTree {
             res = res || find(child,data);
         return res;
     }
+    
+    public static boolean find2(Node node,int data){
+        if(node.data == data)
+            return true;
+
+        boolean res = false;
+        for(Node child : node.childs){
+            if(find(child,data)){
+                res = true;
+                break;
+            }
+        }
+        return res;
+    }
+
+    public static int countLeaves(Node node){
+        if(node.childs.size() == 0) return 1;
+
+        int count = 0;
+        for(Node child : node.childs)
+            count += countLeaves(child);
+        return count;
+    }
+
+    public static boolean nodeToRootPath_(Node node,int data,ArrayList<Node> ans){
+        if(node.data == data){
+            ans.add(node);
+            return true;
+        }
+
+        boolean res = false;
+        for(Node child : node.childs)
+            res = res || nodeToRootPath_(child, data, ans);
+        
+        if(res)
+            ans.add(node);
+        
+        return res;
+    }
+
+    public static ArrayList<Node> nodeToRootPath(Node node,int data){
+        if(node == null)    return new ArrayList<>();
+        ArrayList<Node> ans = new ArrayList<>();
+        nodeToRootPath_(node, data, ans);
+        return ans;
+    }
 }

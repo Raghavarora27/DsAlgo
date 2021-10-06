@@ -195,4 +195,9 @@ public class GenericTree {
         return res;
     }
 
+    // Is Generic Tree Symmetric
+    public static boolean IsSymmetric(Node node){
+        return Mirror(node, node);
+    }
+
 }

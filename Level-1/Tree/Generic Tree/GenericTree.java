@@ -178,5 +178,21 @@ public class GenericTree {
         }
         return res;
     }
+    
+    // Mirror Tree
+    public static boolean Mirror(Node n1 , Node n2){
+        if(n1.childs.size() != n2.childs.size())
+            return false;
+        
+        boolean res = true;
+        int size = n1.childs.size();
+        for(int i=0;i<size;i++){
+            Node c1 = n1.childs.get(i);
+            Node c2 = n2.childs.get(size - i - 1);
+
+            res = res && Mirror(c1, c2);
+        }
+        return res;
+    }
 
 }

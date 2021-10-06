@@ -165,12 +165,12 @@ public class GenericTree {
     }
 
     // Are Tree Similar
-    public static boolean AreSimilar(Node n1 , Node n2){
-        if(n1.childs.size() != n2.childs.size())
+    public static boolean AreSimilar(Node n1, Node n2) {
+        if (n1.childs.size() != n2.childs.size())
             return false;
-        
+
         boolean res = true;
-        for(int i=0;i<n1.childs.size();i++){
+        for (int i = 0; i < n1.childs.size(); i++) {
             Node c1 = n1.childs.get(i);
             Node c2 = n2.childs.get(i);
 
@@ -178,15 +178,15 @@ public class GenericTree {
         }
         return res;
     }
-    
+
     // Mirror Tree
-    public static boolean Mirror(Node n1 , Node n2){
-        if(n1.childs.size() != n2.childs.size())
+    public static boolean Mirror(Node n1, Node n2) {
+        if (n1.childs.size() != n2.childs.size())
             return false;
-        
+
         boolean res = true;
         int size = n1.childs.size();
-        for(int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             Node c1 = n1.childs.get(i);
             Node c2 = n2.childs.get(size - i - 1);
 
@@ -196,8 +196,47 @@ public class GenericTree {
     }
 
     // Is Generic Tree Symmetric
-    public static boolean IsSymmetric(Node node){
+    public static boolean IsSymmetric(Node node) {
         return Mirror(node, node);
     }
 
+    // Ceil and Floor
+    static int floor;
+    static int ceil;
+
+    public static void ceilAndFloor_(Node node, int data) {
+        if (node.data < data)
+            floor = Math.max(floor, node.data);
+        if (node.data > data)
+            ceil = Math.min(ceil, node.data);
+
+        for (Node child : node.childs)
+            ceilAndFloor_(child, data);
+    }
+    
+    public static void ceilAndFloor(Node node, int data) {
+        floor = -(int)1e9;
+        ceil = (int)1e9;
+        ceilAndFloor_(node, data);
+    }
+    
+    // Kth Largest element
+    
+    public static int Floor_(Node node, int ub) {
+        int maxRes = -(int)1e9;
+        for(Node child : node.childs){
+            int recRes = Floor_(child,ub);
+            maxRes = Math.max(maxRes, recRes);
+        }
+
+        return node.data < ub ? Math.max(node.data, maxRes) : maxRes;
+    }
+
+    public static int kLargestNode(Node node,int k){
+        int ub = (int)1e9;
+        for(int i = 0; i < k; i++){
+            ub = Floor_(node,ub);
+        }
+        return ub;
+    }
 }

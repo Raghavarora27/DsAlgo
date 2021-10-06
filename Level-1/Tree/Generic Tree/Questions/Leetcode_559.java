@@ -1,4 +1,6 @@
-package GenericTree;
+package Questions;
+
+import java.util.List;
 
 public class Leetcode_559 {
     class Node {

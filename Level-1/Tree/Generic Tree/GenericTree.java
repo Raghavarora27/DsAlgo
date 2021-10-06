@@ -213,46 +213,46 @@ public class GenericTree {
         for (Node child : node.childs)
             ceilAndFloor_(child, data);
     }
-    
+
     public static void ceilAndFloor(Node node, int data) {
-        floor = -(int)1e9;
-        ceil = (int)1e9;
+        floor = -(int) 1e9;
+        ceil = (int) 1e9;
         ceilAndFloor_(node, data);
     }
-    
+
     // Kth Largest element
-    
+
     public static int Floor_(Node node, int ub) {
-        int maxRes = -(int)1e9;
-        for(Node child : node.childs){
-            int recRes = Floor_(child,ub);
+        int maxRes = -(int) 1e9;
+        for (Node child : node.childs) {
+            int recRes = Floor_(child, ub);
             maxRes = Math.max(maxRes, recRes);
         }
 
         return node.data < ub ? Math.max(node.data, maxRes) : maxRes;
     }
 
-    public static int kLargestNode(Node node,int k){
-        int ub = (int)1e9;
-        for(int i = 0; i < k; i++){
-            ub = Floor_(node,ub);
+    public static int kLargestNode(Node node, int k) {
+        int ub = (int) 1e9;
+        for (int i = 0; i < k; i++) {
+            ub = Floor_(node, ub);
         }
         return ub;
     }
 
     // Linearize
-    public static Node getTail(Node node){
-        for(Node child : node.childs)
+    public static Node getTail(Node node) {
+        for (Node child : node.childs)
             node = node.childs.get(0);
         return node;
     }
 
-    public static void linearize(Node node){
-        for(Node child : node.childs)
+    public static void linearize(Node node) {
+        for (Node child : node.childs)
             linearize(child);
-        
-        for(int i = node.childs.size()-1;i>0;i--){
-            Node tail = getTail(node.childs.get(i-1));
+
+        for (int i = node.childs.size() - 1; i > 0; i--) {
+            Node tail = getTail(node.childs.get(i - 1));
             tail.childs.add(node.childs.get(i));
 
             node.childs.remove(i);

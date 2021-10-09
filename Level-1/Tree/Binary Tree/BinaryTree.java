@@ -135,7 +135,6 @@ public class BinaryTree {
 
         exactlyOneChild(node.left, ans);
         exactlyOneChild(node.right, ans);
-
     }
 
     public static int countExactlyOneChild(Node node) {
@@ -509,6 +508,7 @@ public class BinaryTree {
         return LCA;
     }
 
+    // Level Order Traversal / BFS
     public static void levelOrder(Node root) {
         LinkedList<Node> que = new LinkedList<>(); // removeFirst, addLast
         que.addLast(root);
@@ -571,5 +571,17 @@ public class BinaryTree {
         return ans;
 
     }
-    
+
+    public static void levelOrder1(Node root) {
+       LinkedList<Integer> que = new LinkedList<>();
+       
+       que.addFirst(root.data);
+
+       while(!que.isEmpty()){
+            int size = 0;
+            int level = 0;
+
+       }
+    }
+
 }

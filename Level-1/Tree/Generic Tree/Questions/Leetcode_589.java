@@ -1,8 +1,6 @@
 package questions;
 
-import java.util.List;
-
-public class Leetcode_559 {
+public class Leetcode_589 {
     class Node {
         public int val;
         public List<Node> children;
@@ -18,17 +16,21 @@ public class Leetcode_559 {
             val = _val;
             children = _children;
         }
-    }
+    };
 
     class Solution {
-        public int maxDepth(Node root) {
-            if (root == null)
-                return 0;
-            int h = 0;
-            for (Node child : root.children)
-                h = Math.max(maxDepth(child), h);
+        public List<Integer> preorder(Node root) {
+            ArrayList<Integer> ans = new ArrayList<>();
+            preorderTraversal(root, ans);
+            return ans;
+        }
 
-            return h + 1;
+        public void preorderTraversal(Node root, ArrayList<Integer> ans) {
+            if (root == null)
+                return;
+            ans.add(root.val);
+            for (Node child : root.children)
+                preorderTraversal(child, ans);
         }
     }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class GenericTree {
     public class Node {
@@ -256,6 +257,28 @@ public class GenericTree {
             tail.childs.add(node.childs.get(i));
 
             node.childs.remove(i);
+        }
+    }
+
+    
+    public static void levelOrderLineWise(Node root) {
+        LinkedList<Node> que = new LinkedList<>(); // removeFirst, addLast
+        que.addLast(root);
+        // int level = 0;
+
+        while(que.size() != 0) {
+            int size = que.size(); // size of current level
+            while (size-- > 0) {
+                Node rn = que.removeFirst();
+                System.out.print(rn.data + " ");
+
+                for(Node child : rn.childs){
+                    que.addLast(child);
+                }
+            }
+
+            // level++;
+            System.out.println();
         }
     }
 }

@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import BST.Node;
+
 public class BinaryTree {
     public static class Node {
         int data;
@@ -512,7 +514,7 @@ public class BinaryTree {
     public static void levelOrder(Node root) {
         LinkedList<Node> que = new LinkedList<>(); // removeFirst, addLast
         que.addLast(root);
-        int level = 0;
+        // int level = 0;
 
         while (que.size() != 0) {
             int size = que.size(); // size of current level
@@ -526,7 +528,7 @@ public class BinaryTree {
                     que.addLast(rn.right);
             }
 
-            level++;
+            // level++;
             System.out.println();
         }
 
@@ -570,18 +572,6 @@ public class BinaryTree {
 
         return ans;
 
-    }
-
-    public static void levelOrder1(Node root) {
-       LinkedList<Integer> que = new LinkedList<>();
-       
-       que.addFirst(root.data);
-
-       while(!que.isEmpty()){
-            int size = 0;
-            int level = 0;
-
-       }
     }
 
 }

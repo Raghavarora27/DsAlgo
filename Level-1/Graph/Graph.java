@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Graph {
@@ -39,7 +40,7 @@ public class Graph {
         return -1;
     }
 
-    public static void removeEdge(ArrayList<Edge>[] graph,int u, int v) {
+    public static void removeEdge(ArrayList<Edge>[] graph, int u, int v) {
         int i1 = findEdge(graph, u, v); // u ke andar v dhundlo
         int i2 = findEdge(graph, v, u); // v ke andar u dhundlo
 
@@ -47,17 +48,17 @@ public class Graph {
         graph[v].remove(i2);
     }
 
-    public static void removeVtx(ArrayList<Edge>[] graph,int u) {
+    public static void removeVtx(ArrayList<Edge>[] graph, int u) {
         ArrayList<Edge> list = graph[u];
-        for (int i = list.size()-1;i>=0;i--) {
+        for (int i = list.size() - 1; i >= 0; i--) {
             Edge e = list.get(i);
-            removeEdge(graph,e.src, e.nbr);
+            removeEdge(graph, e.src, e.nbr);
         }
     }
 
     public static void construction() {
         int N = 7;
-        ArrayList<Egde>[] graph = new ArrayList[N]; // Array of ArrayList eg int [] arr, so int ki jagah arraylist
+        ArrayList<Edge>[] graph = new ArrayList[N]; // Array of ArrayList eg int [] arr, so int ki jagah arraylist
         // Array ke andar ArrayList jo edge type ki h (jisme src,nbr or wt hai)
 
         for (int i = 0; i < N; i++) { // N = Number of Vertices
@@ -74,13 +75,14 @@ public class Graph {
         addEdge(graph, 5, 6, 3);
     }
 
-    public static boolean hasPath(ArrayList<Edge>[] graph,int src,int dest,boolean[] vis){
-        if(src == dest) return true;
+    public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
+        if (src == dest)
+            return true;
 
         vis[src] = true;
         boolean res = false;
-        for(Edge e : graph[src]){
-            if(!vis[src])
+        for (Edge e : graph[src]) {
+            if (!vis[src])
                 res = res || hasPath(graph, e.nbr, dest, vis);
         }
         return res;

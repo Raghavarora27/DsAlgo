@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import BST.Node;
-
 public class BinaryTree {
     public static class Node {
         int data;

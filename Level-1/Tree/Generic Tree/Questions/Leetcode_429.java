@@ -1,4 +1,6 @@
-package Questions;
+package questions;
+
+import java.util.*;
 
 public class Leetcode_429 {
     class Node {

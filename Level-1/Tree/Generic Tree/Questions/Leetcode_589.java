@@ -1,5 +1,7 @@
 package questions;
 
+import java.util.*;
+
 public class Leetcode_589 {
     class Node {
         public int val;

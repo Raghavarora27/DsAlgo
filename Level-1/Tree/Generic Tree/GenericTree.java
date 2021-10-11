@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.List;
 
 public class GenericTree {
     public class Node {
@@ -278,6 +280,46 @@ public class GenericTree {
             }
 
             // level++;
+            System.out.println();
+        }
+    }
+
+    public static void levelOrderZigZag(Node root) {
+        if(root == null)    return;
+        LinkedList<Node> que = new LinkedList<>(); // removeFirst, addLast
+        LinkedList<Node> st = new LinkedList<>(); // removeFirst, addFirst
+        que.addLast(root);
+
+        int level = 0;
+        List<List<Integer>> ans = new ArrayList<>();
+        while(que.size() != 0) {
+            int size = que.size(); // size of current level
+            List<Integer> res = new ArrayList<>();
+            while (size-- > 0) {
+                Node rn = que.removeFirst();
+                res.add(rn.data);
+                
+                if(level % 2 == 0){
+                    for(Node child : rn.childs){
+                        st.addFirst(child);
+                    }
+                }
+                else{
+                    for(int i = rn.childs.size()-1;i>=0;i--){
+                        Node child = rn.childs.get(i);
+                        st.addFirst(child);
+                    }
+                }
+            }
+            ans.add(res);
+            level++;
+            LinkedList<Node> temp = que;
+            que = st;
+            st = temp;
+        }
+        for(List<Integer> a : ans){
+            for(int ele : a)
+                System.out.print(ele + " ");
             System.out.println();
         }
     }

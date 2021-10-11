@@ -74,5 +74,15 @@ public class Graph {
         addEdge(graph, 5, 6, 3);
     }
 
-     
+    public static boolean hasPath(ArrayList<Edge>[] graph,int src,int dest,boolean[] vis){
+        if(src == dest) return true;
+
+        vis[src] = true;
+        boolean res = false;
+        for(Edge e : graph[src]){
+            if(!vis[src])
+                res = res || hasPath(graph, e.nbr, dest, vis);
+        }
+        return res;
+    }
 }

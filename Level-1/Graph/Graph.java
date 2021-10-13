@@ -1,5 +1,4 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Graph {
     public static class Edge {
@@ -73,6 +72,11 @@ public class Graph {
         addEdge(graph, 4, 5, 2);
         addEdge(graph, 4, 6, 8);
         addEdge(graph, 5, 6, 3);
+
+        // display(graph, N);
+        boolean[] vis = new boolean[N];
+        // printAllPaths(graph, 0, 6, vis, "");
+        postorder(graph, 0, vis, 0, "");
     }
 
     public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
@@ -86,5 +90,51 @@ public class Graph {
                 res = res || hasPath(graph, e.nbr, dest, vis);
         }
         return res;
+    }
+
+    public static int printAllPaths(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis, String psf) {
+        if (src == dest) {
+            System.out.println(psf + dest);
+            return 1;
+        }
+
+        int count = 0;
+        vis[src] = true;
+
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr])
+                count += printAllPaths(graph, e.nbr, dest, vis, psf + src);
+        }
+
+        vis[src] = false;
+        return count;
+    }
+
+    public static void preorder(ArrayList<Edge>[] graph, int src, boolean[] vis, int wsf, String psf) {
+        System.out.println(src + " -> " + (psf + src) + " @ " + wsf);
+        vis[src] = true;
+
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr])
+                preorder(graph, e.nbr, vis, wsf + e.wt, psf + src);
+        }
+
+        vis[src] = false;
+    }
+
+    public static void postorder(ArrayList<Edge>[] graph, int src, boolean[] vis, int wsf, String psf) {
+        vis[src] = true;
+
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr])
+                preorder(graph, e.nbr, vis, wsf + e.wt, psf + src);
+        }
+
+        System.out.println(src + " -> " + (psf + src) + " @ " + wsf);
+        vis[src] = false;
+    }
+
+    public static void main(String[] args) {
+        construction();
     }
 }

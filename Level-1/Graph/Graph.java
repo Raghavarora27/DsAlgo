@@ -1,3 +1,4 @@
+import java.nio.file.Path;
 import java.util.*;
 
 public class Graph {
@@ -74,9 +75,10 @@ public class Graph {
         addEdge(graph, 5, 6, 3);
 
         // display(graph, N);
-        boolean[] vis = new boolean[N];
+        // boolean[] vis = new boolean[N];
         // printAllPaths(graph, 0, 6, vis, "");
-        postorder(graph, 0, vis, 0, "");
+        // postorder(graph, 0, vis, 0, "");
+        heaviestPath(graph, 0, 6);
     }
 
     public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
@@ -132,6 +134,42 @@ public class Graph {
 
         System.out.println(src + " -> " + (psf + src) + " @ " + wsf);
         vis[src] = false;
+    }
+
+    public static class pairPath {
+        int wsf = 0;
+        String psf = "";
+    }
+
+    public static pairPath heaviestPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
+        if(src == dest){
+            pairPath base = new pairPath();
+            base.psf += src;
+            base.wsf = 0;
+            return base;
+        }
+
+        vis[src] = true;
+        pairPath myAns = new pairPath();
+        for(Edge e : graph[src]){
+            if(!vis[e.nbr]){
+                pairPath recAns = heaviestPath(graph, e.nbr, dest, vis);
+                if(recAns.wsf != -1 && recAns.wsf + e.wt > myAns.wsf){
+                    myAns.psf = src + recAns.psf;
+                    myAns.wsf = recAns.wsf + e.wt;
+                }
+            }
+        }
+
+        vis[src] = false;
+        return myAns;
+    }
+
+    public static void heaviestPath(ArrayList<Edge>[] graph, int src, int dest) {
+        boolean[] vis = new boolean[graph.length];
+        pairPath ans = heaviestPath(graph, src, dest, vis);
+
+        System.out.println("Heaviest Path: " + ans.psf + " of weight: " + ans.wsf);
     }
 
     public static void main(String[] args) {

@@ -56,31 +56,6 @@ public class Graph {
         }
     }
 
-    public static void construction() {
-        int N = 7;
-        ArrayList<Edge>[] graph = new ArrayList[N]; // Array of ArrayList eg int [] arr, so int ki jagah arraylist
-        // Array ke andar ArrayList jo edge type ki h (jisme src,nbr or wt hai)
-
-        for (int i = 0; i < N; i++) { // N = Number of Vertices
-            graph[i] = new ArrayList<>();
-        }
-
-        addEdge(graph, 0, 1, 10);
-        addEdge(graph, 0, 3, 10);
-        addEdge(graph, 1, 2, 10);
-        addEdge(graph, 2, 3, 40);
-        addEdge(graph, 3, 4, 2);
-        addEdge(graph, 4, 5, 2);
-        addEdge(graph, 4, 6, 8);
-        addEdge(graph, 5, 6, 3);
-
-        // display(graph, N);
-        // boolean[] vis = new boolean[N];
-        // printAllPaths(graph, 0, 6, vis, "");
-        // postorder(graph, 0, vis, 0, "");
-        heaviestPath(graph, 0, 6);
-    }
-
     public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
         if (src == dest)
             return true;
@@ -136,13 +111,16 @@ public class Graph {
         vis[src] = false;
     }
 
+    // path which has maxmimum weight
+    // faith - sab apna apna path layenge fir mai usme add hoke compare karunga
+    // konsa maximum weight path hai
     public static class pairPath {
         int wsf = 0;
         String psf = "";
     }
 
     public static pairPath heaviestPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
-        if(src == dest){
+        if (src == dest) {
             pairPath base = new pairPath();
             base.psf += src;
             base.wsf = 0;
@@ -151,10 +129,10 @@ public class Graph {
 
         vis[src] = true;
         pairPath myAns = new pairPath();
-        for(Edge e : graph[src]){
-            if(!vis[e.nbr]){
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr]) {
                 pairPath recAns = heaviestPath(graph, e.nbr, dest, vis);
-                if(recAns.wsf != -1 && recAns.wsf + e.wt > myAns.wsf){
+                if (recAns.wsf != -1 && recAns.wsf + e.wt > myAns.wsf) {
                     myAns.psf = src + recAns.psf;
                     myAns.wsf = recAns.wsf + e.wt;
                 }
@@ -170,6 +148,66 @@ public class Graph {
         pairPath ans = heaviestPath(graph, src, dest, vis);
 
         System.out.println("Heaviest Path: " + ans.psf + " of weight: " + ans.wsf);
+    }
+
+    /// Ceil and Floor
+    public static class ceilAndFloor {
+        int floor = -(int) 1e9;
+        int ceil = (int) 1e9;
+    }
+
+    public static void floorandceil(ArrayList<Edge>[] graph, int wsf, int src, boolean[] vis, ceilAndFloor pair,
+            int data) {
+        if (wsf < data)
+            pair.floor = Math.max(pair.floor, wsf);
+
+        if (wsf > data)
+            pair.ceil = Math.min(pair.ceil, wsf);
+
+        vis[src] = true;
+
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr])
+                floorandceil(graph, wsf + e.wt, e.nbr, vis, pair, data);
+        }
+
+        vis[src] = false;
+    }
+
+    public static void CeilFloor(ArrayList<Edge>[] graph, int src, int data) {
+        boolean[] vis = new boolean[graph.length];
+        ceilAndFloor pair = new ceilAndFloor();
+        floorandceil(graph, 0, src, vis, pair, data);
+        System.out.println(pair.ceil + " " + pair.floor);
+    }
+
+    // O(E)
+     
+    public static void construction() {
+        int N = 7;
+        ArrayList<Edge>[] graph = new ArrayList[N]; // Array of ArrayList eg int [] arr, so int ki jagah arraylist
+        // Array ke andar ArrayList jo edge type ki h (jisme src,nbr or wt hai)
+
+        for (int i = 0; i < N; i++) { // N = Number of Vertices
+            graph[i] = new ArrayList<>();
+        }
+
+        addEdge(graph, 0, 1, 10);
+        addEdge(graph, 0, 3, 10);
+        addEdge(graph, 1, 2, 10);
+        addEdge(graph, 2, 3, 40);
+        addEdge(graph, 3, 4, 2);
+        addEdge(graph, 4, 5, 2);
+        addEdge(graph, 4, 6, 8);
+        addEdge(graph, 5, 6, 3);
+
+        // display(graph, N);
+        // boolean[] vis = new boolean[N];
+        // printAllPaths(graph, 0, 6, vis, "");
+        // postorder(graph, 0, vis, 0, "");
+        // heaviestPath(graph, 0, 6);
+        // CeilFloor(graph, 0, 42);
+        CeilFloor(graph, 0, 40);
     }
 
     public static void main(String[] args) {

@@ -268,14 +268,13 @@ public class Graph {
     // Hamilton path Cycle
     public static void hamintonianPathCycle(ArrayList<Edge>[] graph, int osrc, int src, int EdgeCount, boolean[] vis,
             String ans) {
-        // jab bhi edge count == graph ki length tak paunchega 
+        // jab bhi edge count == graph ki length tak paunchega
         // original source connected hoga source se tab * else .
-        if(EdgeCount == graph.length-1){
+        if (EdgeCount == graph.length - 1) {
             int idx = findEdge(graph, osrc, src);
-            if(idx != -1){
+            if (idx != -1) {
                 System.out.println(ans + src + "*");
-            }
-            else{
+            } else {
                 System.out.println(ans + src + ".");
             }
             return;
@@ -283,9 +282,9 @@ public class Graph {
 
         vis[src] = true;
         // Traversing
-        for(Edge e : graph[src]){
-            if(!vis[e.nbr])
-                hamintonianPathCycle(graph, osrc, e.nbr, EdgeCount+1, vis, ans + src);
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr])
+                hamintonianPathCycle(graph, osrc, e.nbr, EdgeCount + 1, vis, ans + src);
         }
 
         vis[src] = false;
@@ -295,6 +294,42 @@ public class Graph {
         int N = graph.length;
         boolean[] vis = new boolean[N];
         hamintonianPathCycle(graph, src, src, 0, vis, "");
+    }
+
+    public static void BFS(ArrayList<Edge>[] graph, int src, int dest) {
+        LinkedList<Integer> que = new LinkedList<>();
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+
+        que.addLast(src);
+
+        int level = 0;
+        boolean IsCyclePresent = false;
+        int shortestPath = -1;
+
+        while (que.size() != 0) {
+            int size = que.size();
+            while (size-- > 0) {
+                int rnVtx = que.removeFirst();
+
+                // For Cycle
+                if (vis[rnVtx]) {
+                    IsCyclePresent = true;
+                    continue;
+                }
+
+                if (rnVtx == dest)
+                    shortestPath = level;
+
+                vis[rnVtx] = true;
+
+                for (Edge e : graph[src]) {
+                    if (!vis[e.nbr])
+                        que.addLast(e.nbr);
+                }
+            }
+            level++;
+        }
     }
 
     public static void construction() {

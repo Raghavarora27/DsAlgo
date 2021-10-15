@@ -338,11 +338,6 @@ public class Graph {
     // Shortest path in weights
     // using BFS
 
-    // public class ShortestPathPair{
-    // int wt = 0;
-
-    // }
-
     public static void ShortestPathInWeights(ArrayList<Edge>[] graph, int src) {
         LinkedList<Integer> que = new LinkedList<>();
         que.addLast(src);

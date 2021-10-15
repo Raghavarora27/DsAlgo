@@ -45,6 +45,7 @@ public class stack{
         return this.maxsize;
     }
 
+    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("[");

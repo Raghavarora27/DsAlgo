@@ -1,0 +1,8 @@
+6
+OnePlus Nord25G 8 128 4500
+OnePlus NordCE 8 128 5500
+OnePlus 95G 12 256 4500
+Apple iphone13 12 256 4100
+Apple iphone13ProMax 32 256 4100
+Apple iphone13Pro 12 256 4200
+

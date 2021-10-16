@@ -44,6 +44,7 @@ public class questions {
         return pq.peek();
     }
 
+    // Sort matrix on the basis on 1 index of 1d array
     public static void sortKsortedArray(int[][] arr) {
         int n = arr.length, m = arr[0].length;
         PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
@@ -73,6 +74,6 @@ public class questions {
 
     public static void main(String[] args) {
         int[] arr = { 2, 5, 3, 1, 0, 3, 2 };
-        KthLargest(arr, 1);
+        // KthLargest(arr, 1);
     }
 }

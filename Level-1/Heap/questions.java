@@ -1,4 +1,4 @@
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class questions {
 
@@ -67,13 +67,27 @@ public class questions {
             if (c < m)
                 pq.add(r * m + c);
         }
-        
+
         for (int ele : ans)
             System.out.print(ele + " ");
     }
 
+    public static ArrayList<Integer> mergeKSortedLists(ArrayList<ArrayList<Integer>> lists) {
+        ArrayList<Integer> rv = new ArrayList<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for(ArrayList<Integer> a : lists)
+            for(int ele : a)
+                pq.add(ele);
+        
+        while(pq.size() != 0)
+            rv.add(pq.remove());
+
+        return rv;
+    }
+
     public static void main(String[] args) {
-        int[] arr = { 2, 5, 3, 1, 0, 3, 2 };
+        // int[] arr = { 2, 5, 3, 1, 0, 3, 2 };
         // KthLargest(arr, 1);
     }
 }

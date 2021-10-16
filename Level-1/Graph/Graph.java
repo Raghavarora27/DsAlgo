@@ -149,6 +149,39 @@ public class Graph {
         System.out.println("Heaviest Path: " + ans.psf + " of weight: " + ans.wsf);
     }
 
+    public static class pathPair {
+        String psf = "";
+        int wsf = Integer.MAX_VALUE;
+    }
+
+    public static pathPair lightestPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
+        if (src == dest) {
+            pathPair base = new pathPair();
+            base.psf += src;
+            base.wsf = 0;
+            return base;
+        }
+        vis[src] = true;
+        pathPair myAns = new pathPair();
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr]) {
+                pathPair recAns = lightestPath(graph, e.nbr, dest, vis);
+                if (recAns.wsf != Integer.MAX_VALUE && recAns.wsf + e.wt < myAns.wsf) {
+                    myAns.psf = src + recAns.psf;
+                    myAns.wsf = recAns.wsf + e.wt;
+                }
+            }
+        }
+        vis[src] = false;
+        return myAns;
+    }
+
+    public static void lightestPath(ArrayList<Edge>[] graph, int src, int dest) {
+        boolean[] vis = new boolean[graph.length];
+        pathPair ans = lightestPath(graph, src, dest, vis);
+        System.out.println("lightest path is : " + ans.psf + " and wait is :" + ans.wsf);
+    }
+
     /// Ceil and Floor
     public static class ceilAndFloor {
         int floor = -(int) 1e9;

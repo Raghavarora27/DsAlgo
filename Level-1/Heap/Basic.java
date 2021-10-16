@@ -67,6 +67,7 @@ public class Basic {
         }
     }
 
+    // 2n(logn)
     public static void mobilePhoneDetails() {
         int n = sc.nextInt(); // Total number of input
         PriorityQueue<mobilePhone> pq = new PriorityQueue<>((a, b) -> {
@@ -78,28 +79,33 @@ public class Basic {
                 return b.batteryBackup - a.batteryBackup;
         });
 
+        // nlog(n) -- n elements to be added and TC for adding 1 element is O(logn)
         for (int i = 0; i < n; i++) {
             pq.add(new mobilePhone(sc.next(), sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt()));
         }
 
+        // nlog(n)
         while (pq.size() != 0)
             System.out.println(pq.remove());
     }
 
     // sort 2d array on the basis of 1st index of 1d Array
+    // TC :- 2nlog(n) + n*m
     public static void matrixPQ(){
         int [][] arr = {{2,6,11,3},{8,5,16,4},{9,7,11,13},{8,3,12,11}};
         PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> {
             return a[1] - b[1];
         });
-        
+
+        // nlog(n)
         for(int[] a : arr)
             pq.add(a);
-        
+         
+        // n(logn + m)    
         while(pq.size() != 0){
-            int [] a = pq.remove();
+            int [] a = pq.remove(); // log(n)
             for(int ele : a)
-                System.out.print(ele + " ");
+                System.out.print(ele + " "); // O(m)
             System.out.println();
         }
     }

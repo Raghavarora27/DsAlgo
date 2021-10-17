@@ -94,6 +94,27 @@ public class HM_Basics {
             }
         }
     }
+
+    public static void highestfreq(String str){
+        HashMap<Character,Integer> map = new HashMap<>();
+
+        for(int i = 0; i < str.length();i++){
+            char ch = str.charAt(i);
+            map.put(ch,map.getOrDefault(ch, 0) + 1);
+        }
+        
+        int MaxFreq = 0;
+        char ans = '\u0000'; // represents null in character/String
+
+        for(char ch : map.keySet()){
+            if(map.get(ch) > MaxFreq){
+                MaxFreq = map.get(ch);
+                ans = ch;
+            }
+        }
+        System.out.println(ans);
+    }
+
     public static void main(String[] args) {
         // int [] arr1 = {5,5,9,8,5,5,8,0,3};
         // int [] arr2 = {9,7,1,0,3,6,5,9,1,1,8,0,2,4,2,9,1,5};

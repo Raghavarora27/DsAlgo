@@ -35,6 +35,7 @@ public class heap {
 
     // Contructor ke andar constructor calling hi sabse phela kaam hona chahie
     // O(n)
+    // Extra Functionality which is not present in STL heap
     public heap(int[] data, boolean isMaxHeap) {
         this(isMaxHeap);
 
@@ -112,7 +113,7 @@ public class heap {
         return this.arr.get(0);
     }
 
-    // O(LogN)
+    // O(LogN)  -- At Max logn neeche ja rhe h
     public int remove() throws Exception {
         UnderFlowPointerException();
 

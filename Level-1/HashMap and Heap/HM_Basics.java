@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class HM_Basics {
     public static void HashMapBasics() {
@@ -34,28 +35,28 @@ public class HM_Basics {
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
             // if(map.containsKey(ch)){
-            //     map.put(ch, map.get(ch) + 1);
+            // map.put(ch, map.get(ch) + 1);
             // }
             // else{
-            //     map.put(ch, 1);
+            // map.put(ch, 1);
             // }
             // Alternative of this if else
             map.put(ch, map.getOrDefault(ch, 0) + 1);
         }
         System.out.println(map);
     }
-    
+
     public static void IndexOfCharacter(String str) {
         HashMap<Character, ArrayList<Integer>> map = new HashMap<>();
-        
-        // for (int i = 0; i < str.length(); i++) {
-        //     char ch = str.charAt(i);
-        //     if(!map.containsKey(ch))
-        //         map.put(ch, new ArrayList<>());
 
-        //     map.get(ch).add(i);
+        // for (int i = 0; i < str.length(); i++) {
+        // char ch = str.charAt(i);
+        // if(!map.containsKey(ch))
+        // map.put(ch, new ArrayList<>());
+
+        // map.get(ch).add(i);
         // }
-        
+
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
             map.putIfAbsent(ch, new ArrayList<>()); // if not present then it will add a new ArrayList
@@ -66,48 +67,49 @@ public class HM_Basics {
             System.out.println(ch + " -> " + map.get(ch));
     }
 
-    public static void InsertionWithoutDuplicates(int [] arr1, int [] arr2){
-        HashMap<Integer,Integer> map = new HashMap<>();
+    public static void InsertionWithoutDuplicates(int[] arr1, int[] arr2) {
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-        for(int ele : arr1)
+        for (int ele : arr1)
             map.put(ele, map.getOrDefault(ele, 0) + 1);
-        
-        for(int ele : arr2){
-            if(map.containsKey(ele)){
+
+        for (int ele : arr2) {
+            if (map.containsKey(ele)) {
                 System.out.print(ele + " ");
                 map.remove(ele);
             }
         }
     }
-    
-    public static void InsertionWithDuplicates(int [] arr1, int [] arr2){
-        HashMap<Integer,Integer> map = new HashMap<>();
 
-        for(int ele : arr1)
+    public static void InsertionWithDuplicates(int[] arr1, int[] arr2) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int ele : arr1)
             map.put(ele, map.getOrDefault(ele, 0) + 1);
-        
-        for(int ele : arr2){
-            if(map.containsKey(ele)){
+
+        for (int ele : arr2) {
+            if (map.containsKey(ele)) {
                 System.out.print(ele + " ");
-                map.put(ele, map.get(ele)-1);
-                if(map.get(ele) == 0)   map.remove(ele);
+                map.put(ele, map.get(ele) - 1);
+                if (map.get(ele) == 0)
+                    map.remove(ele);
             }
         }
     }
 
-    public static void highestfreq(String str){
-        HashMap<Character,Integer> map = new HashMap<>();
+    public static void highestfreq(String str) {
+        HashMap<Character, Integer> map = new HashMap<>();
 
-        for(int i = 0; i < str.length();i++){
+        for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            map.put(ch,map.getOrDefault(ch, 0) + 1);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
         }
-        
+
         int MaxFreq = 0;
         char ans = '\u0000'; // represents null in character/String
 
-        for(char ch : map.keySet()){
-            if(map.get(ch) > MaxFreq){
+        for (char ch : map.keySet()) {
+            if (map.get(ch) > MaxFreq) {
                 MaxFreq = map.get(ch);
                 ans = ch;
             }
@@ -115,11 +117,43 @@ public class HM_Basics {
         System.out.println(ans);
     }
 
+    public static void longestConsecutiveSequence(int[] arr) {
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int ele : arr) {
+            set.add(ele);
+        }
+
+        int len = 0, head = 0;
+        for (int ele : arr) {
+            if (!set.contains(ele))
+                continue;
+
+            int left = ele - 1, right = ele + 1;
+            set.remove(ele);
+
+            while (set.contains(left))
+                set.remove(left--);
+
+            while (set.contains(right))
+                set.remove(right++);
+
+            if (right - left - 1 > len) {
+                len = right - left - 1;
+                head = left + 1;
+            }
+        }
+
+        for (int i = 0; i < len; i++) {
+            System.out.println(head + i);
+        }
+    }
+
     public static void main(String[] args) {
         // int [] arr1 = {5,5,9,8,5,5,8,0,3};
         // int [] arr2 = {9,7,1,0,3,6,5,9,1,1,8,0,2,4,2,9,1,5};
-        int [] arr1 = {1,1,2,2,2,3,5};
-        int [] arr2 = {1,1,1,2,2,4,5};
+        int[] arr1 = { 1, 1, 2, 2, 2, 3, 5 };
+        int[] arr2 = { 1, 1, 1, 2, 2, 4, 5 };
 
         // HashMapBasics();
         // FrequencyMap("abaaabbcaddeff");

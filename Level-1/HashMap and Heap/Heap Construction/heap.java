@@ -85,7 +85,7 @@ public class heap {
 
     // O(LogN)
     private void downHeapify(int pi) {
-        int maxIdx = pi, lci = 2 * pi + 1, rci = 2 * pi + 2;
+        int maxIdx = pi, lci = 2 * pi + 1, rci = 2 * pi + 2;    // pi = parent index || lci = left child index || rci = right child index 
         if (lci < this.noOfEle && compareTo(lci, maxIdx) > 0)
             maxIdx = lci;
         if (rci < this.noOfEle && compareTo(rci, maxIdx) > 0)

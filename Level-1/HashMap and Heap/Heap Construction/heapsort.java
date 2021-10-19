@@ -7,6 +7,7 @@ public class heapsort {
             return arr[o] - arr[t];
     }
 
+    // logn
     public static void downHeapify(int[] arr, int pi, int lidx, boolean isIncreasing) {
         int maxIdx = pi, lci = 2 * pi + 1, rci = 2 * pi + 2;
         
@@ -26,14 +27,15 @@ public class heapsort {
         return i;
     }
 
+    // nlogn
     public static void heapSort(int[] arr, boolean isIncreasing) {
         int n = arr.length, lidx = n - 1;
-        for(int i = lidx; i >= 0;i--)
+        for(int i = lidx; i >= 0;i--)   // nlogn
             downHeapify(arr, i, lidx, isIncreasing);
         
         while(lidx >= 0){
             arr[lidx] = swap(arr[0], arr[0] = arr[lidx]);
-            downHeapify(arr, 0, --lidx, isIncreasing);
+            downHeapify(arr, 0, --lidx, isIncreasing);  ///nlogn
         }
     }
 

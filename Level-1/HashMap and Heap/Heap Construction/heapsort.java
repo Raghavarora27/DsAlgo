@@ -10,14 +10,14 @@ public class heapsort {
     // logn
     public static void downHeapify(int[] arr, int pi, int lidx, boolean isIncreasing) {
         int maxIdx = pi, lci = 2 * pi + 1, rci = 2 * pi + 2;
-        
-        if(lci <= lidx && compareTo(arr, lci, maxIdx, isIncreasing) > 0)
+
+        if (lci <= lidx && compareTo(arr, lci, maxIdx, isIncreasing) > 0)
             maxIdx = lci;
-        
-        if(rci <= lidx && compareTo(arr, rci, maxIdx, isIncreasing) > 0)
+
+        if (rci <= lidx && compareTo(arr, rci, maxIdx, isIncreasing) > 0)
             maxIdx = rci;
-        
-        if(pi != maxIdx){
+
+        if (pi != maxIdx) {
             arr[maxIdx] = swap(arr[pi], arr[pi] = arr[maxIdx]);
             downHeapify(arr, maxIdx, lidx, isIncreasing);
         }
@@ -30,17 +30,17 @@ public class heapsort {
     // nlogn
     public static void heapSort(int[] arr, boolean isIncreasing) {
         int n = arr.length, lidx = n - 1;
-        for(int i = lidx; i >= 0;i--)   // nlogn
+        for (int i = lidx; i >= 0; i--) // nlogn
             downHeapify(arr, i, lidx, isIncreasing);
-        
-        while(lidx >= 0){
+
+        while (lidx >= 0) {
             arr[lidx] = swap(arr[0], arr[0] = arr[lidx]);
-            downHeapify(arr, 0, --lidx, isIncreasing);  ///nlogn
+            downHeapify(arr, 0, --lidx, isIncreasing); /// nlogn
         }
     }
 
     public static void display(int[] arr) {
-        for(int ele : arr)
+        for (int ele : arr)
             System.out.print(ele + " ");
     }
 

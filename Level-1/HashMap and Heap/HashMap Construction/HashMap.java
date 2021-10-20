@@ -36,6 +36,8 @@ public class HashMap {
     }
 
     // Display==========================================
+    
+    // O(n)
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -71,6 +73,7 @@ public class HashMap {
 
     // DS Functions=========================================
 
+    // TC : O(n)    SC : O(n)
     public ArrayList<Integer> keySet() {
         ArrayList<Integer> ans = new ArrayList<>();
 
@@ -87,6 +90,7 @@ public class HashMap {
         return ans;
     }
 
+    // O(n)
     private void rehash() {
         LinkedList<Node>[] temp = this.Buckets;
         initialize((int) (this.BucketLen * 1.5)); // 1 <= factor <= 2
@@ -102,6 +106,7 @@ public class HashMap {
         }
     }
 
+    // Amortized O(1)
     public void put(Integer key, Integer value) {
         boolean res = containsKey(key);
         LinkedList<Node> group = getGroup(key);
@@ -120,6 +125,7 @@ public class HashMap {
         }
     }
 
+    // Amortized O(1)
     public void putIfAbsent(Integer key, Integer defaultValue) {
         boolean res = containsKey(key);
         LinkedList<Node> group = getGroup(key);
@@ -131,6 +137,7 @@ public class HashMap {
         }
     }
 
+    // Amortized O(1)
     public Integer get(Integer key) {
         boolean res = containsKey(key);
         LinkedList<Node> group = getGroup(key);
@@ -143,6 +150,7 @@ public class HashMap {
         return res != null ? res : defaultValue;
     }
 
+    // Amortized O(1)
     public Integer remove(Integer key) {
         boolean res = containsKey(key);
         LinkedList<Node> group = getGroup(key);
@@ -155,6 +163,7 @@ public class HashMap {
         return null;
     }
 
+    // Amortized O(1)
     public boolean containsKey(Integer key) { // we can't Iterate in the LL // as we dont have head and next
         LinkedList<Node> group = getGroup(key); // so we are removing 1st node and adding it to the last
         int size = group.size();
@@ -170,11 +179,13 @@ public class HashMap {
         return res;
     }
 
+    // O(1)
     private LinkedList<Node> getGroup(Integer key) {
         int hc = getHashCode(key);
         return Buckets[hc];
     }
 
+    // O(1)
     private int getHashCode(Integer key) {
 
         return Math.abs(key.hashCode()) % BucketLen; // Dividing by Bucket Length - Hashcode will be in the range

@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 
 public class HashMap {
-
+    // Leetcode 706
     // Data Members=========================================
 
     private class Node {

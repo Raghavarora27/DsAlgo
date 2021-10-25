@@ -19,5 +19,6 @@ public class Grading {
         Scanner sc = new Scanner(System.in);
         int marks = sc.nextInt();
         grade(marks);
+        sc.close();
     }
 }

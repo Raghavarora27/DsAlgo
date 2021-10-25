@@ -13,5 +13,6 @@ public class Reverse {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         reverse_no(n);
+        sc.close();
     }
 }

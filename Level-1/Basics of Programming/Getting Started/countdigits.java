@@ -15,5 +15,6 @@ public class countdigits {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         count(n);
+        sc.close();
     }
 }

@@ -22,5 +22,6 @@ public class prime {
             int n = sc.nextInt();
             prime_no(n);
         }
+        sc.close();
     }     
 }

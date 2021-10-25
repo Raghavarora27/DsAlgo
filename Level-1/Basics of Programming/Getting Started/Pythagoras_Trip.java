@@ -31,6 +31,7 @@ public class Pythagoras_Trip {
         int b = sc.nextInt();
         int c = sc.nextInt();
         checkTriplet(a, b, c);
+        sc.close();
     }
 
 }

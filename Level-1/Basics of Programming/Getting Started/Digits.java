@@ -26,5 +26,6 @@ public class Digits {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         digits_of_number(n);
+        sc.close();
     }
 }

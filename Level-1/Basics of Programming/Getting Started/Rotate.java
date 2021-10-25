@@ -40,5 +40,7 @@ public class Rotate {
             k = k + len;
         }
         System.out.println(rotateNumber(n, k));
+
+        sc.close();
     }
 }

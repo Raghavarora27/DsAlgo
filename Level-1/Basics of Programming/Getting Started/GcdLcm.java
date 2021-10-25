@@ -17,6 +17,6 @@ import java.util.*;
         }
         System.out.println(num2);
         System.out.println((temp1*temp2)/num2);
-       
+        sc.close();
      }
     }

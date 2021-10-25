@@ -19,5 +19,6 @@ public class AllPrime {
         int low = sc.nextInt();
         int high = sc.nextInt();
         prime(low, high);
+        sc.close();
     }
 }

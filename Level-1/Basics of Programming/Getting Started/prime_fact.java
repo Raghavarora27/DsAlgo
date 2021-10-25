@@ -15,5 +15,7 @@ public class prime_fact {
         if (n != 1) {
             System.out.print(n);
         }
+
+        sc.close();
     }
 }

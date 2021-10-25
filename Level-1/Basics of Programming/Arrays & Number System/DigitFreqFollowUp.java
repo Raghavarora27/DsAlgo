@@ -24,6 +24,6 @@ public class DigitFreqFollowUp {
             query[i] = sc.nextInt();
         }
         digit(n, query);
-
+        sc.close();
     }
 }

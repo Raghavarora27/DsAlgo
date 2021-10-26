@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class SaddlePrice {
@@ -49,6 +48,7 @@ public class SaddlePrice {
             }
         }
         saddleprice(arr);
+        sc.close();
     }
 
 }

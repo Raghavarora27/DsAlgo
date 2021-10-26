@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class Exitpoint {
@@ -55,6 +54,7 @@ public class Exitpoint {
             }
         }
         exitPoint(arr);
+        sc.close();
     }
 
 }

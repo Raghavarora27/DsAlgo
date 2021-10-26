@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class RotateBy90Degree {
@@ -41,6 +40,7 @@ public class RotateBy90Degree {
 
         rotate(arr);
         display(arr);
+        sc.close();
     }
 
     public static void display(int[][] arr) {

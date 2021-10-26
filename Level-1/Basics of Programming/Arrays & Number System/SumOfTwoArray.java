@@ -2,7 +2,7 @@ import java.util.*;
 
 public class SumOfTwoArray {
 
-    public static void SumOfTwoArray(int[] arr1, int[] arr2) {
+    public static void SumOFTwoArray(int[] arr1, int[] arr2) {
         int[] ans = new int[Math.max(arr1.length, arr2.length) + 1];
 
         int i = arr1.length - 1;
@@ -46,7 +46,7 @@ public class SumOfTwoArray {
             arr2[i] = sc.nextInt();
         }
 
-        SumOfTwoArray(arr1, arr2);
+        SumOFTwoArray(arr1, arr2);
         sc.close();
     }
 

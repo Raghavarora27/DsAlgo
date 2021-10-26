@@ -35,5 +35,6 @@ public class Arrays{
         System.out.println(maximum(arr));
         System.out.println(minimum(arr));
         System.out.println(find(arr, 54));
+        sc.close();
     }
 }

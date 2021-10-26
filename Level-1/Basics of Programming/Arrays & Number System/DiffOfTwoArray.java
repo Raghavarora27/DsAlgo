@@ -53,7 +53,7 @@ public class DiffOfTwoArray{
             arr2[i] = sc.nextInt();
         }
         SubtractOfTwoArray(arr1,arr2);
-        
+        sc.close();
      }
 
 }

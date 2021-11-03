@@ -16,6 +16,7 @@ public class AsciiDiff {
 		Scanner scn = new Scanner(System.in);
 		String str = scn.next();
 		System.out.println(asciidiff(str));
+		scn.close();
 	}
 
 }

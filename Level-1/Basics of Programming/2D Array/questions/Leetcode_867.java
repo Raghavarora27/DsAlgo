@@ -1,3 +1,5 @@
+package questions;
+
 public class Leetcode_867 {
     class Solution {
         public int[][] transpose(int[][] matrix) {

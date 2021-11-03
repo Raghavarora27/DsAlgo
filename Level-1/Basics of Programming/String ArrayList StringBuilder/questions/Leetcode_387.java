@@ -1,3 +1,5 @@
+package questions;
+
 public class Leetcode_387 {
     class Solution {
         // O(n)

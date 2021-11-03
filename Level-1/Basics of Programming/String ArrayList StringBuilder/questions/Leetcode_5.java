@@ -1,3 +1,5 @@
+package questions;
+
 public class Leetcode_5 {
     class Solution {
         // O(n^3) ---- TLE

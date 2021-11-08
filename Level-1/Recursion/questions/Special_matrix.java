@@ -3,7 +3,7 @@
 // Dp solution will be passed 
 
 class Solution {
-    int mod = 1e9 + 7;
+    int mod = (int) (1e9 + 7);
 
     public int FindWays(int n, int m, int[][] blocked_cells) {
         int[][] dir = { { 0, 1 }, { 1, 0 } };

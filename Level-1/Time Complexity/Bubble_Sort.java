@@ -62,6 +62,7 @@ public class Bubble_Sort {
         }
         bubbleSort(arr);
         print(arr);
+        scn.close();
     }
 
 }

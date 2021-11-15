@@ -93,6 +93,8 @@ public class TargetSum {
     }
     int target = scn.nextInt();
     targetSumPair(arr,target);
+    
+    scn.close();
   }
 
 }

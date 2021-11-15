@@ -33,6 +33,7 @@ public class Sort01 {
     }
     sort01(arr);
     print(arr);
+    scn.close();
   }
 
 }

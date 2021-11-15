@@ -47,6 +47,7 @@ public class Insertion_Sort {
     }
     insertionSort(arr);
     print(arr);
+    scn.close();
   }
 
 }

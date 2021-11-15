@@ -42,6 +42,7 @@ public class Merge_Two_Sorted_Array {
     }
     int[] mergedArray = mergeTwoSortedArrays(a,b);
     print(mergedArray);
+    scn.close();
   }
 
 }

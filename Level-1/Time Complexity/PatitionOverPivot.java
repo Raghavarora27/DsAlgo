@@ -32,5 +32,6 @@ public class PatitionOverPivot {
         int pivotIdx = sc.nextInt(); 
         partition(arr, pivotIdx);
         print(arr);
+        sc.close();
     }
 }

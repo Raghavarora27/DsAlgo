@@ -1,5 +1,3 @@
-package questions;
-
 public class Leetcode_58 {
     class Solution {
         public int lengthOfLastWord(String str) {

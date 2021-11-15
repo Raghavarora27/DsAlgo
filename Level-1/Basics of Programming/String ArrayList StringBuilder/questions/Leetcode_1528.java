@@ -1,5 +1,3 @@
-package questions;
-
 import java.util.HashMap;
 
 public class Leetcode_1528 {

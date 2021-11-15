@@ -1,5 +1,3 @@
-package questions;
-
 public class Leetcode_1768 {
     class Solution {
         public String mergeAlternately(String word1, String word2) {

@@ -10,7 +10,7 @@ public class stackUsingJavaLL{
         }
 
         public boolean isEmpty(){
-            return this.size() == 0;
+            return this.ll.size() == 0;
         }
 
         public void add(int data){
@@ -25,18 +25,28 @@ public class stackUsingJavaLL{
             return ll.removeFirst();
         }
     }
-    public static void stackBehaviouUsingLL(){
-        LinkedList<Integer> st = new LinkedList<>();
+    // public static void stackBehaviouUsingLL(){
+    //     LinkedList<Integer> st = new LinkedList<>();
 
+    //     for(int i = 1 ; i <= 10 ; i++ ){
+    //         st.addFirst(i * 10);
+    //     }
+
+    //     while(st.size() != 0){
+    //         System.out.println(st.removeFirst());
+    //     }
+    // }
+
+    public static void stackBehaviouUsingLL(){
+        stack st = new stack();
         for(int i = 1 ; i <= 10 ; i++ ){
-            st.addFirst(i * 10);
+            st.add(i * 10);
         }
 
         while(st.size() != 0){
-            System.out.println(st.removeFirst());
+            System.out.println(st.pop());
         }
     }
-
     public static void main(String [] args){
         stackBehaviouUsingLL();
     } 

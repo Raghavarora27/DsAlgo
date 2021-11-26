@@ -1,33 +1,45 @@
 package Adapters;
 
 import java.util.LinkedList;
-    
-public class stackUsingQueuePop{ 
+
+class MyStack {
+
     LinkedList<Integer> que = new LinkedList<>();
     LinkedList<Integer> temp = new LinkedList<>();
-    
-    int TopEle = 0;
-    public stackUsingQueuePop() {
-        
+
+    int topEle = 0;
+
+    public MyStack() {
+
     }
-    
+
+    private void transfer(LinkedList<Integer> st1, LinkedList<Integer> st2) {
+        while (st1.size() != 0) {
+            st2.addLast(st1.removeFirst());
+        }
+    }
+
+    // O(n)
     public void push(int x) {
-        TopEle = x;
-        que.addLast(x);
+        temp.addLast(x);
+        transfer(que, temp);
+
+        LinkedList<Integer> temp1 = que;
+        que = temp;
+        temp = temp1;
     }
-    
+
+    // O(1)
     public int pop() {
-        while(que.size() > 1)   temp.addLast(que.removeFirst());
-        int res = que.removeFirst();
-        
-        while(temp.size() != 0) push(temp.removeFirst());
-        return res;
+        return que.removeFirst();
     }
-    
+
+    /** Get the top element. */
     public int top() {
-        return TopEle;
+        return que.getFirst();
     }
-    
+
+    /** Returns whether the stack is empty. */
     public boolean empty() {
         return que.size() == 0;
     }

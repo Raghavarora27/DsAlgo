@@ -27,17 +27,17 @@ public class stackUsingSelfLL {
             this.size++;
         }
 
-        private void addLast(int data) {
-            Node node = new Node(data);
-            if (this.size == 0)
-                this.head = this.tail = node;
-            else {
-                this.tail.next = node;
-                this.tail = node;
-            }
+        // private void addLast(int data) {
+        //     Node node = new Node(data);
+        //     if (this.size == 0)
+        //         this.head = this.tail = node;
+        //     else {
+        //         this.tail.next = node;
+        //         this.tail = node;
+        //     }
 
-            this.size++;
-        }
+        //     this.size++;
+        // }
 
         private Node removeFirst() {
             Node node = this.head;
@@ -88,6 +88,5 @@ public class stackUsingSelfLL {
         while(st.size() != 0) {
             System.out.println(st.pop());
         }
-
     }
 }

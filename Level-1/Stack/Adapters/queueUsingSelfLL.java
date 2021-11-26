@@ -16,17 +16,17 @@ public class queueUsingSelfLL {
         private Node tail = null;
         private int size = 0;
 
-        private void addFirst(int data) {
-            Node node = new Node(data);
-            if (this.size == 0)
-                this.head = this.tail = node;
-            else {
-                node.next = this.head;
-                this.head = node;
-            }
+        // private void addFirst(int data) {
+        //     Node node = new Node(data);
+        //     if (this.size == 0)
+        //         this.head = this.tail = node;
+        //     else {
+        //         node.next = this.head;
+        //         this.head = node;
+        //     }
 
-            this.size++;
-        }
+        //     this.size++;
+        // }
 
         private void addLast(int data) {
             Node node = new Node(data);

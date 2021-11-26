@@ -1,11 +1,9 @@
-package Adapters;
-
 import java.util.LinkedList;
 
-public class queueUsingJavaLL{
-    public static class queue{
-        private LinkedList<Integer> ll = new LinkedList<>();
-        
+public class pract {
+    public static class stack{
+        LinkedList<Integer> ll = new LinkedList<>();
+
         public int size(){
             return this.ll.size();
         }
@@ -15,30 +13,30 @@ public class queueUsingJavaLL{
         }
 
         public void add(int data){
-            ll.addLast(data);
+            ll.addFirst(data);
         }
 
-        public int peak(){
+        public int top(){
             return ll.getFirst();
         }
 
-        public int remove(){
+        public int pop(){
             return ll.removeFirst();
         }
     }
-    public static void queueBehaviouUsingLL(){
-        LinkedList<Integer> st = new LinkedList<>();
 
+    public static void stackbehavour(){
+        stack st = new stack();
         for(int i = 1 ; i <= 10 ; i++ ){
-            st.addLast(i * 10);
+            st.add(i * 10);
         }
 
         while(st.size() != 0){
-            System.out.println(st.removeFirst());
+            System.out.println(st.pop());
         }
     }
 
     public static void main(String [] args){
-        queueBehaviouUsingLL();
-    } 
+        stackbehavour();
+    }
 }

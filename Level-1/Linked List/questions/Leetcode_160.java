@@ -52,4 +52,42 @@ public class Leetcode_160 {
             return d1;
         }
     }
+
+    public class Solution2 {
+        public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+            int l1 = length(headA);
+            int l2 = length(headB);
+            int count = Math.abs(l1 - l2);
+
+            ListNode c1 = headA;
+            ListNode c2 = headB;
+            if (l1 > l2) {
+                while (count-- > 0) {
+                    c1 = c1.next;
+                }
+            } else {
+                while (count-- > 0) {
+                    c2 = c2.next;
+                }
+            }
+
+            while (c2 != null) {
+                if (c1 == c2)
+                    return c2;
+                c1 = c1.next;
+                c2 = c2.next;
+            }
+            return null;
+        }
+
+        public int length(ListNode head) {
+            ListNode curr = head;
+            int count = 0;
+            while (curr != null) {
+                count++;
+                curr = curr.next;
+            }
+            return count;
+        }
+    }
 }

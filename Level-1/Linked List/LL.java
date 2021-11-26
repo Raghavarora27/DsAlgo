@@ -1,5 +1,3 @@
-import questions.Leetcode_19.ListNode;
-
 public class LL {
     private class Node {
         int data = 0;
@@ -437,25 +435,25 @@ public class LL {
     }
 
     // ================================
-    // Add Two Linked List
     public Node reverseList(Node head) {
         if (head == null || head.next == null)
-            return head;
-
+        return head;
+        
         Node prev = null;
         Node curr = head;
-
+        
         while (curr != null) {
             Node forw = curr.next; // backup
-
+            
             curr.next = prev; // link
-
+            
             prev = curr; // move
             curr = forw;
         }
         return prev;
     }
-
+    
+    // Add Two Linked List
     public Node addTwoNumbers(Node l1, Node l2) {
 
         l1 = reverseList(l1);
@@ -486,7 +484,7 @@ public class LL {
         head = reverseList(head);
         return head;
     }
-
+    
     // Add Two LinkedList without reversing
     public int addtwo(Node one, int s1, Node two, int s2, LL ans) {
         if (one == null && two == null)

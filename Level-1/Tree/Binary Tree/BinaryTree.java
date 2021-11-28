@@ -69,7 +69,6 @@ public class BinaryTree {
         // return node == null ? 0 : sum(node.left) + sum(node.right) + node.data;
     }
 
-
     public static int max(Node node) {
         if (node == null)
             return -(int) 1e9;
@@ -568,9 +567,6 @@ public class BinaryTree {
             que = st;
             st = temp;
         }
-
         return ans;
-
     }
-
 }

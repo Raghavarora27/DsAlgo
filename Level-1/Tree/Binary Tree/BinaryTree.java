@@ -58,6 +58,7 @@ public class BinaryTree {
         // return node == null ? 0 : size(node.left) + size(node.right) + 1;
     }
 
+    
     public static int sum(Node node) {
         if (node == null)
             return 0;
@@ -69,7 +70,7 @@ public class BinaryTree {
         // return node == null ? 0 : sum(node.left) + sum(node.right) + node.data;
     }
 
-    
+
     public static int max(Node node) {
         if (node == null)
             return -(int) 1e9;

@@ -58,7 +58,6 @@ public class BinaryTree {
         // return node == null ? 0 : size(node.left) + size(node.right) + 1;
     }
 
-    
     public static int sum(Node node) {
         if (node == null)
             return 0;

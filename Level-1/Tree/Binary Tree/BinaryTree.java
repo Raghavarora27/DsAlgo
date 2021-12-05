@@ -223,6 +223,7 @@ public class BinaryTree {
         KLevelsDown(node.right, k - 1, block, ans);
     }
 
+    // TC : O(n) SC : O(n) 
     public static ArrayList<Integer> kaway(Node node, int data, int k) {
         ArrayList<Node> list = new ArrayList<>();
         nodeToRootPath(node, data, list);
@@ -309,6 +310,7 @@ public class BinaryTree {
         return self;
     }
 
+    // O(n*n)
     public static boolean isBal(Node node) {
         if (node == null)
             return true;

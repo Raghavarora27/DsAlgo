@@ -42,6 +42,7 @@ public class Leetcode_543 {
     }
 
     // O(N)
+    // jab same type ki cheeze return karwani hoti h toh array banate h else class banate h
     class Solution2 {
 
         public int diameterOfBinaryTree(TreeNode root) {
@@ -84,6 +85,33 @@ public class Leetcode_543 {
             diameter = Math.max(diameter, ld + rd + 2);
 
             return Math.max(ld, rd) + 1;
+        }
+    }
+
+    // O(N)
+    class Solution4 {
+        public int diameterOfBinaryTree(TreeNode root) {
+            return diameterBT(root).diameter;
+        }
+        
+        public class Dpair{
+            int height = -1;
+            int diameter = 0;
+        }
+        
+        public Dpair diameterBT(TreeNode node){
+            if(node == null)
+                return new Dpair();
+            
+            Dpair left = diameterBT(node.left);
+            Dpair right = diameterBT(node.right);
+            
+            
+            Dpair ans = new Dpair();
+            ans.height = Math.max(left.height, right.height) + 1;
+            ans.diameter = Math.max(Math.max(left.diameter,right.diameter),left.height + right.height + 2);
+            
+            return ans;
         }
     }
 }

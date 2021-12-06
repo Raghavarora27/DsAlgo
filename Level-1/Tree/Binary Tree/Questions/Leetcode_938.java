@@ -43,15 +43,37 @@ public class Leetcode_938 {
 
     class Solution2 {
         public int rangeSumBST(TreeNode root, int low, int high) {
-           if(root == null) return 0;
-           
-           if(root.val<low) return rangeSumBST(root.right,low,high);
-           
-           if(root.val>=low && root.val<=high) 
-               return rangeSumBST(root.left,low,high)+root.val+rangeSumBST(root.right,low,high);
-           
-           if(root.val>high) return rangeSumBST(root.left,low,high);
-           return 0;
-       }
-   }
+            if (root == null)
+                return 0;
+
+            if (root.val < low)
+                return rangeSumBST(root.right, low, high);
+
+            if (root.val >= low && root.val <= high)
+                return rangeSumBST(root.left, low, high) + root.val + rangeSumBST(root.right, low, high);
+
+            if (root.val > high)
+                return rangeSumBST(root.left, low, high);
+            return 0;
+        }
+    }
+
+    class Solution3 {
+
+        public int rangeSumBST(TreeNode node, int low, int high) {
+            if (node == null)
+                return 0;
+
+            int left = rangeSumBST(node.left, low, high);
+
+            int sum = left;
+            if (node.val >= low && node.val <= high)
+                sum += node.val;
+
+            int right = rangeSumBST(node.right, low, high);
+            sum += right;
+
+            return sum;
+        }
+    }
 }

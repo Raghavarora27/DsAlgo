@@ -62,7 +62,7 @@ public class Graph {
         vis[src] = true;
         boolean res = false;
         for (Edge e : graph[src]) {
-            if (!vis[src])
+            if (!vis[e.nbr])
                 res = res || hasPath(graph, e.nbr, dest, vis);
         }
         return res;
@@ -256,7 +256,7 @@ public class Graph {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (grid[i][j] == '1') {
+               if (grid[i][j] == '1') {
                     dfs(grid, dir, i, j);
                     componentCount++;
                 }
@@ -306,9 +306,9 @@ public class Graph {
         if (EdgeCount == graph.length - 1) {
             int idx = findEdge(graph, osrc, src);
             if (idx != -1) {
-                System.out.println(ans + src + "*");
+                System.out.println(osrc + ans + "*");
             } else {
-                System.out.println(ans + src + ".");
+                System.out.println(osrc + ans + ".");
             }
             return;
         }

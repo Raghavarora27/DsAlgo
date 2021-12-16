@@ -31,8 +31,7 @@ public class Basic {
         }
 
         while (pq.size() != 0) {
-            System.out.println(pq.remove()); // lekin remove hote same 10 sabse phele aayega instead of 100 /// as By
-                                             // Default min type priority Queue hoti h
+            System.out.println(pq.remove()); 
         }
     }
 
@@ -91,26 +90,27 @@ public class Basic {
 
     // sort 2d array on the basis of 1st index of 1d Array
     // TC :- 2nlog(n) + n*m
-    public static void matrixPQ(){
-        int [][] arr = {{2,6,11,3},{8,5,16,4},{9,7,11,13},{8,3,12,11}};
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> {
+    public static void matrixPQ() {
+        int[][] arr = { { 2, 6, 11, 3 }, { 8, 5, 16, 4 }, { 9, 7, 11, 13 }, { 8, 3, 12, 11 } };
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
             return a[1] - b[1];
         });
 
         // nlog(n)
-        for(int[] a : arr)
+        for (int[] a : arr)
             pq.add(a);
-         
-        // n(logn + m)    
-        while(pq.size() != 0){
-            int [] a = pq.remove(); // log(n)
-            for(int ele : a)
+
+        // n(logn + m)
+        while (pq.size() != 0) {
+            int[] a = pq.remove(); // log(n)
+            for (int ele : a)
                 System.out.print(ele + " "); // O(m)
             System.out.println();
         }
     }
-    
+
     public static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
         // Int_MinPQ();
         // Int_MaxPQ();

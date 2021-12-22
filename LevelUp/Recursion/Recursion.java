@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import javax.print.DocFlavor.STRING;
-
 public class Recursion {
 
     public static int factorial(int n) {
@@ -48,15 +46,15 @@ public class Recursion {
     }
 
     public static int power(int a, int b) {
-        if(b == 0)
+        if (b == 0)
             return 1;
-        
+
         return a * power(a, b - 1);
     }
 
     // // O(logn)
     public static int powerBtr(int a, int b) {
-        if(b == 0)
+        if (b == 0)
             return 1;
 
         int smallAns = powerBtr(a, b / 2);
@@ -82,17 +80,17 @@ public class Recursion {
     }
 
     public static int maximum(int[] arr, int idx) {
-        if(idx >= arr.length)
-            return -(int)1e9;
-        
-        return Math.max(arr[idx],maximum(arr, idx + 1));
+        if (idx >= arr.length)
+            return -(int) 1e9;
+
+        return Math.max(arr[idx], maximum(arr, idx + 1));
     }
 
     public static int minimum(int[] arr, int idx) {
-        if(idx >= arr.length)
-            return (int)1e9;
-        
-        return Math.min(arr[idx],minimum(arr, idx + 1));
+        if (idx >= arr.length)
+            return (int) 1e9;
+
+        return Math.min(arr[idx], minimum(arr, idx + 1));
     }
 
     public static boolean find(int[] arr, int data, int idx) {
@@ -121,20 +119,20 @@ public class Recursion {
     }
 
     public static int[] allIndex(int[] arr, int data, int idx, int count) {
-        if(idx >= arr.length)
+        if (idx >= arr.length)
             return new int[count];
-        
-        if(data == arr[idx])
+
+        if (data == arr[idx])
             count++;
-        int [] ans = allIndex(arr, data, idx + 1, count);
-        if(data == arr[idx])
+        int[] ans = allIndex(arr, data, idx + 1, count);
+        if (data == arr[idx])
             ans[count - 1] = arr[idx];
-        
+
         return ans;
     }
 
     public static ArrayList<String> subsequence(String str) {
-        if(str.length() == 0){
+        if (str.length() == 0) {
             ArrayList<String> base = new ArrayList<>();
             base.add("");
             return base;
@@ -144,21 +142,21 @@ public class Recursion {
         String ros = str.substring(1);
         ArrayList<String> recAns = subsequence(ros);
         ArrayList<String> myAns = new ArrayList<>(recAns);
-        for(String s : recAns)
+        for (String s : recAns)
             myAns.add(ch + s);
         return myAns;
     }
-    
+
     public static ArrayList<String> subsequence(String str, int idx) {
-        if(idx == str.length()){
+        if (idx == str.length()) {
             ArrayList<String> base = new ArrayList<>();
             base.add("");
             return base;
         }
 
-        ArrayList<String> recAns = subsequence(str, idx+1);
+        ArrayList<String> recAns = subsequence(str, idx + 1);
         ArrayList<String> myAns = new ArrayList<>(recAns);
-        for(String s : recAns)
+        for (String s : recAns)
             myAns.add(str.charAt(idx) + s);
         return myAns;
     }
@@ -176,11 +174,11 @@ public class Recursion {
     }
 
     public static String[] nokiaKeys = { ".;", "abc", "def", "ghi", "jkl", "mno",
-    "pqrs", "tu", "vwx", "yz" };
+            "pqrs", "tu", "vwx", "yz" };
 
     public static ArrayList<String> nokiaKeyPad(String str) {
-        if(str.length() == 0){
-            ArrayList<String>  base = new ArrayList<>();
+        if (str.length() == 0) {
+            ArrayList<String> base = new ArrayList<>();
             base.add("");
             return base;
         }
@@ -190,43 +188,124 @@ public class Recursion {
 
         ArrayList<String> recAns = nokiaKeyPad(str.substring(1));
         ArrayList<String> myAns = new ArrayList<>();
-        for(int i = 0;i < code.length(); i++){
-            for(String s : recAns)
+        for (int i = 0; i < code.length(); i++) {
+            for (String s : recAns)
                 myAns.add(code.charAt(i) + s);
         }
         return myAns;
     }
 
-    // public static ArrayList<String> stairPath(int n) {
-    // }
+    public static ArrayList<String> stairPath(int n) {
+        if (n == 0) {
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
 
-    // public static int stairPath(int n, String psf, ArrayList<String> ans) {
-    // }
+        ArrayList<String> myAns = new ArrayList<>();
+        for (int jump = 1; jump <= 3 && (n - jump) >= 0; jump++) {
+            ArrayList<String> SmallAns = stairPath(n - jump);
+            for (String s : SmallAns)
+                myAns.add(jump + s);
+        }
 
-    // public static int boardPath(int n, String psf, ArrayList<String> ans) {
-    // }
+        return myAns;
+    }
 
-    // public static int boardPath(int[] arr, int n, String psf, ArrayList<String>
-    // ans) {
-    // }
+    public static int stairPath(int n, ArrayList<String> ans, String psf) {
+        if (n == 0) {
+            ans.add(psf);
+            return 1;
+        }
 
-    // public static int mazePath_HVD(int sr, int sc, int er, int ec, String psf,
-    // ArrayList<String> ans, int[][] dir,
-    // }
+        int count = 0;
+        for (int jump = 1; jump <= 3 && (n - jump) >= 0; jump++) {
+            count += stairPath(n - jump, ans, psf + jump);
+        }
 
-    // public static int mazePath_HVD_multi(int sr, int sc, int er, int ec, String
-    // psf, ArrayList<String> ans, int[][] dir,
-    // }
+        return count;
+    }
 
-    // public static void mazePath() {
-    // int[][] dir = { { 0, 1 }, { 1, 0 }, { 1, 1 } };
-    // String[] dirS = { "H", "V", "D" };
+    public static int boardPath(int n, String psf, ArrayList<String> ans) {
+        if (n == 0) {
+            ans.add(psf);
+            return 1;
+        }
 
-    // ArrayList<String> ans = new ArrayList<>();
-    // System.out.println(mazePath_HVD_multi(0, 0, 2, 2, "", ans, dir, dirS));
+        int count = 0;
+        for (int dice = 1; dice <= 6 && (n - dice) >= 0; dice++) {
+            count += boardPath(n - dice, psf + dice, ans);
+        }
 
-    // System.out.println(ans);
-    // }
+        return count;
+    }
+
+    public static int boardPath(int[] arr, int n, String psf, ArrayList<String> ans) {
+        if (n == 0) {
+            ans.add(psf);
+            return 1;
+        }
+
+        int count = 0;
+        for (int i = 1; i < arr.length && (n - arr[i]) >= 0; i++) {
+            count += boardPath(n - arr[i], psf + arr[i], ans);
+        }
+
+        return count;
+    }
+
+    public static int mazePath_HVD(int sr, int sc, int er, int ec, String psf,
+            ArrayList<String> ans, int[][] dir, String[] dirS) {
+        if (sr == er && sc == ec) {
+            ans.add(psf);
+            return 1;
+        }
+
+        int count = 0;
+        for (int d = 0; d < dir.length; d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+
+            if (r >= 0 && c >= 0 && r <= er && c <= ec) {
+                count += mazePath_HVD(r, c, er, ec, psf + dirS[d], ans, dir, dirS);
+            }
+        }
+
+        return count;
+    }
+
+    public static int mazePath_HVD_multi(int sr, int sc, int er, int ec, String psf,
+            ArrayList<String> ans, int[][] dir, String[] dirS) {
+        if (sr == er && sc == ec) {
+            ans.add(psf);
+            return 1;
+        }
+
+        int count = 0;
+        for (int d = 0; d < dir.length; d++) {
+            for (int rad = 1; rad <= Math.max(er, ec); rad++) {
+                int r = sr + rad * dir[d][0];
+                int c = sc + rad * dir[d][1];
+
+                if (r >= 0 && c >= 0 && r <= er && c <= ec) {
+                    count += mazePath_HVD_multi(r, c, er, ec, psf + dirS[d] + rad, ans, dir, dirS);
+                } else
+                    break;
+            }
+        }
+
+        return count;
+    }
+
+    public static void mazePath() {
+        int[][] dir = { { 0, 1 }, { 1, 0 }, { 1, 1 } };
+        String[] dirS = { "H", "V", "D" };
+
+        ArrayList<String> ans = new ArrayList<>();
+        System.out.println(mazePath_HVD_multi(0, 0, 2, 2, "", ans, dir, dirS));
+        // mazePath_HVD(0, 0, 2, 2, "", ans, dir, dirS);
+        System.out.println(ans);
+    }
 
     // // https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
 
@@ -251,7 +330,8 @@ public class Recursion {
         // System.out.println(n);
         // printIncreasing(1, 6);
         // System.out.println(power(12, 5));
-        ArrayList<String> ans = nokiaKeyPad("78");
-        System.out.println(ans);
+        // ArrayList<String> ans = mazePath();
+        // System.out.println(ans);
+        mazePath();
     }
 }

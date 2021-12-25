@@ -1,6 +1,7 @@
 package questions;
 
 public class Leetcode_52 {
+    // 381 ms
     class Solution {
         public int totalNQueens(int n) {
             boolean[][] box = new boolean[n][n];
@@ -42,6 +43,71 @@ public class Leetcode_52 {
                 }
             }
             return true;
+        }
+    }
+
+    // 91 ms
+    class Solution2 {
+
+        public boolean[] row, col, diag, adiag;
+
+        public int totalNQueens(int n) {
+            row = new boolean[n];
+            col = new boolean[n];
+            diag = new boolean[n + n - 1];
+            adiag = new boolean[n + n - 1];
+            return Nqueen_05(0, n, n, n);
+        }
+
+        public int Nqueen_05(int bno, int tnq, int n, int m) { // single combination
+            if (tnq == 0)
+                return 1;
+
+            int count = 0;
+            for (int b = bno; b < n * m; b++) {
+                int r = b / m;
+                int c = b % m;
+                if (!row[r] && !col[c] && !diag[r + c] && !adiag[r - c + m - 1]) {
+                    row[r] = col[c] = diag[r + c] = adiag[r - c + m - 1] = true;
+                    count += Nqueen_05(b + 1, tnq - 1, n, m);
+                    row[r] = col[c] = diag[r + c] = adiag[r - c + m - 1] = false;
+                }
+            }
+
+            return count;
+        }
+    }
+
+    // 1 ms
+    class Solution3 {
+        // ek row me queen place karne ke baad direct next row me ja rhe h
+        // and place karne se phele col diag and adiag check kar rhe h safe h ya nhi
+
+        public boolean[] row, col, diag, adiag;
+
+        public int totalNQueens(int n) {
+            row = new boolean[n];
+            col = new boolean[n];
+            diag = new boolean[n + n - 1];
+            adiag = new boolean[n + n - 1];
+            return Nqueen_06(0, n, n, n);
+        }
+
+        public int Nqueen_06(int floor, int tnq, int n, int m) { // single combination
+            if (tnq == 0)
+                return 1;
+
+            int count = 0;
+            for (int room = 0; room < m; room++) {
+                int r = floor, c = room;
+                if (!row[r] && !col[c] && !diag[r + c] && !adiag[r - c + m - 1]) {
+                    col[c] = diag[r + c] = adiag[r - c + m - 1] = true;
+                    count += Nqueen_06(floor + 1, tnq - 1, n, m);
+                    col[c] = diag[r + c] = adiag[r - c + m - 1] = false;
+                }
+            }
+
+            return count;
         }
     }
 }

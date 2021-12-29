@@ -80,26 +80,26 @@ public class bits {
 
     // 338
     public int[] countBits(int n) {
-        int [] ans = new int[n + 1];
-        for(int i = 0;i <= n ;i++){
+        int[] ans = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
             int count = 0;
             int num = i;
-            while(num != 0){
+            while (num != 0) {
                 count++;
                 num = num & (num - 1);
             }
             ans[i] = count;
         }
-        
+
         return ans;
     }
 
     public int[] countBits_02(int n) {
-        int [] ans = new int[n + 1];
-        for(int i = 1;i <= n ;i++){
-            ans[i] = ans[ i & (i - 1)] + 1;
+        int[] ans = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            ans[i] = ans[i & (i - 1)] + 1;
         }
-        
+
         return ans;
     }
 
@@ -107,22 +107,85 @@ public class bits {
     public int missingNumber(int[] nums) {
         int ans = 0;
         int i = 0;
-        for(int ele : nums){
+        for (int ele : nums) {
             ans ^= ele;
             ans ^= i;
             i++;
         }
-        
+
         return ans ^ i;
     }
 
     public int missingNumber_02(int[] nums) {
         int ans = 0;
         int n = nums.length;
-        for(int ele : nums){
+        for (int ele : nums) {
             ans += ele;
         }
-        
+
         return ((n * (n + 1)) / 2) - ans;
+    }
+
+    /// 260
+    public int[] singleNumber_3(int[] nums) {
+        int xor = 0;
+        for (int ele : nums)
+            xor ^= ele;
+        int xor_mask = (xor & (-xor)); // last set bit nikalega // minus means 2's complement
+        int A = 0, B = 0;
+        for (int ele : nums) {
+            if ((xor_mask & ele) == 0)
+                A ^= ele;
+            else
+                B ^= ele;
+        }
+
+        return new int[] { A, B };
+    }
+
+    // 389
+    public char findTheDifference(String s, String t) {
+        char ans = '0';
+        for (int i = 0; i < s.length(); i++)
+            ans ^= s.charAt(i);
+
+        for (int i = 0; i < t.length(); i++)
+            ans ^= t.charAt(i);
+
+        ans ^= '0';
+        return ans;
+    }
+
+    // 287
+    public int findDuplicate(int[] nums) {
+        int ans = -1;
+        for (int i = 0; i < nums.length - 1; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if ((nums[i] ^ nums[j]) == 0) {
+                    ans = nums[i];
+                    break;
+                }
+            }
+        }
+
+        return ans;
+    }
+
+    // 137
+    public int singleNumber_2(int[] nums) {
+        int k = 3;
+        int ans = 0;
+        for (int i = 0; i < 32; i++) {
+            int mask = (1 << i);
+            int count = 0;
+            for (int ele : nums) {
+                if ((ele & mask) != 0)
+                    count++;
+            }
+
+            ans |= (count % k) != 0 ? mask : 0;
+        }
+
+        return ans;
     }
 }

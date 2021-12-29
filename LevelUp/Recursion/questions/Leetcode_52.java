@@ -110,4 +110,37 @@ public class Leetcode_52 {
             return count;
         }
     }
+
+    // 0 ms
+    class Solution4 {
+
+        public int c = 0, d = 0, ad = 0;
+
+        public int totalNQueens(int n) {
+            return Nqueen_08(0, n, n, n);
+        }
+
+        public int Nqueen_08(int n, int m, int floor, int tnq) {
+            if (tnq == 0) {
+                return 1;
+            }
+
+            int count = 0;
+
+            for (int room = 0; room < m; room++) {
+                int row = floor, col = room;
+                if ((c & (1 << col)) == 0 && (d & (1 << (row + col))) == 0 && (ad & (1 << (row - col + m - 1))) == 0) {
+                    c ^= (1 << col);
+                    d ^= (1 << (row + col));
+                    ad ^= (1 << (row - col + m - 1));
+                    count += Nqueen_08(n, m, floor + 1, tnq - 1);
+                    c ^= (1 << col);
+                    d ^= (1 << (row + col));
+                    ad ^= (1 << (row - col + m - 1));
+                }
+            }
+
+            return count;
+        }
+    }
 }

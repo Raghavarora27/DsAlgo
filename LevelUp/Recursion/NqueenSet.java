@@ -199,6 +199,33 @@ public class NqueenSet {
         return count;
     }
 
+    static int r = 0, c = 0, d = 0, ad = 0;
+
+    // using bits (fully optimised)
+    public static int Nqueen_08(int n, int m, int floor, int tnq, String asf) {
+        if (tnq == 0) {
+            System.out.println(asf);
+            return 1;
+        }
+        
+        int count = 0;
+
+        for (int room = 0; room < m; room++) {
+            int row = floor, col = room;
+            if ((c & (1 << col)) == 0 && (d & (1 << (row + col))) == 0 && (ad & (1 << (row - col + m - 1))) == 0) {
+                c ^= (1 << col);
+                d ^= (1 << (row + col));
+                ad ^= (1 << (row - col + m - 1));
+                count += Nqueen_08(n, m, floor + 1, tnq - 1, asf + "(" + r + "," + c + ") ");
+                c ^= (1 << col);
+                d ^= (1 << (row + col));
+                ad ^= (1 << (row - col + m - 1));
+            }
+        }
+
+        return count;
+    }
+
     public static void main(String[] args) {
         // boolean[][] box = new boolean[4][4];
         // int bno = 0;
@@ -218,7 +245,7 @@ public class NqueenSet {
         String asf = "";
         // System.out.println(Nqueen_03(0, tnq, asf, row.length, col.length));
         // System.out.println(Nqueen_05(0, tnq, asf, row.length, col.length));
-        System.out.println(Nqueen_06(row.length, col.length,0, tnq, asf));
+        System.out.println(Nqueen_06(row.length, col.length, 0, tnq, asf));
         // System.out.println(Nqueen_07(0, tnq, asf, row.length, col.length));
 
     }

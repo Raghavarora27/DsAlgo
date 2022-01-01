@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Questions {
@@ -28,24 +29,24 @@ public class Questions {
         used[fup] = false;
     }
 
-    // hum maximum letter ki length nikal ke ,ei wala loop utna chala sakte h ,isse thoda optimise ho jayega
-	public static int wordBreak(String str, String ans, HashSet<String> dict){
-        if(str.length() == 0){
+    // hum maximum letter ki length nikal ke ,ei wala loop utna chala sakte h ,isse
+    // thoda optimise ho jayega
+    public static int wordBreak(String str, String ans, HashSet<String> dict) {
+        if (str.length() == 0) {
             System.out.println(ans);
             return 1;
         }
 
         int count = 0;
-        for(int ei = 0;ei < str.length();ei++){
+        for (int ei = 0; ei < str.length(); ei++) {
             String pWord = str.substring(0, ei + 1);
-            if(dict.contains(pWord)){
+            if (dict.contains(pWord)) {
                 count += wordBreak(str.substring(ei + 1), ans + pWord + " ", dict);
             }
         }
 
         return count;
-	}
-
+    }
 
     public static String max = "";
 
@@ -101,5 +102,69 @@ public class Questions {
         sb.setCharAt(j, c1);
 
         return sb.toString();
+    }
+
+    // crypto
+
+    public static int stringToInt(String str, HashMap<Character, Integer> CharIntMap) {
+        int res = 0;
+        for (int i = 0; i < str.length(); i++) {
+            res = res * 10 + CharIntMap.get(str.charAt(i));
+        }
+        return res;
+    }
+
+    public static void crypto(String unique, int idx, HashMap<Character, Integer> CharIntMap, boolean[] usedNumber,
+            String s1, String s2, String s3) {
+        if (idx == unique.length()) {
+            int x = stringToInt(s1, CharIntMap);
+            int y = stringToInt(s2, CharIntMap);
+            int z = stringToInt(s3, CharIntMap);
+
+            if (x + y == z) {
+                for (int i = 0; i < 26; i++) {
+                    char ch = (char) (i + 'a');
+                    if (CharIntMap.containsKey(ch))
+                        System.out.print(ch + "-" + CharIntMap.get(ch) + " ");
+                }
+                System.out.println();
+            }
+            return;
+        }
+
+        char ch = unique.charAt(idx);
+        for (int num = 0; num < 10; num++) {
+            if (!usedNumber[num]) {
+                usedNumber[num] = true;
+                CharIntMap.put(ch, num);
+
+                crypto(unique, idx + 1, CharIntMap, usedNumber, s1, s2, s3);
+
+                CharIntMap.remove(ch, num);
+                usedNumber[num] = false;
+            }
+        }
+    }
+
+    public static int equalSet(int[] arr, int idx, String set1, int sum1, String set2, int sum2) {
+        if (idx == arr.length) {
+            if (sum1 == sum2) {
+                System.out.println(set1 + " = " + set2);
+                return 1;
+            }
+            return 0;
+        }
+
+        int count = 0;
+        count += equalSet(arr, idx + 1, set1 + arr[idx] + " ", sum1 + arr[idx], set2, sum2);
+        count += equalSet(arr, idx + 1, set1, sum1, set2 + arr[idx] + " ", sum2 + arr[idx]);
+
+        return count;
+    }
+
+    public static void main(String [] args){
+        int [] arr = {10,20,30,40,50,60,70,80};
+        // equalSet(arr, 0, " ", 0, "", 0);
+        equalSet(arr, 1, "10 ", 10, "", 0); // to remove mirror sets // 10 ko 2nd set me jane se rok liya
     }
 }

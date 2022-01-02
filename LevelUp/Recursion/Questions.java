@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -160,6 +161,75 @@ public class Questions {
         count += equalSet(arr, idx + 1, set1, sum1, set2 + arr[idx] + " ", sum2 + arr[idx]);
 
         return count;
+    }
+
+    public static void kSubsets(int [] arr,int idx,int [] subsetSum,ArrayList<ArrayList<Integer>> ans){
+        if(idx == arr.length){
+            int s = subsetSum[0];
+            for(int ele : subsetSum)
+                if(ele != s)
+                    return;
+            
+            for(ArrayList<Integer> a : ans)
+                System.out.println(a + " ");
+            
+            return;
+        }
+
+        for(int k = 0;k < subsetSum.length;k++){
+            ArrayList<Integer> set = ans.get(k);
+            set.add(arr[idx]);
+            subsetSum[k] += arr[idx];
+            
+            kSubsets(arr, idx + 1, subsetSum, ans);
+            
+            subsetSum[k] -= arr[idx];
+            set.remove(set.size() - 1);
+            if(set.size() == 0)
+                break;
+        }
+    }
+
+    public static void equalSet(int [] arr,int k){
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        for(int i = 0;i < k;i++)
+            ans.add(new ArrayList<>());
+        
+        int sum = 0;
+        for(int ele : arr)
+            sum += ele;
+        
+        if(sum % k != 0)
+            return;
+        
+        int [] subsetSum = new int[k];
+        kSubsets(arr, 0, subsetSum, ans);
+        System.out.println(ans);
+    }
+
+    public static int count = 1;
+    public static void kPartition(int num,int TotalNum,ArrayList<ArrayList<Integer>> ans){
+        if(num > TotalNum){
+            if(ans.get(ans.size() - 1).size() == 0)
+                return;
+            
+            System.out.print(count++ + ". ");
+            for(ArrayList<Integer> a : ans)
+                System.out.print(a + " ");
+            System.out.println();
+
+            return;
+        }
+
+        for(ArrayList<Integer> a : ans){
+            a.add(num);
+
+            kPartition(num + 1, TotalNum, ans);
+
+            a.remove(a.size() - 1);
+            if(a.size() == 0)
+                break;
+        }
     }
 
     public static void main(String [] args){

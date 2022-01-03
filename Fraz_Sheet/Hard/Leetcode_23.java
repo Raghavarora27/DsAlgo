@@ -1,5 +1,4 @@
-package Fraz_Sheet;
-
+package Hard;
 import java.util.*;
 
 public class Leetcode_23 {

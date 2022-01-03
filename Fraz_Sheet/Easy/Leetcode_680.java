@@ -1,5 +1,4 @@
-package Fraz_Sheet;
-
+package Easy;
 public class Leetcode_680 {
     class Solution {
         public boolean validPalindrome(String s) {

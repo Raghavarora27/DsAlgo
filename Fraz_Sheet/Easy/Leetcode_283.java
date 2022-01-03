@@ -1,5 +1,4 @@
-package FrazSheet;
-
+package Easy;
 public class Leetcode_283 {
     // TC : O(n) SC : O(1)
     class Solution {

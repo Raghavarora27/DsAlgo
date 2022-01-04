@@ -61,7 +61,7 @@ public class sudoku {
 
     public void solveSudoku(char[][] board) {
         ArrayList<pair> arr = new ArrayList<>();
-        //  we are storing all the empty places of sudoku board in the arr
+        // we are storing all the empty places of sudoku board in the arr
         // taki hum directly unhi places pe jaye jo empty hai
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -111,7 +111,7 @@ public class sudoku {
         ArrayList<pair> arr = new ArrayList<>();
         rows = new int[9];
         cols = new int[9];
-        mat = new int[3][3];
+        mat = new int[3][3];    
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {

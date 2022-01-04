@@ -22,7 +22,7 @@ public class NqueenSet {
 
     public static boolean IsSafeToPlaceQueen(boolean[][] box, int sr, int sc) {
         int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
-
+        
         int n = box.length, m = box[0].length;
         for (int d = 0; d < dir.length; d++) {
             for (int rad = 1; rad <= n; rad++) { // checking in line
@@ -207,7 +207,7 @@ public class NqueenSet {
             System.out.println(asf);
             return 1;
         }
-        
+
         int count = 0;
 
         for (int room = 0; room < m; room++) {
@@ -247,6 +247,5 @@ public class NqueenSet {
         // System.out.println(Nqueen_05(0, tnq, asf, row.length, col.length));
         System.out.println(Nqueen_06(row.length, col.length, 0, tnq, asf));
         // System.out.println(Nqueen_07(0, tnq, asf, row.length, col.length));
-
     }
 }

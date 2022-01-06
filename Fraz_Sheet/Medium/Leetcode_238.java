@@ -1,4 +1,3 @@
-package Medium;
 public class Leetcode_238 {
     // O(n)
     class Solution {

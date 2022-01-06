@@ -38,7 +38,7 @@ public class NqueenSet {
 
         return true; // no other queen is in the way and hence this is safe to place the queen
     }
-
+    
     // permutation
     public static int Nqueen_02(boolean[][] box, int tnq, String asf) { // single permutation
         if (tnq == 0) {

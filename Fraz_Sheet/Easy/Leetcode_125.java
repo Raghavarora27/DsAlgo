@@ -1,4 +1,3 @@
-package Easy;
 public class Leetcode_125 {
     class Solution {
         public boolean isPalindrome(String s) {

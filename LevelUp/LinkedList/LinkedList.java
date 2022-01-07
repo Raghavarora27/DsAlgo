@@ -190,4 +190,178 @@ public class LinkedList {
 
         return odd.next;
     }
+
+    public static ListNode segregate01(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+
+        ListNode zero = new ListNode(-1), zp = zero;
+        ListNode one = new ListNode(-1), op = one;
+        ListNode curr = head;
+
+        while (curr != null) {
+            if (curr.val == 0) {
+                zp.next = curr;
+                zp = zp.next;
+
+            } else {
+                op.next = curr;
+                op = op.next;
+            }
+            curr = curr.next;
+        }
+
+        zp.next = op.next = null;
+        zp.next = one.next;
+
+        return zero.next;
+    }
+
+    public static ListNode segregate012(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+
+        ListNode zero = new ListNode(-1), zp = zero;
+        ListNode one = new ListNode(-1), op = one;
+        ListNode two = new ListNode(-1), tp = two;
+        ListNode curr = head;
+
+        while (curr != null) {
+            if (curr.val == 0) {
+                zp.next = curr;
+                zp = zp.next;
+
+            } else if (curr.val == 1) {
+                op.next = curr;
+                op = op.next;
+            } else {
+                tp.next = curr;
+                tp = tp.next;
+            }
+            curr = curr.next;
+        }
+
+        zp.next = op.next = tp.next = null;
+        op.next = two.next;
+        zp.next = one.next;
+
+        return zero.next;
+    }
+
+    // O(nlogn)
+    public static ListNode mergeSort(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+
+        ListNode midNode = mid(head);
+        ListNode nHead = midNode.next;
+        midNode.next = null;
+
+        return MergeTwoSortedLL(mergeSort(head), mergeSort(nHead));
+    }
+
+    // Divide and Conquer Technique (faster than priority queue method)
+    // O(nlogk + k)
+    public static ListNode mergeKLists(ListNode[] lists, int si, int ei) {
+        if (si == ei)
+            return lists[si];
+
+        int mid = (si + ei) / 2;
+        ListNode Leftlist = mergeKLists(lists, si, mid);
+        ListNode Rightlist = mergeKLists(lists, mid + 1, ei);
+
+        return MergeTwoSortedLL(Leftlist, Rightlist);
+    }
+
+    public static ListNode mergeKLists(ListNode[] lists) {
+        if (lists.length == 0)
+            return null;
+
+        return mergeKLists(lists, 0, lists.length - 1);
+    }
+
+    private static void addFirstNode(ListNode node) {
+        if (th == null) {
+            th = tt = node;
+        } else {
+            node.next = th;
+            th = node;
+        }
+    }
+
+    public static int length(ListNode head) {
+        if (head == null)
+            return 0;
+        int len = 0;
+        ListNode temp = head;
+        while (temp != null) {
+            len++;
+            temp = temp.next;
+        }
+
+        return len;
+    }
+
+    public static ListNode th = null, tt = null;
+
+    public static ListNode reverseInKGroup(ListNode head, int k) {
+        if (head == null || head.next == null || k <= 1)
+            return head;
+
+        int len = length(head);
+        ListNode curr = head, oh = null, ot = null;
+        while (len >= k) {
+            int tempk = k;
+            while (tempk-- > 0) {
+                ListNode forw = curr.next;
+                curr.next = null;
+                addFirstNode(curr);
+                curr = forw;
+            }
+
+            if (oh == null) {
+                oh = th;
+                ot = tt;
+            } else {
+                ot.next = th;
+                ot = tt;
+            }
+
+            th = tt = null;
+            len -= k;
+        }
+        ot.next = curr;
+        return oh;
+    }
+
+    // O(m)
+    public static ListNode reverseInRange(ListNode head,int n,int m){
+        if(head == null || head.next == null || n == m) 
+            return head;
+        
+        ListNode dummy = new ListNode(-1), prev = dummy,curr = head;
+        int i = 1;
+        while(i <= m){
+            while(i >= n && i <= m){
+                ListNode forw = curr.next;
+                curr.next  = null;
+                addFirstNode(curr);
+                curr = forw;
+                i++;
+            }
+
+            if(i > m){
+                prev.next = th;
+                tt.next = curr;
+                break;
+            }
+
+            i++;
+            prev.next = curr;
+            prev = curr;
+            curr = curr.next;
+        }
+
+        return dummy.next;
+    }
 }

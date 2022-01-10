@@ -1,7 +1,10 @@
+import java.util.HashSet;
+
 public class LinkedList {
     public static class ListNode {
         int val = 0;
         ListNode next = null;
+        ListNode random = null;
 
         ListNode(int val) {
             this.val = val;
@@ -335,22 +338,22 @@ public class LinkedList {
     }
 
     // O(m)
-    public static ListNode reverseInRange(ListNode head,int n,int m){
-        if(head == null || head.next == null || n == m) 
+    public static ListNode reverseInRange(ListNode head, int n, int m) {
+        if (head == null || head.next == null || n == m)
             return head;
-        
-        ListNode dummy = new ListNode(-1), prev = dummy,curr = head;
+
+        ListNode dummy = new ListNode(-1), prev = dummy, curr = head;
         int i = 1;
-        while(i <= m){
-            while(i >= n && i <= m){
+        while (i <= m) {
+            while (i >= n && i <= m) {
                 ListNode forw = curr.next;
-                curr.next  = null;
+                curr.next = null;
                 addFirstNode(curr);
                 curr = forw;
                 i++;
             }
 
-            if(i > m){
+            if (i > m) {
                 prev.next = th;
                 tt.next = curr;
                 break;
@@ -363,5 +366,438 @@ public class LinkedList {
         }
 
         return dummy.next;
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null || l2 == null)
+            return l1 != null ? l1 : l2;
+
+        l1 = reverse(l1);
+        l2 = reverse(l2);
+
+        ListNode dummy = new ListNode(-1);
+        ListNode ans = dummy;
+
+        ListNode c1 = l1, c2 = l2;
+        int carry = 0;
+        while (c1 != null || c2 != null || carry != 0) {
+            int sum = (c1 != null ? c1.val : 0) + (c2 != null ? c2.val : 0) + carry;
+
+            carry = sum / 10;
+            sum %= 10;
+
+            ans.next = new ListNode(sum);
+            ans = ans.next;
+
+            if (c1 != null)
+                c1 = c1.next;
+
+            if (c2 != null)
+                c2 = c2.next;
+        }
+
+        ListNode head = dummy.next;
+        head = reverse(head);
+
+        l1 = reverse(l1);
+        l2 = reverse(l2);
+
+        return head;
+    }
+
+    public static int getLength(ListNode head) {
+        if (head == null)
+            return 0;
+        int len = 0;
+        ListNode temp = head;
+        while (temp != null) {
+            len++;
+            temp = temp.next;
+        }
+
+        return len;
+    }
+
+    public static boolean IsBiggerList(ListNode l1, ListNode l2) {
+        int len1 = getLength(l1), len2 = getLength(l2);
+        if (len1 > len2)
+            return true;
+        else if (len2 > len1)
+            return false;
+
+        ListNode c1 = l1, c2 = l2;
+        while (c1 != null) {
+            if (c1.val > c2.val)
+                return true;
+            else if (c1.val < c2.val)
+                return false;
+            c1 = c1.next;
+            c2 = c2.next;
+        }
+
+        return true;
+    }
+
+    public static ListNode subtractTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode c1 = null, c2 = null;
+        if (IsBiggerList(l1, l2)) {
+            c1 = reverse(l1);
+            c2 = reverse(l2);
+        } else {
+            c1 = reverse(l2);
+            c2 = reverse(l1);
+        }
+
+        ListNode dummy = new ListNode(-1);
+        ListNode ans = dummy;
+
+        int borrow = 0;
+        while (c1 != null || c2 != null) {
+            int diff = (c1 != null ? c1.val : 0) - (c2 != null ? c2.val : 0) + borrow;
+
+            if (diff < 0) {
+                borrow = -1;
+                diff += 10;
+            } else {
+                borrow = 0;
+            }
+
+            ans.next = new ListNode(diff);
+            ans = ans.next;
+
+            if (c1 != null)
+                c1 = c1.next;
+
+            if (c2 != null)
+                c2 = c2.next;
+        }
+
+        ListNode res = reverse(dummy.next);
+        ans = dummy;
+        ans.next = null;
+        ListNode curr = res;
+        while (curr != null) {
+            if (curr.val != 0) {
+                ans.next = curr;
+                break;
+            }
+
+            ListNode forw = curr.next;
+            curr.next = null;
+            curr = forw;
+        }
+
+        return dummy.next != null ? dummy.next : new ListNode(0);
+    }
+
+    public static ListNode multiplyDigit(ListNode list, int d) {
+        ListNode dummy = new ListNode(-1), curr = list, prev = dummy;
+
+        int carry = 0;
+        while (curr != null || carry != 0) {
+            int ans = carry + (curr != null ? curr.val : 0) * d;
+            int digits = ans % 10;
+            carry = ans / 10;
+
+            prev.next = new ListNode(digits);
+            prev = prev.next;
+
+            if (curr != null)
+                curr = curr.next;
+        }
+
+        return dummy.next;
+    }
+
+    public static void addList(ListNode prev, ListNode list) {
+        int carry = 0;
+        while (list != null || carry != 0) {
+            int sum = carry + (list != null ? list.val : 0) + (prev.next != null ? prev.next.val : 0);
+            int digit = sum % 10;
+            carry = sum / 10;
+
+            if (prev.next != null)
+                prev.next.val = digit;
+            else
+                prev.next = new ListNode(digit);
+
+            prev = prev.next;
+
+            if (list != null)
+                list = list.next;
+        }
+    }
+
+    public static ListNode multiplyTwoLL(ListNode l1, ListNode l2) {
+        l1 = reverse(l1);
+        l2 = reverse(l2);
+
+        ListNode ans = new ListNode(-1), prev = ans;
+        while (l2 != null) {
+            ListNode multipliedList = multiplyDigit(l1, l2.val);
+            addList(prev, multipliedList);
+            prev = prev.next;
+            l2 = l2.next;
+        }
+        return reverse(ans.next);
+    }
+
+    /// Copy Linkedlist With Random Pointers // Example of Deep Copy
+    public static void copyList(ListNode head) {
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode forw = curr.next;
+            ListNode node = new ListNode(curr.val);
+
+            curr.next = node;
+            node.next = forw;
+
+            curr = forw;
+        }
+    }
+
+    public static void copyRandoms(ListNode head) {
+        ListNode curr = head;
+        while (curr != null) {
+            if (curr.random != null) {
+                curr.next.random = curr.random.next;
+            }
+
+            curr = curr.next.next;
+        }
+    }
+
+    public static ListNode extractList(ListNode head) {
+        ListNode curr = head, dummy = new ListNode(-1), prev = dummy;
+        while (curr != null) {
+            ListNode forw = curr.next.next; // backup
+
+            prev.next = curr.next; // links
+            curr.next = forw;
+
+            curr = forw; // move
+            prev = prev.next;
+        }
+
+        return dummy.next;
+    }
+
+    public static ListNode copyRandomList(ListNode head) {
+        copyList(head);
+        copyRandoms(head);
+        return extractList(head);
+    }
+
+    // 141
+    public boolean hasCycle(ListNode head) {
+        HashSet<ListNode> set = new HashSet<>();
+
+        ListNode curr = head;
+        while (curr != null) {
+            if (set.contains(curr))
+                return true;
+            else
+                set.add(curr);
+            curr = curr.next;
+        }
+
+        return false;
+    }
+
+    public boolean hasCycle2(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast)
+                return true;
+        }
+
+        return false;
+    }
+
+    // 142
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                break;
+            }
+        }
+
+        if (slow != fast)
+            return null;
+
+        slow = head;
+        while (slow != fast) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        return slow;
+    }
+
+    // 160
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int l1 = length(headA);
+        int l2 = length(headB);
+        int count = Math.abs(l1 - l2);
+
+        ListNode c1 = headA;
+        ListNode c2 = headB;
+        if (l1 > l2) {
+            while (count-- > 0) {
+                c1 = c1.next;
+            }
+        } else {
+            while (count-- > 0) {
+                c2 = c2.next;
+            }
+        }
+
+        while (c2 != null) {
+            if (c1 == c2)
+                return c2;
+            c1 = c1.next;
+            c2 = c2.next;
+        }
+        return null;
+    }
+
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null)
+            return null;
+
+        ListNode tail = headA;
+        while (tail.next != null)
+            tail = tail.next;
+
+        tail.next = headB;
+
+        ListNode ans = detectCycle(headA);
+
+        tail.next = null;
+
+        return ans;
+    }
+
+    // All Variable
+    public int getCycleLen(ListNode mp) {
+        int cycleLen = 1;
+        ListNode curr = mp.next;
+
+        while (curr != mp) {
+            curr = curr.next;
+            cycleLen++;
+        }
+
+        return cycleLen;
+    }
+
+    public ListNode cycleVariable(ListNode head) {
+        if (head == null || head.next == null)
+            return null;
+
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow)
+                break;
+        }
+
+        if (slow != fast)
+            return null;
+
+        slow = head;
+        ListNode mp = fast; // meetingPoint
+        int cycleCount = 0;
+        int A = 0;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+
+            if (mp == fast)
+                cycleCount++;
+            A++;
+        }
+
+        int cycleLen = getCycleLen(mp);
+        int m = 0, C = 0, B = 0;
+        if (A != 0 && A % cycleLen == 0) {
+            m = cycleCount - 1;
+            B = cycleLen;
+        } else {
+            m = cycleCount + 1;
+            C = A - cycleCount * cycleLen;
+            B = cycleLen - C;
+        }
+
+        return slow;
+    }
+
+    public static ListNode segregateOnLastIndex(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+
+        ListNode pivotNode = head;
+        while (pivotNode.next != null) {
+            pivotNode = pivotNode.next;
+        }
+
+        ListNode smaller = new ListNode(-1), larger = new ListNode(-1), sp = smaller, lp = larger, curr = head;
+        while (curr != null) {
+            if (curr.val <= pivotNode.val) {
+                sp.next = curr;
+                sp = sp.next;
+            } else {
+                lp.next = curr;
+                lp = lp.next;
+            }
+
+            curr = curr.next;
+        }
+
+        sp.next = lp.next = null;
+        sp.next = larger.next;
+
+        return pivotNode;
+    }
+
+    public static ListNode segregate(ListNode head, int pivotIdx) {
+        if (head == null || head.next == null)
+            return head;
+
+        ListNode pivotNode = head;
+        while (pivotIdx-- > 0) {
+            pivotNode = pivotNode.next;
+        }
+
+        ListNode smaller = new ListNode(-1), larger = new ListNode(-1), sp = smaller, lp = larger, curr = head;
+        while (curr != null) {
+            if (curr != pivotNode && curr.val <= pivotNode.val) {
+                sp.next = curr;
+                sp = sp.next;
+            } else if (curr != pivotNode) {
+                lp.next = curr;
+                lp = lp.next;
+            }
+
+            curr = curr.next;
+        }
+
+        sp.next = lp.next = pivotNode.next = null;
+        sp.next = pivotNode;
+        pivotNode.next = larger.next;
+
+        return smaller.next;
     }
 }

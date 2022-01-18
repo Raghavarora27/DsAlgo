@@ -800,4 +800,71 @@ public class LinkedList {
 
         return smaller.next;
     }
+
+    // =================================================================================================================
+    // QUICK SORT
+    // Full chance hote h TC : O(n^2) ko approach kar jayegi islie LL me Quicksort
+    // achi nhi hoti
+
+    // {left_LL,PivotNode,Right_LL}
+    public static ListNode[] getSegregate(ListNode head, int pivotIdx) {
+        if (head == null || head.next == null)
+            return new ListNode[] { null, head, null };
+
+        ListNode pivotNode = head;
+        while (pivotIdx-- > 0)
+            pivotNode = pivotNode.next;
+
+        ListNode smaller = new ListNode(-101), sp = smaller, greater = new ListNode(-101), gp = greater, curr = head;
+        while (curr != null) {
+            if (curr != pivotNode && curr.val < pivotNode.val) {
+                sp.next = curr;
+                sp = sp.next;
+            } else if (curr != pivotNode) {
+                gp.next = curr;
+                gp = gp.next;
+            }
+            curr = curr.next;
+        }
+
+        sp.next = gp.next = pivotNode.next = null;
+
+        return new ListNode[] { smaller.next, pivotNode, greater.next };
+    }
+
+    public static ListNode[] mergeLists(ListNode[] left, ListNode pivoteNode, ListNode[] right) {
+        ListNode fh = null, ft = null;
+        if (left[0] != null && right[0] != null) {
+            fh = left[0];
+            left[1].next = pivoteNode;
+            pivoteNode.next = right[0];
+            ft = right[1];
+        } else if (left[0] == null && right[0] == null) {
+            ft = fh = pivoteNode;
+        } else if (left[0] == null) { // right exist karega
+            fh = pivoteNode;
+            pivoteNode.next = right[0];
+            ft = right[1];
+        } else {
+            fh = left[0];
+            left[1].next = pivoteNode;
+            ft = pivoteNode;
+        }
+
+        return new ListNode[] { fh, ft };
+    }
+
+    // {head,tail}
+    public static ListNode[] quickSort(ListNode head) {
+        if (head == null || head.next == null)
+            return new ListNode[] { head, head };
+
+        int len = getLength(head);
+        ListNode[] segregatetNodes = getSegregate(head, len / 2); // here midNode or len / 2 is the pivoteNode
+
+        ListNode[] left = quickSort(segregatetNodes[0]); // left and right me {head,tail} hoga
+        ListNode[] right = quickSort(segregatetNodes[2]);
+
+        return mergeLists(left, segregatetNodes[1], right);
+    }
 }

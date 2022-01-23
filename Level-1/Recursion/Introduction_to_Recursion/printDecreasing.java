@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class printDecreasing {
@@ -7,14 +6,15 @@ public class printDecreasing {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         printdecreasing(n);
+        sc.close();
     }
 
-    public static void printdecreasing(int n){
-        if(n < 1)
+    public static void printdecreasing(int n) {
+        if (n < 1)
             return;
-        
+
         System.out.println(n);
-        printdecreasing(n-1);
+        printdecreasing(n - 1);
     }
 
 }

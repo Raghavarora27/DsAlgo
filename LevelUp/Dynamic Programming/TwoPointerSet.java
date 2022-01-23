@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class TwoPointerSet {
     // 1_Faith
     // 2_RecursiveTree
@@ -15,6 +17,8 @@ public class TwoPointerSet {
     // lekin next time uspe maine dobara kaam kiya toh mujhe time nhi laga
 
     // /// // Important -- find the real life example of all the ds
+    // Top to down means recursion se karna 
+    // Bottom to top means tabulation
 
     public static void display(int[] dp) {
         for (int ele : dp)
@@ -250,7 +254,7 @@ public class TwoPointerSet {
             }
 
             char ch = s.charAt(idx);
-            if (ch == '0'){
+            if (ch == '0') {
                 dp[idx] = 0;
                 continue;
             }
@@ -272,14 +276,13 @@ public class TwoPointerSet {
     public static int numDecodings_opti(String s) {
         int a = 1, b = 0;
         for (int idx = s.length() - 1; idx >= 0; idx--) {
-            
+
             char ch = s.charAt(idx);
             int sum = 0;
-            if (ch != '0'){
-                
+            if (ch != '0') {
+
                 sum += a;
 
-                
                 if (idx < s.length() - 1) {
                     char ch1 = s.charAt(idx + 1);
                     int num = (ch - '0') * 10 + (ch1 - '0');
@@ -288,14 +291,15 @@ public class TwoPointerSet {
                 }
 
             }
-            
+
             b = a;
             a = sum;
         }
         return a;
     }
 
-    int mod = (int) 1e9 + 7;
+    public static int mod = (int) 1e9 + 7;
+
     public long numDecodingsStar(String s, int idx, long[] dp) {
         int n = s.length();
         if (idx == n) {
@@ -305,11 +309,9 @@ public class TwoPointerSet {
         if (dp[idx] != -1)
             return dp[idx];
 
-        
         char ch = s.charAt(idx);
-        if (ch == '0') {
+        if (ch == '0')
             return dp[idx] = 0;
-        }
 
         long count = 0;
         if (ch == '*') {
@@ -320,7 +322,7 @@ public class TwoPointerSet {
                 if (ch1 >= '0' && ch1 <= '6')
                     count = (count + 2 * numDecodingsStar(s, idx + 2, dp)) % mod;
                 else if (ch1 >= '7' && ch1 <= '9')
-                    count = (count + numDecodingsStar(s, idx + 2, dp)) % mod;
+                    count = (count + 1 * numDecodingsStar(s, idx + 2, dp)) % mod;
                 else
                     count = (count + 15 * numDecodingsStar(s, idx + 2, dp)) % mod;
             }
@@ -331,12 +333,10 @@ public class TwoPointerSet {
                 char ch1 = s.charAt(idx + 1);
                 if (ch1 == '*' && ch == '1') {
                     count = (count + 9 * numDecodingsStar(s, idx + 2, dp)) % mod;
-                }
-                else if (ch1 == '*' && ch == '2') {
+                } else if (ch1 == '*' && ch == '2') {
                     count = (count + 6 * numDecodingsStar(s, idx + 2, dp)) % mod;
-                } 
-                else if(ch1 != '*'){
-                    int num = (ch1 - '0') * 10 + (ch1 - '0');
+                } else if (ch1 != '*') {
+                    int num = (ch - '0') * 10 + (ch1 - '0');
                     if (num <= 26)
                         count = (count + 1 * numDecodingsStar(s, idx + 2, dp)) % mod;
                 }
@@ -345,6 +345,107 @@ public class TwoPointerSet {
 
         return dp[idx] = count;
     }
+
+    public static int goldMine(int[][] arr, int sr, int sc, int[][] dir, int[][] dp) {
+        int n = arr.length, m = arr[0].length;
+        if (sc == m)
+            return dp[sr][sc] = arr[sr][sc];
+
+        if (dp[sr][sc] != -1)
+            return dp[sr][sc];
+
+        int maxGold = 0;
+        for (int[] d : dir) {
+            int r = sr + d[0];
+            int c = sc + d[1];
+
+            if (r >= 0 && c >= 0 && r < n && c < m) {
+                maxGold = Math.max(maxGold, goldMine(arr, r, c, dir, dp) + arr[sr][sc]);
+            }
+        }
+
+        return dp[sr][sc] = maxGold;
+    }
+
+    public static void goldmine() {
+        int[][] arr = { { 10, 33, 13, 15 }, { 22, 21, 04, 1 }, { 5, 0, 2, 3 }, { 0, 6, 14, 2 } };
+        int[][] dir = { { 0, 1 }, { 1, 1 }, { -1, 1 } };
+        int[][] dp = new int[arr.length][arr[0].length];
+
+        int maxGold = 0;
+        for (int[] d : dp)
+            Arrays.fill(d, -1);
+
+        for (int r = 0; r < arr.length; r++) {
+            maxGold = Math.max(maxGold, goldMine(arr, r, 0, dir, dp));
+        }
+    }
+
+    public static long countFriendsPairing(int n, long[] dp) {
+        if (n == 0)
+            return dp[n] = 1;
+
+        if (dp[n] != -1)
+            return dp[n];
+
+        long single = countFriendsPairing(n - 1, dp);
+        long pairUp = (n - 2) >= 0 ? countFriendsPairing(n - 2, dp) * (n - 1) : 0;
+
+        return dp[n] = (single + pairUp % mod) % mod;
+    }
+
+    public static long countFriendsPairing(int n) {
+        if(n == 0)
+            return 0;
+        long[] dp = new long[n + 1];
+        Arrays.fill(dp, -1);
+        return countFriendsPairing(n, dp);
+    }
+
+    public static long countFriendsPairing_opti(int n) {
+        long a = 1, b = 1;
+        for(int i = 2; i <= n; i++){
+            long sum = b + (a * (i - 1))  % mod;
+            a = b;
+            b = sum % mod;
+        }
+        return b;
+    }
+
+    // O(n*k)
+    public static int divideInKGroup(int n,int k,int [][] dp){
+        if( n == k || k == 1 )
+            return dp[n][k] = 1;
+        
+        if(dp[n][k] != 0)
+            return dp[n][k];
+        
+        int selfGroup = divideInKGroup(n - 1, k - 1, dp);
+        int partOfGroup = divideInKGroup(n - 1, k, dp) * k;
+
+        return dp[n][k] = selfGroup + partOfGroup;
+    }
+    
+    // left to right and top to bottom
+    public static int divideInKGroup_tabu(int N,int K,int [][] dp){
+        
+        for(int n = 1;n <= N;n++){
+            for(int k = 1;k <= K; k++){
+                if( n == k || k == 1 ){
+                    dp[n][k] = 1;
+                    continue;
+                }
+
+                int selfGroup = dp[n - 1][k - 1];  //divideInKGroup(n - 1, k - 1, dp);
+                int partOfGroup = dp[n - 1][k] * k; //divideInKGroup(n - 1, k, dp) * k;
+        
+                dp[n][k] = selfGroup + partOfGroup;
+            }
+        }
+
+        return dp[N][K];
+    }
+
     public static void main(String[] args) {
         // fibo();
         mazePath();

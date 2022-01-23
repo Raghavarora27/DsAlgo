@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class powerLogarithmic {
@@ -8,6 +7,7 @@ public class powerLogarithmic {
         int a = sc.nextInt();
         int b = sc.nextInt();
         System.out.print(power(a,b));
+        sc.close();
     }
 
     public static int power(int x, int n){

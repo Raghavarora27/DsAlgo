@@ -6,14 +6,15 @@ public class printIncreasingDecreasing {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         printincreasingdecreasing(n);
+        sc.close();
     }
 
-    public static void printincreasingdecreasing(int n){
-        if(n < 1)
+    public static void printincreasingdecreasing(int n) {
+        if (n < 1)
             return;
-        
+
         System.out.println(n);
-        printincreasingdecreasing(n-1);
+        printincreasingdecreasing(n - 1);
         System.out.println(n);
     }
 

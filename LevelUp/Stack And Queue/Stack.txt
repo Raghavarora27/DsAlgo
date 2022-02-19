@@ -1,0 +1,42 @@
+1. Implement Stack Class
+    - private variables
+    - constructor
+    - initialize
+    - Exceptions
+    - display
+    - size and capacity
+    - push
+    - peek
+    - pop
+    - stack dynamic class
+
+2. Stack using Queue (using LL) Push efficient and Pop efficient
+3. Queue using Stack (using LL) Push efficient and Pop efficient
+4. NGOR,NGOL,NSOR,NSOL
+5. nextGreaterElements (503)
+6. find anagrams (438)
+7. StockSpan (GFG)
+8. StockSpanner (901)
+9. isValid (20)
+10. dailyTemperatures (739)
+11. asteroidCollision (735)
+12. validateStackSequences (946)
+13. scoreOfParentheses (856)
+14. largestRectangleArea (84)
+15. maximalRectangle (85)
+16. longestValidParentheses (32)
+17. removeKdigits (402)
+18. removeDuplicateLetters (316 && 1081)
+19. minRemoveToMakeValid (1249)
+20. minAddToMakeValid (921)
+21. Maximum Frequency Stack (895)
+22. Optimise Ques-21
+23. Min Stack (155)
+
+
+
+Imp. Note -- If A is the parent class of B
+then  A st = new A();    -- Valid hai
+      B st = new B();    -- Valid hai
+      A st = new B();    -- Valid hai    (A parent hai toh A unhe functions ki maang karega jo A me hai aur B me A ke sare funtions + extra functions hai)
+      B st = new A();    -- Invalid hai  (Lekin yaha par B maang karsakta h un functions ko jo A me nhi h)

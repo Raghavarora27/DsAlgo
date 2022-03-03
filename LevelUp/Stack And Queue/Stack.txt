@@ -32,7 +32,8 @@
 21. Maximum Frequency Stack (895)
 22. Optimise Ques-21
 23. Min Stack (155)
-
+24. Exclusive Time of Functions (636)
+25. carFleet (853)
 
 
 Imp. Note -- If A is the parent class of B

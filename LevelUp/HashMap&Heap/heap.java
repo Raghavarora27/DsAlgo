@@ -10,7 +10,7 @@ public class heap {
     }
 
     // O(n + nlogn)
-    public heap(int[] arr,boolean IsMaxHeap) {
+    public heap(int[] arr, boolean IsMaxHeap) {
         this(IsMaxHeap);
         for (int ele : arr)
             this.arr.add(ele);

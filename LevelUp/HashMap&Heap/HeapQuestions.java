@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -275,4 +276,167 @@ public class HeapQuestions {
 
         return minHeight;
     }
+
+    // 1642. Furthest Building You Can Reach
+    public int furthestBuilding(int[] heights, int bricks, int ladders) {
+        int n = heights.length;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for (int i = 1; i < n; i++) {
+            int currDiff = heights[i] - heights[i - 1];
+            if (currDiff > 0) {
+                pq.add(currDiff);
+                if (pq.size() > ladders)
+                    bricks -= pq.remove();
+                if (bricks < 0)
+                    return i - 1;
+            }
+        }
+
+        return n - 1;
+    }
+
+    // 632. Smallest Range Covering Elements from K Lists
+    public int[] smallestRange(List<List<Integer>> nums) {
+        int n = nums.size();
+
+        // {r,c}
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
+            int r1 = a[0], c1 = a[1];
+            int r2 = b[0], c2 = b[1];
+
+            return nums.get(r1).get(c1) - nums.get(r2).get(c2);
+        });
+
+        int maxvalue = -(int) 1e9;
+        for (int i = 0; i < n; i++) {
+            pq.add(new int[] { i, 0 });
+            maxvalue = Math.max(maxvalue, nums.get(i).get(0));
+        }
+
+        int range = (int) 1e9, sp = -1, ep = -1;
+        while (pq.size() == n) {
+            int[] re = pq.remove();
+            int r = re[0], c = re[1], val = nums.get(r).get(c);
+            if (maxvalue - val < range) {
+                range = maxvalue - val;
+                sp = val;
+                ep = maxvalue;
+            }
+
+            c++;
+            if (c < nums.get(r).size()) {
+                pq.add(new int[] { r, c });
+                maxvalue = Math.max(maxvalue, nums.get(r).get(c));
+            }
+        }
+
+        return new int[] { sp, ep };
+    }
+
+    // 128. Longest Consecutive Sequence
+    public int longestConsecutive(int[] arr) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int e : arr)
+            set.add(e);
+
+        int len = 0;
+        for (int i = 0; i < arr.length; i++) {
+
+            if (!set.contains(arr[i]))
+                continue;
+
+            int left = arr[i] - 1, right = arr[i] + 1;
+            set.remove(arr[i]);
+            while (set.contains(left))
+                set.remove(left--);
+            while (set.contains(right))
+                set.remove(right++);
+
+            if (right - left - 1 > len)
+                len = right - left - 1;
+        }
+        return len;
+    }
+
+    /// 781. Rabbits in Forest
+    // TC: O(n) SC: O(n)
+    public int numRabbits(int[] answers) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int ans = 0;
+        for (int ele : answers) {
+            if (!map.containsKey(ele)) {
+                ans += 1 + ele;
+                map.put(ele, 1);
+            } else {
+                map.put(ele, map.get(ele) + 1);
+            }
+            if (map.get(ele) == ele + 1)
+                map.remove(ele);
+        }
+        return ans;
+    }
+
+    // 1218. Longest Arithmetic Subsequence of Given Difference
+    public int longestSubsequence(int[] arr, int difference) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int maxLen = 0;
+        for (int ele : arr) {
+            map.put(ele, map.getOrDefault(ele - difference, 0) + 1);
+            maxLen = Math.max(maxLen, map.get(ele));
+        }
+
+        return maxLen;
+    }
+
+    // 1424. Diagonal Traverse II
+    // TC: O(N * M) SC: O(N)
+    public int[] findDiagonalOrder(List<List<Integer>> nums) {
+        HashMap<Integer, LinkedList<Integer>> map = new HashMap<>();
+
+        int maxDiag = 0, len = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = 0; j < nums.get(i).size(); j++) {
+                int idx = i + j;
+                map.putIfAbsent(idx, new LinkedList<>());
+                map.get(idx).addFirst(nums.get(i).get(j));
+                len++;
+                maxDiag = Math.max(maxDiag, idx);
+            }
+        }
+
+        int[] ans = new int[len];
+        int idx = 0;
+        for (int i = 0; i <= maxDiag; i++) {
+            LinkedList<Integer> list = map.get(i);
+            while (list.size() != 0)
+                ans[idx++] = list.removeFirst();
+        }
+
+        return ans;
+    }
+
+    // 1027
+    public int longestArithSeqLength(int[] A) {
+        int n = A.length;
+        HashMap<Integer, Integer>[] dp = new HashMap[n];
+
+        for (int i = 0; i < n; i++)
+            dp[i] = new HashMap<>();
+
+        int len = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i - 1; j >= 0; j--) {
+                int diff = A[i] - A[j];
+                int currLen = dp[i].getOrDefault(diff, 0);
+                int newLen = dp[j].getOrDefault(diff, 1) + 1;
+
+                dp[i].put(diff, Math.max(currLen, newLen));
+                len = Math.max(len, dp[i].get(diff));
+            }
+        }
+
+        return len;
+    }
+
 }

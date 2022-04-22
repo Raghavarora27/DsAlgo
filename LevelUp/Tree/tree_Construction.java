@@ -238,4 +238,26 @@ public class tree_Construction {
         }
     }
 
+    public static TreeNode buildTree(int[] preorder, int psi, int pei, int[] inorder, int isi, int iei) {
+        if (psi > pei)
+            return null;
+
+        int idx = isi;
+        while (inorder[idx] != preorder[psi])
+            idx++;
+
+        int tnel = idx - isi; // total number of element on left side
+        TreeNode root = new TreeNode(preorder[psi]);
+
+        root.left = buildTree(preorder, psi + 1, psi + tnel, inorder, isi, idx - 1);
+        root.left = buildTree(preorder, psi + tnel + 1, pei, inorder, idx + 1, iei);
+
+        return root;
+    }
+
+    public static TreeNode buildTree(int[] preorder, int[] inorder) {
+        int n = preorder.length;
+        return buildTree(preorder, 0, n - 1, inorder, 0, n - 1);
+    }
+
 }

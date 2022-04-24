@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class tree_Construction {
     public static class TreeNode {
         int val = 0;
@@ -238,6 +240,10 @@ public class tree_Construction {
         }
     }
 
+    // TC: O(n^2)
+    // if you want to optimise you can use map, Iterate through the inorder array
+    // and map index with the element,then you can avoid the while loop
+    // It will save some time but takes some space
     public static TreeNode buildTree(int[] preorder, int psi, int pei, int[] inorder, int isi, int iei) {
         if (psi > pei)
             return null;
@@ -250,7 +256,7 @@ public class tree_Construction {
         TreeNode root = new TreeNode(preorder[psi]);
 
         root.left = buildTree(preorder, psi + 1, psi + tnel, inorder, isi, idx - 1);
-        root.left = buildTree(preorder, psi + tnel + 1, pei, inorder, idx + 1, iei);
+        root.right = buildTree(preorder, psi + tnel + 1, pei, inorder, idx + 1, iei);
 
         return root;
     }
@@ -260,4 +266,365 @@ public class tree_Construction {
         return buildTree(preorder, 0, n - 1, inorder, 0, n - 1);
     }
 
+    public static TreeNode buildTreeFromPostorder(int[] postorder, int psi, int pei, int[] inorder, int isi, int iei) {
+        if (psi > pei)
+            return null;
+
+        int idx = isi;
+        while (inorder[idx] != postorder[pei])
+            idx++;
+
+        int tnel = idx - isi; // total number of element on left side
+        TreeNode root = new TreeNode(postorder[pei]);
+
+        root.left = buildTreeFromPostorder(postorder, psi, psi + tnel - 1, inorder, isi, idx - 1);
+        root.right = buildTreeFromPostorder(postorder, psi + tnel, pei - 1, inorder, idx + 1, iei);
+
+        return root;
+    }
+
+    public static TreeNode buildTreeFromPostorder(int[] postorder, int[] inorder) {
+        int n = postorder.length;
+        return buildTreeFromPostorder(postorder, 0, n - 1, inorder, 0, n - 1);
+    }
+
+    public static TreeNode buildTreeFromPrePost(int[] postorder, int ppsi, int ppei, int[] preorder, int psi, int pei) {
+        if (psi > pei)
+            return null;
+
+        TreeNode root = new TreeNode(preorder[psi]);
+        if (psi == pei)
+            return root;
+
+        int idx = ppsi;
+        while (postorder[idx] != preorder[psi + 1])
+            idx++;
+
+        int tnel = idx - ppsi + 1; // total number of element on left side
+
+        root.left = buildTreeFromPrePost(postorder, ppsi, ppsi + tnel - 1, preorder, psi + 1, psi + tnel);
+        root.right = buildTreeFromPrePost(postorder, ppsi + tnel, pei - 1, preorder, psi + tnel + 1, pei);
+
+        return root;
+    }
+
+    public static TreeNode buildTreeFromPrePost(int[] postorder, int[] preorder) {
+        int n = postorder.length;
+        return buildTreeFromPrePost(postorder, 0, n - 1, preorder, 0, n - 1);
+    }
+
+    // 297. Serialize and Deserialize Binary Tree
+    // Approach - 1
+    public class CodecBinaryTree {
+
+        public String serialize(TreeNode root) {
+            if (root == null)
+                return "";
+            StringBuilder sb = new StringBuilder();
+            serialize(root, sb);
+            return sb.toString();
+        }
+
+        public void serialize(TreeNode root, StringBuilder sb) {
+            if (root == null) {
+                sb.append("# ");
+                return;
+            }
+
+            sb.append(root.val + " ");
+            serialize(root.left, sb);
+            serialize(root.right, sb);
+        }
+
+        int idx = 0;
+
+        public TreeNode deserialize(String[] arr) {
+            if (idx >= arr.length || arr[idx].equals("#")) {
+                idx++;
+                return null;
+            }
+
+            TreeNode root = new TreeNode(Integer.parseInt(arr[idx++]));
+            root.left = deserialize(arr);
+            root.right = deserialize(arr);
+
+            return root;
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(String str) {
+            if (str.length() == 0)
+                return null;
+            String[] arr = str.split(" ");
+            return deserialize(arr);
+        }
+    }
+
+    // Approach - 2
+    // using Level-order Traversal
+    public class CodecBinaryTree_02 {
+
+        public String serialize(TreeNode root) {
+            if (root == null)
+                return "";
+            StringBuilder sb = new StringBuilder();
+            LinkedList<TreeNode> que = new LinkedList<>();
+            que.addLast(root);
+
+            while (que.size() != 0) {
+                TreeNode rnode = que.removeFirst();
+                sb.append((rnode != null ? rnode.val : "#") + " ");
+
+                if (rnode == null)
+                    continue;
+
+                que.addLast(rnode.left);
+                que.addLast(rnode.right);
+            }
+
+            return sb.toString();
+        }
+
+        public TreeNode deserialize(String data) {
+            if (data.length() == 0)
+                return null;
+
+            String[] arr = data.split(" ");
+            LinkedList<TreeNode> que = new LinkedList<>();
+            TreeNode root = new TreeNode(Integer.parseInt(arr[0]));
+            que.addLast(root);
+
+            int idx = 1;
+            while (que.size() != 0) {
+                TreeNode rnode = que.removeFirst();
+
+                if (!arr[idx].equals("#")) {
+                    TreeNode leftChild = new TreeNode(Integer.parseInt(arr[idx]));
+                    rnode.left = leftChild;
+                    que.addLast(leftChild);
+                }
+                idx++;
+
+                if (!arr[idx].equals("#")) {
+                    TreeNode rightChild = new TreeNode(Integer.parseInt(arr[idx]));
+                    rnode.right = rightChild;
+                    que.addLast(rightChild);
+                }
+                idx++;
+
+            }
+
+            return root;
+        }
+    }
+
+    // 110. Balanced Binary Tree
+    public class BSTPair {
+        int h = -1;
+        boolean isBal = true;
+    }
+
+    public BSTPair isBalanced_(TreeNode root) {
+        if (root == null)
+            return new BSTPair();
+
+        BSTPair lp = isBalanced_(root.left);
+        BSTPair rp = isBalanced_(root.right);
+
+        BSTPair myPair = new BSTPair();
+        myPair.isBal = lp.isBal && rp.isBal;
+        if (myPair.isBal && Math.abs(lp.h - rp.h) < 2)
+            myPair.h = Math.max(lp.h, rp.h) + 1;
+        else
+            myPair.isBal = false;
+
+        return myPair;
+    }
+
+    public boolean isBalanced(TreeNode root) {
+        return isBalanced_(root).isBal;
+    }
+
+    // Largest BST SUbtree
+    public static class BSTPair_ {
+        boolean isBST = true;
+        int min = (int) 1e9;
+        int max = -(int) 1e9;
+
+        int size = 0;
+        TreeNode largestRoot = null;
+    }
+
+    public static BSTPair_ largestBST_(TreeNode root) {
+        if (root == null) {
+            return new BSTPair_();
+        }
+
+        BSTPair_ lp = largestBST_(root.left);
+        BSTPair_ rp = largestBST_(root.right);
+
+        BSTPair_ myPair = new BSTPair_();
+        myPair.isBST = false;
+
+        if (lp.isBST && rp.isBST && lp.max < root.val && root.val < rp.min) {
+            myPair.isBST = true;
+            myPair.min = Math.min(lp.min, root.val);
+            myPair.max = Math.max(rp.max, root.val);
+            myPair.size = lp.size + rp.size + 1;
+            myPair.largestRoot = root;
+        } else {
+            if (lp.size > rp.size) {
+                myPair.size = lp.size;
+                myPair.largestRoot = lp.largestRoot;
+            } else {
+                myPair.size = rp.size;
+                myPair.largestRoot = rp.largestRoot;
+            }
+        }
+
+        return myPair;
+    }
+
+    public static TreeNode largestBST(TreeNode root) {
+        return largestBST_(root).largestRoot;
+    }
+
+    // pred and successor in Binary Tree
+    public static void findPreSuc(TreeNode root, int key) {
+        if (root == null)
+            return;
+
+        TreeNode curr = root;
+        TreeNode prev = null, pred = null, succ = null;
+        while (curr != null) {
+            TreeNode left = curr.left;
+            if (left == null) {
+                if (curr.val == key) {
+                    pred = prev;
+                }
+
+                if (prev != null && prev.val == key) {
+                    succ = curr;
+                }
+
+                prev = curr;
+                curr = curr.right;
+            } else {
+                TreeNode RightMostNode = getRightMostNode(left, curr);
+                if (RightMostNode.right == null) {
+                    RightMostNode.right = curr;
+                    curr = curr.left;
+                } else {
+                    RightMostNode.right = null;
+                    if (curr.val == key) {
+                        pred = prev;
+                    }
+
+                    if (prev != null && prev.val == key) {
+                        succ = curr;
+                    }
+
+                    prev = curr;
+                    curr = curr.right;
+                }
+            }
+        }
+        System.out.println(pred + " " + succ);
+    }
+
+    // BST predeccesor and successor
+    // successor --- right ka leftmost
+    // pred --- left ka rightmost
+    // TC : O(logn) SC : O(1)
+    // same for ceil and floor
+    public static void predSucc(TreeNode root, int data) {
+        TreeNode curr = root, succ = null, pred = null;
+
+        while (curr != null) {
+            if (curr.val == data) {
+                TreeNode leftMost = getLeftMost(curr.right);
+                succ = leftMost != null ? leftMost : succ;
+
+                TreeNode RightMost = getRightMost(curr.left);
+                pred = RightMost != null ? RightMost : pred;
+                break;
+            } else if (curr.val > data) {
+                pred = curr;
+                curr = curr.right;
+            } else {
+                succ = curr;
+                curr = curr.left;
+            }
+        }
+    }
+
+    public static TreeNode getLeftMost(TreeNode curr) {
+        if (curr == null)
+            return null;
+
+        while (curr.left != null)
+            curr = curr.left;
+
+        return curr;
+    }
+
+    public static TreeNode getRightMost(TreeNode curr) {
+        if (curr == null)
+            return null;
+
+        while (curr.right != null)
+            curr = curr.right;
+
+        return curr;
+    }
+
+    // 701. Insert into a Binary Search Tree
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null)
+            return new TreeNode(val);
+
+        if (root.val > val)
+            root.left = insertIntoBST(root.left, val);
+        else
+            root.right = insertIntoBST(root.right, val);
+
+        return root;
+    }
+
+    // 450. Delete Node in a BST
+    // 4 cases -- 1. leaf (no child) 2. One child(left)
+    // 3. One child(right) 4. both child
+    // TC : O(logn)
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null)
+            return null;
+
+        if (root.val < key) {
+            root.right = deleteNode(root.right, key);
+        } else if (root.val > key) {
+            root.left = deleteNode(root.left, key);
+        } else {
+            if (root.left == null || root.right == null) {
+                TreeNode rNode = root.left != null ? root.left : root.right;
+                root.left = root.right = null;
+                return rNode;
+            }
+
+            int minELe = getMin(root.right);
+            root.val = minELe;
+
+            root.right = deleteNode(root.right, minELe);
+        }
+
+        return root;
+    }
+
+    public static int getMin(TreeNode curr) {
+        while (curr.left != null)
+            curr = curr.left;
+
+        return curr.val;
+    }
+
+    // Home work iterative approacg TC : O(logn) SC : O(1)
 }

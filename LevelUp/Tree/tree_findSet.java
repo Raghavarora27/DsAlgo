@@ -2,6 +2,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+// Questions -- 
+    // 1. Size, height, maximum, minimum, find
+    // 2. Node to Root Path (with return and void type)
+    // 3. Root To Leaf Path
+    // 4. Exactly one Child, Count Exactly one Child
+    // 5. K-Away (includes Kdown)
+    // 6. Burning Tree Node and Burning Tree Node with Water
+    // 7. Lowest Common Ancestor of Binary Tree (TC : O(n) SC : O(n))
+    // 8. Optimised LCA (TC : O(n) SC : O(1))
+
 public class tree_findSet {
     public static class TreeNode {
         int val = 0;
@@ -159,7 +169,6 @@ public class tree_findSet {
     }
 
     // burning Tree =====================================================
-
     // moving downWards and burning nodes
 
     public static void burningTreeNode(TreeNode root, int time, TreeNode blockNode, ArrayList<ArrayList<Integer>> ans) {

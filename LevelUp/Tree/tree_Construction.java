@@ -1,5 +1,20 @@
 import java.util.LinkedList;
 
+// Questions -- 
+    // 1. DLL to BST
+    // 2. Merge Sort
+    // 3. BST to DLL
+    // 4. Display
+    // 5. BT to BST
+    // 6. Construct BST from Preorder/Inorder/Postorder
+    // 7. Seralize and Deseralize BT (2 Approaches)
+    // 8. Build Tree from Preorder & Inorder, Preorder & Postorder, Postorder & Inorder
+    // 9. Balanced Binary Tree 
+    // 10. Largest BST
+    // 11. pred and successor in Binary Tree
+    // 12. Insert into a Binary Search Tree
+    // 13. Delete Node in BST
+
 public class tree_Construction {
     public static class TreeNode {
         int val = 0;

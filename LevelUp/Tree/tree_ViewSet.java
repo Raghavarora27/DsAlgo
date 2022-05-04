@@ -2,6 +2,19 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+// Questions :-
+  // 1. Level Order Traversal
+  // 2. Left View
+  // 3. Right View
+  // 4. widthOfShadow and Vertical Order
+  // 5. Bottom View and Bottom Order Value
+  // 6. Top View
+  // 7. Vertical Sum
+  // 8. Diagonal Order
+  // 9. DigonalOrder_geeks
+  // 10. DigonalSum_geeks
+  // 11. vertical Order_ii
+
 public class tree_ViewSet {
 
   public static class TreeNode {
@@ -254,7 +267,7 @@ public class tree_ViewSet {
 
   public static ArrayList<ArrayList<Integer>> DiagonalOrder(TreeNode root) {
     ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
-    if (root == null) return ans;
+     if (root == null) return ans;
 
     int[] minMax = new int[2];
     widthOfShadow(root, 0, minMax);
@@ -334,16 +347,17 @@ public class tree_ViewSet {
   }
 
   public static class v2pair {
+
     TreeNode node = null;
     int vl = 0;
     int hl = 0;
 
     v2pair(TreeNode node, int hl, int vl) {
-        this.node = node;
-        this.hl = hl;
-        this.vl = vl;
+      this.node = node;
+      this.hl = hl;
+      this.vl = vl;
     }
-}
+  }
 
   public static ArrayList<ArrayList<Integer>> VerticalOrder_ii(TreeNode root) {
     ArrayList<ArrayList<Integer>> ans = new ArrayList<>();

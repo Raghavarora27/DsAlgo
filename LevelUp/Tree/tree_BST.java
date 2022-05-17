@@ -461,4 +461,44 @@ public class tree_BST {
       return reconstructTree(root);
     }
   }
+
+  // Recover Tree
+  public void recoverTree(TreeNode root) {
+    TreeNode curr = root;
+    TreeNode prev = null, a = null, b = null;
+    while (curr != null) {
+      TreeNode left = curr.left;
+      if (left == null) {
+        if (prev != null && prev.val > curr.val) {
+          if (a == null) a = prev;
+
+          b = curr;
+        }
+        prev = curr;
+        curr = curr.right;
+      } else {
+        TreeNode RightMostNode = getRightMostNode(left, curr);
+        if (RightMostNode.right == null) {
+          RightMostNode.right = curr;
+          curr = curr.left;
+        } else {
+          RightMostNode.right = null;
+
+          if (prev != null && prev.val > curr.val) {
+            if (a == null) a = prev;
+
+            b = curr;
+          }
+          prev = curr;
+          curr = curr.right;
+        }
+      }
+    }
+
+    if (a != null) {
+      int temp = a.val;
+      a.val = b.val;
+      b.val = temp;
+    }
+  }
 }

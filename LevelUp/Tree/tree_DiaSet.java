@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class tree_DiaSet {
 
@@ -130,6 +131,7 @@ public class tree_DiaSet {
   // Node to Node max path sum
   // 124. Binary Tree Maximum Path Sum
   static int NodetoNodeMaxPathSum = -(int) 1e9;
+
   public static int maxPathSum_(TreeNode root) {
     if (root == null) return 0;
 
@@ -147,6 +149,37 @@ public class tree_DiaSet {
     int ans = arr[0];
     for (int ele : arr) ans = Math.max(ans, ele);
 
+    return ans;
+  }
+
+  public static ArrayList<Integer> zigZagTraversal(TreeNode root) {
+    ArrayList<Integer> ans = new ArrayList<>();
+    if (root == null) return ans;
+    LinkedList<TreeNode> que = new LinkedList<>(); // removeFirst, addLast
+    LinkedList<TreeNode> st = new LinkedList<>(); // removeFirst, addFirst
+
+    que.addLast(root);
+    int level = 0;
+
+    while (que.size() != 0) {
+      int size = que.size();
+      while (size-- > 0) {
+        TreeNode rn = que.removeFirst();
+        ans.add(rn.val);
+
+        if (level % 2 == 0) {
+          if (rn.left != null) st.addFirst(rn.left);
+          if (rn.right != null) st.addFirst(rn.right);
+        } else {
+          if (rn.right != null) st.addFirst(rn.right);
+          if (rn.left != null) st.addFirst(rn.left);
+        }
+      }
+      level++;
+      LinkedList<TreeNode> temp = que;
+      que = st;
+      st = temp;
+    }
     return ans;
   }
 }

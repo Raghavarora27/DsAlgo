@@ -1,51 +1,52 @@
 import java.util.*;
 
 public class Leetcode_142 {
-    class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
+  class ListNode {
+
+    int val;
+    ListNode next;
+
+    ListNode(int x) {
+      val = x;
+      next = null;
     }
+  }
 
-    public class Solution {
-        public ListNode detectCycle(ListNode head) {
-            HashSet<ListNode> set = new HashSet<>();
+  public class Solution {
 
-            ListNode curr = head;
-            while (curr != null) {
-                if (set.contains(curr))
-                    return curr;
-                else
-                    set.add(curr);
-                curr = curr.next;
-            }
-            return null;
-        }
+    public ListNode detectCycle(ListNode head) {
+      HashSet<ListNode> set = new HashSet<>();
+
+      ListNode curr = head;
+      while (curr != null) {
+        if (set.contains(curr)) return curr; else set.add(curr);
+        curr = curr.next;
+      }
+      return null;
     }
+  }
 
-    public class Solution2 {
-        public ListNode detectCycle(ListNode head) {
-            ListNode slow = head;
-            ListNode fast = head;
+  public class Solution2 {
 
-            while (fast != null && fast.next != null) {
-                slow = slow.next;
-                fast = fast.next.next;
+    public ListNode detectCycle(ListNode head) {
+      ListNode slow = head;
+      ListNode fast = head;
 
-                if (slow == fast) {
-                    while (slow != head) {
-                        head = head.next;
-                        slow = slow.next;
-                    }
-                    return slow;
-                }
-            }
+      while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
 
-            return null;
+        if (slow == fast) {
+          while (slow != head) {
+            head = head.next;
+            slow = slow.next;
+          }
+          return slow;
         }
+      }
+
+      return null;
     }
+  }
 }

@@ -1,45 +1,47 @@
+import java.util.HashSet;
+
 public class Leetcode_141 {
-    class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
+  class ListNode {
+
+    int val;
+    ListNode next;
+
+    ListNode(int x) {
+      val = x;
+      next = null;
     }
+  }
 
-    public class Solution {
-        public boolean hasCycle(ListNode head) {
-            ListNode fast = head;
-            ListNode slow = head;
+  public class Solution {
 
-            while (fast != null && fast.next != null) {
-                slow = slow.next;
-                fast = fast.next.next;
+    public boolean hasCycle(ListNode head) {
+      ListNode fast = head;
+      ListNode slow = head;
 
-                if (slow == fast)
-                    return true;
-            }
+      while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
 
-            return false;
-        }
+        if (slow == fast) return true;
+      }
+
+      return false;
     }
+  }
 
-    public class Solution2 {
-        public boolean hasCycle(ListNode head) {
-            HashSet<ListNode> set = new HashSet<>();
+  public class Solution2 {
 
-            ListNode curr = head;
-            while (curr != null) {
-                if (set.contains(curr))
-                    return true;
-                else
-                    set.add(curr);
-                curr = curr.next;
-            }
+    public boolean hasCycle(ListNode head) {
+      HashSet<ListNode> set = new HashSet<>();
 
-            return false;
-        }
+      ListNode curr = head;
+      while (curr != null) {
+        if (set.contains(curr)) return true; else set.add(curr);
+        curr = curr.next;
+      }
+
+      return false;
     }
+  }
 }

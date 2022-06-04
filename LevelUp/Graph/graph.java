@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 public class graph {
 
@@ -318,6 +321,216 @@ public class graph {
     }
 
     return ans;
+  }
+
+  // Cycle Detection in Directed Graph using BFS(Kahn's Algo)
+  public static boolean isCyclic_2(ArrayList<ArrayList<Integer>> adj, int N) {
+    int[] indegree = new int[N];
+
+    // Adding indegree of all the nodes
+    for (int i = 0; i < N; i++) {
+      for (int ele : adj.get(i)) {
+        indegree[ele]++;
+      }
+    }
+
+    LinkedList<Integer> que = new LinkedList<>();
+    // Adding the nodes with indegree == 0
+    for (int i = 0; i < N; i++) {
+      if (indegree[i] == 0) que.addLast(i);
+    }
+
+    // Iterating in queue and decreasing the indegree value of nodes
+    int count = 0;
+    while (que.size() != 0) {
+      int node = que.removeFirst();
+      count++;
+
+      for (int ele : adj.get(node)) {
+        indegree[ele]--;
+        if (indegree[ele] == 0) que.addLast(ele);
+      }
+    }
+
+    if (count == N) return false;
+
+    return true;
+  }
+
+  // Shortest Path in Undirected Graph with Unit Weights (BFS)
+  // TC : O(N + E) SC : O(N) + O(N)
+  public static void shortestDistance(
+    ArrayList<ArrayList<Integer>> adj,
+    int N,
+    int src
+  ) {
+    int[] dist = new int[N];
+    for (int i = 0; i < dist.length; i++) dist[i] = (int) 1e9;
+
+    LinkedList<Integer> que = new LinkedList<>();
+    dist[src] = 0;
+    que.addLast(0);
+
+    while (que.size() != 0) {
+      int node = que.removeFirst();
+
+      for (int ele : adj.get(node)) {
+        if (dist[node] + 1 < dist[ele]) {
+          dist[ele] = dist[node] + 1;
+          que.addLast(ele);
+        }
+      }
+    }
+
+    for (int i = 0; i < N; i++) System.out.print(dist[i] + " ");
+  }
+
+  // Shortest Path in DAG with weights
+  public static class Pair {
+
+    private int v;
+    private int weight;
+
+    Pair(int _v, int _w) {
+      v = _v;
+      weight = _w;
+    }
+
+    int getV() {
+      return v;
+    }
+
+    int getWeight() {
+      return weight;
+    }
+  }
+
+  public static void shortestPath() {
+    int n = 6;
+    ArrayList<ArrayList<Pair>> adj = new ArrayList<ArrayList<Pair>>();
+
+    for (int i = 0; i < n; i++) adj.add(new ArrayList<Pair>());
+
+    adj.get(0).add(new Pair(1, 2));
+    adj.get(0).add(new Pair(4, 1));
+    adj.get(1).add(new Pair(2, 3));
+    adj.get(2).add(new Pair(3, 6));
+    adj.get(4).add(new Pair(2, 2));
+    adj.get(4).add(new Pair(5, 4));
+    adj.get(5).add(new Pair(3, 1));
+
+    shortestPath_(0, adj, n);
+  }
+
+  public static void shortestPath_(
+    int src,
+    ArrayList<ArrayList<Pair>> adj,
+    int N
+  ) {
+    LinkedList<Integer> st = new LinkedList<>();
+    int[] dist = new int[N];
+    boolean[] vis = new boolean[N];
+
+    for (int i = 0; i < N; i++) {
+      if (!vis[i]) {
+        topologicalSortUtil(i, vis, st, adj);
+      }
+    }
+    Arrays.fill(dist, (int) 1e9);
+    dist[src] = 0;
+
+    while (st.size() != 0) {
+      int node = st.removeFirst();
+
+      if (dist[node] != (int) 1e9) {
+        for (Pair p : adj.get(node)) {
+          if (dist[node] + p.getWeight() < dist[p.getV()]) {
+            dist[p.getV()] = dist[node] + p.getWeight();
+          }
+        }
+      }
+    }
+
+    for (int i = 0; i < N; i++) {
+      if (dist[i] == Integer.MAX_VALUE) System.out.print(
+        "INF "
+      ); else System.out.print(dist[i] + " ");
+    }
+  }
+
+  public static void topologicalSortUtil(
+    int node,
+    boolean[] visited,
+    LinkedList<Integer> st,
+    ArrayList<ArrayList<Pair>> adj
+  ) {
+    visited[node] = true;
+    for (Pair it : adj.get(node)) {
+      if (visited[it.getV()] == false) {
+        topologicalSortUtil(it.getV(), visited, st, adj);
+      }
+    }
+    st.addFirst(node);
+  }
+
+  // Dijkstra's Algorithm | Shortest Path in Undirected Graphs
+  // Time Complexity: O((N+E)*logN). Going through N nodes and E edges and log N for priority queue
+  // Space Complexity: O(N). Distance array and priority queue
+  public static class Node implements Comparator<Node> {
+
+    private int v;
+    private int weight;
+
+    Node(int _v, int _w) {
+      v = _v;
+      weight = _w;
+    }
+
+    Node() {}
+
+    int getV() {
+      return v;
+    }
+
+    int getWeight() {
+      return weight;
+    }
+
+    @Override
+    public int compare(Node node1, Node node2) {
+      if (node1.weight < node2.weight) return -1;
+      if (node1.weight > node2.weight) return 1;
+      return 0;
+    }
+  }
+
+  public static void shortestPath(
+    int s,
+    ArrayList<ArrayList<Node>> adj,
+    int N
+  ) {
+    int dist[] = new int[N];
+
+    for (int i = 0; i < N; i++) dist[i] = 100000000;
+    dist[s] = 0;
+
+    PriorityQueue<Node> pq = new PriorityQueue<Node>(N, new Node());
+    pq.add(new Node(s, 0));
+
+    while (pq.size() > 0) {
+      Node node = pq.poll();
+
+      for (Node it : adj.get(node.getV())) {
+        if (dist[node.getV()] + it.getWeight() < dist[it.getV()]) {
+          dist[it.getV()] = dist[node.getV()] + it.getWeight();
+          pq.add(new Node(it.getV(), dist[it.getV()]));
+        }
+      }
+    }
+    System.out.println("The distances from source " + s + " are : ");
+    for (int i = 0; i < N; i++) {
+      System.out.print(dist[i] + " ");
+    }
   }
 
   public static void printAns(ArrayList<Integer> ans) {

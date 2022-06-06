@@ -533,6 +533,112 @@ public class graph {
     }
   }
 
+  // Prim's Algorithm
+  public static class Node_ {
+
+    private int v;
+    private int weight;
+
+    Node_() {}
+
+    Node_(int _v, int _w) {
+      v = _v;
+      weight = _w;
+    }
+
+    int getV() {
+      return v;
+    }
+
+    int getWeight() {
+      return weight;
+    }
+  }
+
+  // TC : O(N) + O(N * (N + E)) => O(N^2)
+  public static void primsAlgo(ArrayList<ArrayList<Node>> adj, int N) {
+    int[] key = new int[N]; // to maintain weight
+    int[] parent = new int[N]; // to maintain parent of node
+    boolean[] mstSet = new boolean[N]; // to maintain MST node
+    for (int i = 0; i < N; i++) {
+      key[i] = (int) 1e9;
+      mstSet[i] = false;
+      parent[i] = -1;
+    }
+
+    key[0] = 0; // first node
+
+    // loop till N - 1 becoz spanning tree has N node and N - 1 Edges
+    for (int i = 0; i < N - 1; i++) {
+      int mini = (int) 1e9, u = 0;
+      // finding the minimal value in the key array (that key should not be the part of MST)
+      for (int v = 0; v < N; v++) {
+        if (mstSet[v] == false && key[v] < mini) {
+          mini = key[v];
+          u = v;
+        }
+      }
+
+      mstSet[u] = true; // mark true the minimal node found
+
+      // updating parent and key for all the adjacent node
+      for (Node it : adj.get(u)) {
+        if (mstSet[it.getV()] == false && it.getWeight() < key[it.getV()]) {
+          parent[it.getV()] = u;
+          key[it.getV()] = it.getWeight();
+        }
+      }
+    }
+
+    for (int i = 1; i < N; i++) System.out.print(parent[i] + "-" + i);
+  }
+
+  // TC : O(NlogN)
+  public static void primsAlgo_(ArrayList<ArrayList<Node>> adj, int N) {
+    int key[] = new int[N];
+    int parent[] = new int[N];
+    boolean mstSet[] = new boolean[N];
+    for (int i = 0; i < N; i++) {
+      key[i] = 100000000;
+      mstSet[i] = false;
+    }
+
+    PriorityQueue<Node> pq = new PriorityQueue<Node>(N, new Node());
+
+    key[0] = 0;
+    parent[0] = -1;
+    pq.add(new Node(key[0], 0));
+    // Run the loop till all the nodes have been visited
+    // because in the brute code we checked for mstSet[node] == false while computing the minimum
+    // but here we simply take the minimal from the priority queue, so a lot of times a node might be taken twice
+    // hence its better to keep running till all the nodes have been taken.
+    // try the following case:
+    // 6 7
+    // 0 1 5
+    // 0 2 10
+    // 0 3 100
+    // 1 3 50
+    // 1 4 200
+    // 3 4 250
+    // 4 5 50
+    while (!pq.isEmpty()) {
+      int u = pq.poll().getV();
+      mstSet[u] = true;
+
+      for (Node it : adj.get(u)) {
+        if (mstSet[it.getV()] == false && it.getWeight() < key[it.getV()]) {
+          parent[it.getV()] = u;
+          key[it.getV()] = it.getWeight();
+          pq.add(new Node(it.getV(), key[it.getV()]));
+        }
+      }
+    }
+
+    for (int i = 1; i < N; i++) {
+      System.out.println(parent[i] + " - " + i);
+    }
+  }
+
   public static void printAns(ArrayList<Integer> ans) {
     for (int i = 0; i < ans.size(); i++) {
       System.out.print(ans.get(i) + " ");

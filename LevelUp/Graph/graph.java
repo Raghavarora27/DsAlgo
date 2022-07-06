@@ -645,6 +645,110 @@ public class graph {
     }
   }
 
+  // Bridge are those Edges on whose removal the graph is broken into 2 or more components.
+  // TC : O(N + E) SC : O(N)
+  // Cut Edge
+  public static void printBridge(ArrayList<ArrayList<Integer>> adj, int N) {
+    int[] vis = new int[N];
+    int[] low = new int[N]; // low time
+    int[] tin = new int[N]; // Time of insertion
+
+    int timer = 0;
+    for (int i = 0; i < N; i++) {
+      if (vis[i] == 0) dfsBridge(i, -1, vis, low, tin, adj, timer);
+    }
+  }
+
+  public static void dfsBridge(
+    int node,
+    int parent,
+    int[] vis,
+    int[] low,
+    int[] tin,
+    ArrayList<ArrayList<Integer>> adj,
+    int timer
+  ) {
+    vis[node] = 1;
+    tin[node] = low[node] = timer++;
+
+    for (int ele : adj.get(node)) {
+      if (ele == parent) continue;
+
+      if (vis[ele] == 0) {
+        dfsBridge(ele, node, vis, low, tin, adj, timer);
+        low[node] = Math.min(low[ele], low[node]);
+
+        if (low[ele] > tin[node]) System.out.println(ele + " " + node); // Bridge Condition
+      } else {
+        low[node] = Math.min(low[node], tin[ele]);
+      }
+    }
+  }
+
+  // Articulation point are those Vertices/Nodes on whose removal the graph is broken into 2 or more components.
+  // TC : (N + E) SC : O(N)
+  // Same Articulation point can come multiple times, so will use HashMap
+  // Cut vertex
+  public static void printArticulation(
+    ArrayList<ArrayList<Integer>> adj,
+    int N
+  ) {
+    int[] vis = new int[N];
+    int[] low = new int[N]; // low time
+    int[] tin = new int[N]; // Time of insertion
+
+    int[] isArticulation = new int[N]; // No duplicates of same Articulation point
+
+    int timer = 0;
+    for (int i = 0; i < N; i++) {
+      if (vis[i] == 0) dfsArticulation(
+        i,
+        -1,
+        vis,
+        low,
+        tin,
+        adj,
+        timer,
+        isArticulation
+      );
+    }
+
+    for (int i = 0; i < N; i++) {
+      if (isArticulation[i] == 1) System.out.println(i);
+    }
+  }
+
+  public static void dfsArticulation(
+    int node,
+    int parent,
+    int[] vis,
+    int[] low,
+    int[] tin,
+    ArrayList<ArrayList<Integer>> adj,
+    int timer,
+    int[] isArticulation
+  ) {
+    vis[node] = 1;
+    tin[node] = low[node] = timer++;
+    int child = 0;
+
+    for (int ele : adj.get(node)) {
+      if (ele == parent) continue;
+
+      if (vis[ele] == 0) {
+        dfsArticulation(ele, node, vis, low, tin, adj, timer, isArticulation);
+        low[node] = Math.min(low[ele], low[node]);
+
+        if (low[ele] >= tin[node] && parent != -1) isArticulation[node] = 1; // Articulation point Condition
+        child++;
+      } else {
+        low[node] = Math.min(low[node], tin[ele]);
+      }
+
+      if (parent == -1 && child > 1) isArticulation[node] = 1;
+    }
+  }
+
   public static void main(String args[]) {
     ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
     for (int i = 0; i <= 5; i++) {

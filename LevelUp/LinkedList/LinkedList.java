@@ -1,3 +1,5 @@
+package LevelUp.LinkedList;
+
 import java.util.HashSet;
 
 public class LinkedList {

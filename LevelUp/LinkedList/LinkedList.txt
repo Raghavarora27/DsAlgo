@@ -293,7 +293,7 @@ public class LinkedList {
     }
 
     public static int length(ListNode head) {
-        if (head == null)
+           if (head == null)
             return 0;
         int len = 0;
         ListNode temp = head;

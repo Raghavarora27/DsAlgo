@@ -194,7 +194,7 @@ public class Recursion {
         }
         return myAns;
     }
-
+    
     public static ArrayList<String> stairPath(int n) {
         if (n == 0) {
             ArrayList<String> base = new ArrayList<>();
@@ -207,7 +207,7 @@ public class Recursion {
             ArrayList<String> SmallAns = stairPath(n - jump);
             for (String s : SmallAns)
                 myAns.add(jump + s);
-        }
+        }0000000
 
         return myAns;
     }

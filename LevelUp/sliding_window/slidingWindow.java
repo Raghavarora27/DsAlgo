@@ -315,6 +315,28 @@ public class slidingWindow{
         }
     }
 
+    // 1004. Max Consecutive Ones III
+    // O(n)
+    public int longestOnes(int[] nums, int k) {
+        int n = nums.length,left = 0,right = 0,ans = 0,zeros = 0;
+        while(right < n){
+            
+            if(nums[right] == 0)
+                zeros++;
+            right++;  
+           
+            while(zeros > k){
+                if(nums[left] == 0)
+                    zeros--;
+                left++;
+            }
+
+            ans = Math.max(ans,right - left);          
+        }
+        
+        return ans;
+    }
+
     public static void main(String [] args){
         // int [] arr = {-8,2,3,-6,10};
         // int [] ans = FirstNegativeWindow(2, arr);

@@ -8,6 +8,7 @@ public class Get_Subsequence {
         ArrayList<String> ans = GetSubsequence(str);
 
         System.out.println(ans);
+        sc.close();
     }
 
     public static ArrayList<String> GetSubsequence(String str) {

@@ -222,7 +222,40 @@ public class RecursionTree {
         System.out.println(ans);
     }
 
-    // 40
+    // 332  // TLE
+    public int coinChange(int [] coins,int idx,int tar,int[] ans,List<Integer> smallAns){
+        if(tar == 0){
+            ans[0] = Math.min(ans[0],smallAns.size());
+            return 1;
+        }
+        
+        int count = 0;
+        for(int i = idx;i < coins.length;i++){
+            if(tar - coins[i] >= 0){
+                smallAns.add(coins[i]);
+                count += coinChange(coins,i,tar - coins[i],ans,smallAns);
+                smallAns.remove(smallAns.size() - 1);
+            }
+        }
+        
+        return count;
+    }
+
+    // 377 TLE
+    public int combinationSum4(int[] nums, int target) {
+        if(target == 0)
+            return 1;
+        
+        int count = 0;
+        for(int i = 0;i < nums.length; i++){
+            if(target - nums[i] >= 0)
+                count += combinationSum4(nums,target - nums[i]);
+        }
+        
+        return count;
+    }
+
+    // 40 
     // 216
     // 322
     // 77
@@ -348,8 +381,8 @@ public class RecursionTree {
         // count += queenCombination2D_sub(tnb,bno + 1,tnq, qpsf,asf);
 
         return count;
-    }
-
+    } 
+  
     public static int queenPermutation2D(boolean[][] box, int tnq, String asf) {
         if (tnq == 0) {
             System.out.println(asf);

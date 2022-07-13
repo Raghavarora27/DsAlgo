@@ -77,7 +77,7 @@ public class NqueenSet {
                 } else
                     break;
             }
-        }
+       }
 
         return true;
     }

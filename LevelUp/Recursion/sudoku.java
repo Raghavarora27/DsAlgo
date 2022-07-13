@@ -2,7 +2,6 @@ import java.util.*;
 
 // Leetcode_37
 public class sudoku {
-
     public class pair {
         int r = 0;
         int c = 0;

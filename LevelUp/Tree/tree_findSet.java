@@ -14,8 +14,7 @@ import java.util.List;
 
 public class tree_findSet {
 
-  public static class TreeNode {
-
+  public static class TreeNode { 
     int val = 0;
     TreeNode left = null;
     TreeNode right = null;

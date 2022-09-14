@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
 
 // Questions :-
   // 1. Level Order Traversal

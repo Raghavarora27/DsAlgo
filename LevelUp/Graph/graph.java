@@ -18,7 +18,7 @@ public class graph {
     ArrayList<Integer> ans = new ArrayList<>();
     boolean[] vis = new boolean[V + 1]; // doing with 1 based indexing
 
-    for (int i = 1; i <= V; i++) { // graph have multiple components, is not then remove this loop
+    for (int i = 1; i <= V; i++) { // graph have multiple components
       if (!vis[i]) {
         LinkedList<Integer> que = new LinkedList<>();
         que.addLast(i);
@@ -252,6 +252,41 @@ public class graph {
     return false;
   }
 
+  // Cycle Detection in Directed Graph using BFS(Kahn's Algo)
+  public static boolean isCyclic_2(ArrayList<ArrayList<Integer>> adj, int N) {
+    int[] indegree = new int[N];
+
+    // Adding indegree of all the nodes
+    for (int i = 0; i < N; i++) {
+      for (int ele : adj.get(i)) {
+        indegree[ele]++;
+      }
+    }
+
+    LinkedList<Integer> que = new LinkedList<>();
+    // Adding the nodes with indegree == 0
+    for (int i = 0; i < N; i++) {
+      if (indegree[i] == 0) que.addLast(i);
+    }
+
+    // Iterating in queue and decreasing the indegree value of nodes
+    int count = 0;
+    while (que.size() != 0) {
+      int node = que.removeFirst();
+      count++;
+
+      for (int ele : adj.get(node)) {
+        indegree[ele]--;
+        if (indegree[ele] == 0) que.addLast(ele);
+      }
+    }
+
+    if (count == N) return false;
+
+    return true;
+  }
+
+
   // Topological Sort
   // TC : O(N + E) SC : O(N)
   public static int[] topoSort(ArrayList<ArrayList<Integer>> adj, int N) {
@@ -322,41 +357,7 @@ public class graph {
 
     return ans;
   }
-
-  // Cycle Detection in Directed Graph using BFS(Kahn's Algo)
-  public static boolean isCyclic_2(ArrayList<ArrayList<Integer>> adj, int N) {
-    int[] indegree = new int[N];
-
-    // Adding indegree of all the nodes
-    for (int i = 0; i < N; i++) {
-      for (int ele : adj.get(i)) {
-        indegree[ele]++;
-      }
-    }
-
-    LinkedList<Integer> que = new LinkedList<>();
-    // Adding the nodes with indegree == 0
-    for (int i = 0; i < N; i++) {
-      if (indegree[i] == 0) que.addLast(i);
-    }
-
-    // Iterating in queue and decreasing the indegree value of nodes
-    int count = 0;
-    while (que.size() != 0) {
-      int node = que.removeFirst();
-      count++;
-
-      for (int ele : adj.get(node)) {
-        indegree[ele]--;
-        if (indegree[ele] == 0) que.addLast(ele);
-      }
-    }
-
-    if (count == N) return false;
-
-    return true;
-  }
-
+  
   // Shortest Path in Undirected Graph with Unit Weights (BFS)
   // TC : O(N + E) SC : O(N) + O(N)
   public static void shortestDistance(

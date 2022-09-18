@@ -29,6 +29,16 @@ public class Bubble_Sort {
         }
     }
 
+    public static void bubbleSort1(int[] arr) {
+        for(int i = 0;i < arr.length - 1;i++){
+            for(int j = 0;j < arr.length - i - 1;j++){
+                if(isSmaller(arr,j + 1,j)){
+                    swap(arr,j + 1,j);
+                }
+            }
+        }
+    }
+
     // used for swapping ith and jth elements of array
     public static void swap(int[] arr, int i, int j) {
         System.out.println("Swapping " + arr[i] + " and " + arr[j]);
